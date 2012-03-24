@@ -3,6 +3,7 @@
   <head>
     <title>NITHs</title>
     <link rel="stylesheet" href="../stylesheets/common/jquery-mobile.css"/>
+    <link rel="stylesheet" href="../stylesheets/index.css"/>
     <script type="text/javascript" charset="utf-8" src="../javascripts/common/jquery.js"></script>
     <script>
       $(document).bind("mobileinit", function(){
@@ -14,10 +15,6 @@
     <script type="text/javascript" charset="utf-8" src="../javascripts/common/phonegap-1.4.1.js"></script>
     <script type="text/javascript" charset="utf-8" src="../childbrowser.js"></script>
     <script type="text/javascript" charset="utf-8" src="../javascripts/index.js"></script>
-    <link rel="stylesheet" href="../stylesheets/index.css"/>
-    <script type="text/javascript">
-      
-    </script>
 </head>
   <body>
     <section data-role="page" data-theme="b">
@@ -26,9 +23,10 @@
       </header>
       <div>
         <h2 id="logo">NITHs Fadderuke app</h2>
-        <form>
-          <a id="login" href="#" data-role="button">Sign in through Google</a>
-        </form>
+          <p id="error"></p>
+          <div>
+            <a id="login" href="#" data-role="button">Sign in through Google</a>
+          </div>
       </div>
     </section>
   </body>

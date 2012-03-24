@@ -21,8 +21,7 @@ $(document).ready(function() {
   function configure() {
     window.plugins.childBrowser.onLocationChange = function(url) {
       var receiveTokenURL = new RegExp("^" + callbackURL + '#' +
-    		  stateURLFragment + "&access_token=..*$");
-      console.log(url);
+        stateURLFragment + "&access_token=..*$");
 
       // Triggered if the app is denied access
       if (url == callbackURL + "#error=access_denied" + stateURLFragment) {
@@ -32,7 +31,7 @@ $(document).ready(function() {
       // Triggered if a token is received
       } else if (receiveTokenURL.test(url)) {
         window.plugins.childBrowser.close();
-        
+        window.location = "main-menu.html"
       }
       // alert(url);
     };

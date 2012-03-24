@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  var callbackURL        = "http://niths.no/callback";
+  var callbackURL      = "http://niths.no/callback";
   var stateURLFragment = "state=/profile"; 
 
   $('#login').click(function() {

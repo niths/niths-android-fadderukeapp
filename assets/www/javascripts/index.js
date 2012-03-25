@@ -21,7 +21,6 @@ $(document).ready(function() {
 
   function configureLocationChanged() {
     window.plugins.childBrowser.onLocationChange = function(url) {
-      alert(url);
       var receiveTokenURL = new RegExp('^' + callbackURL + '#' +
         stateURLFragment + '&access_token=..*$');
 
@@ -36,12 +35,11 @@ $(document).ready(function() {
 
       // Triggered if a token is received
       } else if (receiveTokenURL.test(url)) {
+        $.mobile.showPageLoadingMsg();
         window.plugins.childBrowser.close();
 
         if (isNITHMail) {
-          $('#login').css('visibility', 'hidden');
-          window.plugins.childBrowser.close();
-          window.location = 'main-menu.html';
+          onLoggedIn(url.split('=').splice(2, 1)[0].replace('&token_type', ''));
         } else {
           $('#logout').css('visibility', 'visible');
           displayError('Vennligst logg inn med en NITH e-postadresse');
@@ -58,7 +56,26 @@ $(document).ready(function() {
 
   function displayError(error) {
     $('#error').html('<strong>' + error + '</strong>');
-  };
+  }
+
+  function onLoggedIn(token) {
+
+    // TODO Remove before launch
+    alert(token);
+    console.log(token);
+
+    // Send the token to the server
+    $.ajax({
+      url: 'http://ec2-46-137-44-111.eu-west-1.compute.amazonaws.com:8181/niths/courses',
+      success: function(data) {
+        window.plugins.childBrowser.close();
+        window.location = 'main-menu.html';
+      },
+      error: function(xhr, status) {
+        alert(JSON.stringify(xhr));
+      }
+    });
+  }
 
   $('#logout').click(function(event) {
       window.plugins.childBrowser.showWebPage(

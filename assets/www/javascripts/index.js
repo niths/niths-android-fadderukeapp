@@ -35,12 +35,13 @@ $(document).ready(function() {
 
       // Triggered if a token is received
       } else if (receiveTokenURL.test(url)) {
-        $.mobile.showPageLoadingMsg();
-        window.plugins.childBrowser.close();
-
         if (isNITHMail) {
+          $.mobile.showPageLoadingMsg();
+          window.plugins.childBrowser.close();
           onLoggedIn(url.split('=').splice(2, 1)[0].replace('&token_type', ''));
+
         } else {
+          window.plugins.childBrowser.close();
           $('#logout').css('visibility', 'visible');
           displayError('Vennligst logg inn med en NITH e-postadresse');
         }

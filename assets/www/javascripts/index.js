@@ -4,7 +4,9 @@ $(document).ready(function() {
   var isNITHMail       = false;
 
   $('#login').click(function() {
-    signIn(); 
+    // TODO Remove
+    $.mobile.changePage('main-menu.html');
+    //signIn(); 
   });
 
   function signIn() {
@@ -21,6 +23,8 @@ $(document).ready(function() {
 
   function configureLocationChanged() {
     window.plugins.childBrowser.onLocationChange = function(url) {
+      console.log(url);
+
       var receiveTokenURL = new RegExp('^' + callbackURL + '#' +
         stateURLFragment + '&access_token=..*$');
 
@@ -56,7 +60,7 @@ $(document).ready(function() {
   };
 
   function displayError(error) {
-    $('#error').html('<strong>' + error + '</strong>');
+    $('#logo').after('<p id="error">' + error + '</p>');
   }
 
   function onLoggedIn(token) {
@@ -67,10 +71,11 @@ $(document).ready(function() {
 
     // Send the token to the server
     $.ajax({
-      url: 'http://ec2-46-137-44-111.eu-west-1.compute.amazonaws.com:8181/niths/courses',
+      url: 'http://146.247.155.74:8080/niths/courses' /* + token */,
+      type: 'get',
       success: function(data) {
         window.plugins.childBrowser.close();
-        window.location = 'main-menu.html';
+        $.mobile.changePage('main-menu.html');
       },
       error: function(xhr, status) {
         alert(JSON.stringify(xhr));

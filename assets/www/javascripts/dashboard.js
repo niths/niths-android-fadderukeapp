@@ -1,12 +1,15 @@
 $(document).ready(function() {
+
+  // Removed previous API events from the storage, if any
+  sessionStorage.clear();
+
   getAPIEvents();
 
   function getAPIEvents() {
     $.ajax({
-      url: 'http://146.247.155.74:8080/niths/api_events',
+      url: 'http://ec2-46-137-44-111.eu-west-1.compute.amazonaws.com:8181/niths/api_events',
       type: 'get',
       success: function(data) {
-        alert(JSON.stringify(data));
         traverseAPIEvents(data);
       },
       error: function(xhr) {
@@ -15,18 +18,30 @@ $(document).ready(function() {
     });
   }
 
-  function traverseAPIEvents(events) {
-    for (i in events) {
-      if (typeof (events[i]) == 'object') {
-        traverseAPIEvents(events[i]);
-      } else {
-        displayAPIEvent(i, events[i]);
-      }
-    }
+  function traverseAPIEvents(apiEvents) {
+    $.each(apiEvents, function(i, apiEvent) {
+
+      // Stores each API event in the storage
+      sessionStorage.setItem(
+          'api_event#' + apiEvent.id,
+          JSON.stringify(apiEvent));
+
+      displayAPIEvent(apiEvent);
+    });
   }
 
-  function displayAPIEvent(key, val) {
-    $('#events').append('<li><p>' + key + ' : ' + val + '</p></li>');
-    $('#events').listview('refresh'); 
+  function displayAPIEvent(apiEvent) {
+    $('#events').append('<li><a id="' + apiEvent.id + '">' + apiEvent.title
+        + '</a></li>');
+    $('#events').listview('refresh');
   }
+
+  $('#events a').live('click', function(event) {
+
+    // Find and sets only the clicked API event in the storage.
+    var apiEvent= sessionStorage.getItem('api_event#' + event.target.id);
+    sessionStorage.setItem('selected_api_event', apiEvent);
+
+    $.mobile.changePage('event-info.html');
+  })
 });

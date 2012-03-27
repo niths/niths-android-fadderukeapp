@@ -71,7 +71,7 @@ $(document).ready(function() {
 
     // Send the token to the server
     $.ajax({
-      url: 'http://146.247.155.74:8080/niths/courses' /* + token */,
+      url: 'http://http://ec2-46-137-44-111.eu-west-1.compute.amazonaws.com:8080/niths/rooms' /* + token */,
       type: 'get',
       success: function(data) {
         window.plugins.childBrowser.close();

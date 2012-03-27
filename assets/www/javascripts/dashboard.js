@@ -3,14 +3,14 @@ $(document).ready(function() {
   // Removed previous API events from the storage, if any
   sessionStorage.clear();
 
-  getAPIEvents();
+  getEvents();
 
-  function getAPIEvents() {
+  function getEvents() {
     $.ajax({
-      url: 'http://ec2-46-137-44-111.eu-west-1.compute.amazonaws.com:8181/niths/api_events',
+      url: 'http://ec2-46-137-44-111.eu-west-1.compute.amazonaws.com:8080/niths/events',
       type: 'get',
       success: function(data) {
-        traverseAPIEvents(data);
+        traverseEvents(data);
       },
       error: function(xhr) {
         alert(JSON.stringify(xhr));
@@ -18,20 +18,20 @@ $(document).ready(function() {
     });
   }
 
-  function traverseAPIEvents(apiEvents) {
-    $.each(apiEvents, function(i, apiEvent) {
+  function traverseEvents(events) {
+    $.each(events, function(i, event) {
 
       // Stores each API event in the storage
       sessionStorage.setItem(
-          'api_event#' + apiEvent.id,
-          JSON.stringify(apiEvent));
+          'event#' + event.id,
+          JSON.stringify(event));
 
-      displayAPIEvent(apiEvent);
+      displayEvent(event);
     });
   }
 
-  function displayAPIEvent(apiEvent) {
-    $('#events').append('<li><a id="' + apiEvent.id + '">' + apiEvent.title
+  function displayEvent(event) {
+    $('#events').append('<li><a id="' + event.id + '">' + event.name
         + '</a></li>');
     $('#events').listview('refresh');
   }
@@ -39,8 +39,8 @@ $(document).ready(function() {
   $('#events a').live('click', function(event) {
 
     // Find and sets only the clicked API event in the storage.
-    var apiEvent= sessionStorage.getItem('api_event#' + event.target.id);
-    sessionStorage.setItem('selected_api_event', apiEvent);
+    var selectedEvent= sessionStorage.getItem('event#' + event.target.id);
+    sessionStorage.setItem('selected_event', selectedEvent);
 
     $.mobile.changePage('event-info.html');
   })

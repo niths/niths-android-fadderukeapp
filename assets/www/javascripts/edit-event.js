@@ -1,4 +1,8 @@
 $(document).ready(function() {
+  $('#update').click(function() {
+    alert("foobar");
+  });
+
   displayEditAttributes(JSON.parse(sessionStorage.getItem('selected_event')));
 
   function displayEditAttributes(selectedEvent) {

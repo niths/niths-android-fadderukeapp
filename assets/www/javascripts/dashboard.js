@@ -1,5 +1,4 @@
 $(document).ready(function() {
-
   // Removed previous API events from the storage, if any
   sessionStorage.clear();
 
@@ -28,12 +27,13 @@ $(document).ready(function() {
 
       displayEvent(event);
     });
+
+    $('#events').listview('refresh');
   }
 
   function displayEvent(event) {
     $('#events').append('<li><a id="' + event.id + '">' + event.name
         + '</a></li>');
-    $('#events').listview('refresh');
   }
 
   $('#events a').live('click', function(event) {

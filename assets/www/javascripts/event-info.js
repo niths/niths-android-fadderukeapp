@@ -5,15 +5,31 @@ $(document).ready(function() {
     $('#delete').css('visibility', 'visible');
   }
 
+  // Marshal the object
+  var selectedEvent = JSON.parse(sessionStorage.getItem('selected_event'));
+
   $('#edit').click(function() {
     $.mobile.changePage('edit-event.html');
   });
 
   $('#delete').click(function() {
-    
+    $.ajax({
+      url: 'http://ec2-46-137-44-111.eu-west-1.compute.amazonaws.com:8080/niths/events/'
+          + selectedEvent.id,
+      type: 'delete',
+      beforeSend: function(xhr) {
+        xhr.setRequestHeader("Authorization", "Basic YWRtaW46bml0aHNfYWRtaW4=");
+      },
+      success: function(data, status) {
+        alert("S: " + data + status);
+      },
+      error: function(xhr) {
+        alert(JSON.stringify(xhr));
+      }
+    });
   });
 
-  displayAttributes(JSON.parse(sessionStorage.getItem('selected_event')));
+  displayAttributes(selectedEvent);
 
   function displayAttributes(selectedEvent) {
     for (var key in selectedEvent) {

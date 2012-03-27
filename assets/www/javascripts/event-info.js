@@ -6,7 +6,7 @@ $(document).ready(function() {
   }
 
   $('#edit').click(function() {
-    alert("page chgan");
+    $.mobile.changePage('edit-event.html');
   });
 
   $('#delete').click(function() {
@@ -23,9 +23,7 @@ $(document).ready(function() {
   }
 
   function displayAttribute(key, val) {
-    $('#event-attributes').append(
-        '<li><div class="ui-block-a"><p class="key">' + key
-            + '</p></div><div class="ui-block-b"><p class="val">'
-            + val + '</p></div></li>');
+    $('#event-attributes').append('<li><span class="key">' + key
+        + '</span><span class="val">' + val + '</span></li>');
   }
 });

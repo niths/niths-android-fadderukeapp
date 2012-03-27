@@ -7,9 +7,9 @@
       <script type="text/javascript" charset="utf-8"
         src="../javascripts/event-info.js"></script>
       <header data-role="header" data-theme="c">
-        <h1>Dashboard</h1>
+        <h1>Event</h1>
       </header>
-      <div id="container">
+      <div data-role="content">
         <fieldset class="ui-grid-a">
           <div class="ui-block-a">
             <a href="#" id="edit" data-role="button">Edit</a>
@@ -18,9 +18,7 @@
             <a href="#" id="delete" data-role="button">Delete</a>
           </div>
         </fieldset>
-        <fieldset class="ui-grid-a">
-          <ul id="event-attributes" data-role="listview" data-theme="c"></ul>
-        </fieldset>
+        <ul id="event-attributes" data-role="listview" data-inset="true" data-theme="c"></ul>
       </div>
     </section>
   </body>

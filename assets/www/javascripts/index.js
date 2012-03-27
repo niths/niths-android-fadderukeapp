@@ -5,6 +5,7 @@ $(document).ready(function() {
 
   $('#login').click(function() {
     // TODO Remove
+    role = 'foo';
     $.mobile.changePage('main-menu.html');
     //signIn(); 
   });
@@ -71,9 +72,13 @@ $(document).ready(function() {
 
     // Send the token to the server
     $.ajax({
-      url: 'http://http://ec2-46-137-44-111.eu-west-1.compute.amazonaws.com:8080/niths/rooms' /* + token */,
+      url: 'http://http://ec2-46-137-44-111.eu-west-1.compute.amazonaws.com:8080/niths/rooms',
       type: 'get',
       success: function(data) {
+
+        // TODO Set role
+        role = 'foo';
+
         window.plugins.childBrowser.close();
         $.mobile.changePage('main-menu.html');
       },

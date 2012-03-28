@@ -8,6 +8,7 @@ $(document).ready(function() {
     $.ajax({
       url: 'http://146.247.156.90:8080/niths/events',
       type: 'get',
+      cache: false,
       success: function(data) {
         traverseEvents(data);
       },
@@ -19,12 +20,6 @@ $(document).ready(function() {
 
   function traverseEvents(events) {
     $.each(events, function(i, event) {
-
-      // Stores each API event in the storage
-      sessionStorage.setItem(
-          'event#' + event.id,
-          JSON.stringify(event));
-
       displayEvent(event);
     });
 
@@ -37,10 +32,7 @@ $(document).ready(function() {
   }
 
   $('#events a').live('click', function(event) {
-
-    // Find and sets only the clicked API event in the storage.
-    var selectedEvent= sessionStorage.getItem('event#' + event.target.id);
-    sessionStorage.setItem('selected_event', selectedEvent);
+    sessionStorage.setItem('event_id', event.target.id);
 
     $.mobile.changePage('event-info.html');
   })

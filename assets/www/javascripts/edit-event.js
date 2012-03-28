@@ -3,18 +3,25 @@ $(document).ready(function() {
   });
 
   $('form').submit(function() {
-    alert($(this).serialize());
+    var obj = $('form').toJSON();
     $.ajax({
       url: 'http://146.247.156.90:8080/niths/events',
       type: 'put',
-      data :  $(this).serialize(),
-      success: function(data) {
-        alert('S: ' + data);
+      cache: false,
+      contentType: 'application/json',
+      beforeSend: function(xhr) {
+        xhr.setRequestHeader("Authorization", "Basic YWRtaW46bml0aHNfYWRtaW4=");
+      },
+      data :  JSON.stringify(obj),
+      success: function(data, status) {
+        history.back();
       },
       error: function(xhr) {
         alert('F: ' + JSON.stringify(xhr));
       }
     });
+
+    return false;
   });
 
   displayEditAttributes(JSON.parse(sessionStorage.getItem('selected_event')));

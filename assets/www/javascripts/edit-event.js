@@ -1,6 +1,20 @@
 $(document).ready(function() {
   $('#update').click(function() {
-    alert("foobar");
+  });
+
+  $('form').submit(function() {
+    alert($(this).serialize());
+    $.ajax({
+      url: 'http://146.247.156.90:8080/niths/events',
+      type: 'put',
+      data :  $(this).serialize(),
+      success: function(data) {
+        alert('S: ' + data);
+      },
+      error: function(xhr) {
+        alert('F: ' + JSON.stringify(xhr));
+      }
+    });
   });
 
   displayEditAttributes(JSON.parse(sessionStorage.getItem('selected_event')));
@@ -15,11 +29,12 @@ $(document).ready(function() {
   function displayEditAttribute(key, val) {
 
     // If the attribute is the id, do not make it editable
-    valText = key == 'id' ? '<span class="val">' + val + '</span>'
-        : '<input type="text" value="' + val + '" />';
+    var textVal = '<input type="text" name="' + key + '" value="' + val + '"'
+        + ((key == 'id') ? ' readonly="readonly"' : '') + ' />';
+    
 
     $('#edit-event-attributes').append(
         '<li><span class="key">' + key
-        + '</span>' + valText + '</li>');
+        + '</span>' + textVal + '</li>');
   }
 })

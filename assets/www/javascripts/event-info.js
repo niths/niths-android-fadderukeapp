@@ -14,7 +14,7 @@ $(document).ready(function() {
 
   $('#delete').click(function() {
     $.ajax({
-      url: 'http://ec2-46-137-44-111.eu-west-1.compute.amazonaws.com:8080/niths/events/'
+      url: 'http://146.247.156.90:8080/niths/events/'
           + selectedEvent.id,
       type: 'delete',
       beforeSend: function(xhr) {

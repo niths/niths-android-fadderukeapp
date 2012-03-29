@@ -1,5 +1,6 @@
 $(document).ready(function() {
   var recursionLevel = 0;
+  var currentNode = '';
 
   $.ajax({
       url: 'http://146.247.157.119:8080/niths/events/' +
@@ -16,6 +17,7 @@ $(document).ready(function() {
 
   $('form').submit(function() {
     var obj = $('form').toJSON();
+    alert(JSON.stringify(obj));
     $.ajax({
       url: 'http://146.247.157.119:8080/niths/events',
       type: 'put',
@@ -29,7 +31,7 @@ $(document).ready(function() {
         history.back();
       },
       error: function(xhr) {
-        alert('F: ' + JSON.stringify(xhr));
+        alert(JSON.stringify(xhr));
       }
     });
 
@@ -40,9 +42,15 @@ $(document).ready(function() {
     for (var attribute in selectedEvent) {
       if (typeof (selectedEvent[attribute]) == 'object') {
         $('#edit-event-attributes').append('<li>' + attribute + '</li>');
+        recursionLevel++;
+        currentNode = attribute;
         displayEditAttributes(selectedEvent[attribute]);
       } else {
-        displayEditAttribute(attribute, selectedEvent[attribute]);
+        if (recursionLevel > 0) {
+          displayEditChildAttribute(attribute, selectedEvent[attribute]);
+        } else {
+          displayEditRootAttribute(attribute, selectedEvent[attribute]);
+        }
       }
     }
 
@@ -50,14 +58,18 @@ $(document).ready(function() {
    $('#edit-event').trigger('create');
   }
 
-  function displayEditAttribute(key, val) {
+  function displayEditRootAttribute(key, val) {
 
     // If the attribute is the id, do not make it editable
     var textVal = '<input type="text" class="val" name="' + key + '" value="'
         + val + '" '+ ((key == 'id') ? ' readonly="readonly"' : '') + ' />';
-    
 
     $('#edit-event-attributes').append(
         '<li><span class="key">' + key + '</span>' + textVal + '</li>');
+  }
+
+  function displayEditChildAttribute(key, val) {
+    $('#edit-event-attributes').append('<input type="hidden" name="'
+        + currentNode + '[' + key + ']" value="' + val + '" />');
   }
 });

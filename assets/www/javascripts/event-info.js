@@ -9,7 +9,7 @@ $(document).ready(function() {
   var eventId = JSON.parse(sessionStorage.getItem('event_id'));
 
   $.ajax({
-    url: 'http://146.247.156.90:8080/niths/events/' + eventId,
+    url: 'http://146.247.157.119:8080/niths/events/' + eventId,
     type: 'get',
     cache: false,
     success: function(data) {
@@ -26,7 +26,7 @@ $(document).ready(function() {
 
   $('#delete').click(function() {
     $.ajax({
-      url: 'http://146.247.156.90:8080/niths/events/' + selectedEvent.id,
+      url: 'http://146.247.157.119:8080/niths/events/' + selectedEvent.id,
       type: 'delete',
       cache: false,
       beforeSend: function(xhr) {

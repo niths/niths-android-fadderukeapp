@@ -6,7 +6,7 @@ $(document).ready(function() {
 
   function getEvents() {
     $.ajax({
-      url: 'http://146.247.156.90:8080/niths/events',
+      url: 'http://146.247.157.119:8080/niths/events',
       type: 'get',
       cache: false,
       success: function(data) {

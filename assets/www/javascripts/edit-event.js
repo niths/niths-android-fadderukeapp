@@ -1,11 +1,23 @@
 $(document).ready(function() {
-  $('#update').click(function() {
-  });
+  var recursionLevel = 0;
+
+  $.ajax({
+      url: 'http://146.247.157.119:8080/niths/events/' +
+          JSON.parse(sessionStorage.getItem('event_id')),
+      type: 'get',
+      cache: false,
+      success: function(data) {
+        displayEditAttributes(data);
+      },
+      error: function(xhr) {
+        alert(JSON.stringify(xhr));
+      }
+    });
 
   $('form').submit(function() {
     var obj = $('form').toJSON();
     $.ajax({
-      url: 'http://146.247.156.90:8080/niths/events',
+      url: 'http://146.247.157.119:8080/niths/events',
       type: 'put',
       cache: false,
       contentType: 'application/json',
@@ -24,24 +36,35 @@ $(document).ready(function() {
     return false;
   });
 
-  displayEditAttributes(JSON.parse(sessionStorage.getItem('selected_event')));
-
   function displayEditAttributes(selectedEvent) {
-    for (var key in selectedEvent) {
-        displayEditAttribute(key, selectedEvent[key]);
+    for (var attribute in selectedEvent) {
+      if (typeof (selectedEvent[attribute]) == 'object') {
+        displayEditAttribute(attribute, null);
+        recursionLevel++;
+        displayEditAttributes(selectedEvent[attribute]);
+      } else {
+        displayEditAttribute(attribute, selectedEvent[attribute]);
+      }
     }
+
    $('#edit-event-attributes').listview('refresh');
+   $('#edit-event').trigger('create');
   }
 
   function displayEditAttribute(key, val) {
+    var indentStyling = 'style="margin-left: ' + recursionLevel * 15 + 'px;"';
+    var textVal = '';
 
     // If the attribute is the id, do not make it editable
-    var textVal = '<input type="text" name="' + key + '" value="' + val + '"'
-        + ((key == 'id') ? ' readonly="readonly"' : '') + ' />';
+    if (val != null) {
+      textVal = '<input type="text" class="val" name="' + key + '" value="'
+          + val + '" ' + indentStyling
+          + ((key == 'id') ? ' readonly="readonly"' : '') + ' />';
+    }
     
 
     $('#edit-event-attributes').append(
-        '<li><span class="key">' + key
+        '<li><span class="key" ' + indentStyling + '>' + key
         + '</span>' + textVal + '</li>');
   }
-})
+});

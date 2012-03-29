@@ -62,14 +62,19 @@ $(document).ready(function() {
 
     // If the attribute is the id, do not make it editable
     var textVal = '<input type="text" class="val" name="' + key + '" value="'
-        + val + '" '+ ((key == 'id') ? ' readonly="readonly"' : '') + ' />';
+        + val + '" '+ checkIdConstraint(key) + ' />';
 
     $('#edit-event-attributes').append(
         '<li><span class="key">' + key + '</span>' + textVal + '</li>');
   }
 
   function displayEditChildAttribute(key, val) {
-    $('#edit-event-attributes').append('<input type="hidden" name="'
-        + currentNode + '[' + key + ']" value="' + val + '" />');
+    $('#edit-event-attributes').append('<li><span class="key">' + key
+        + '</span><input type="text" name="' + currentNode
+        + '[' + key + ']" value="' + val + '" ' + checkIdConstraint(key) + '/></li>');
+  }
+
+  function checkIdConstraint(key) {
+    return ((key == 'id') ? 'readonly="readonly"' : '');
   }
 });

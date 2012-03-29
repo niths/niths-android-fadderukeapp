@@ -39,8 +39,7 @@ $(document).ready(function() {
   function displayEditAttributes(selectedEvent) {
     for (var attribute in selectedEvent) {
       if (typeof (selectedEvent[attribute]) == 'object') {
-        displayEditAttribute(attribute, null);
-        recursionLevel++;
+        $('#edit-event-attributes').append('<li>' + attribute + '</li>');
         displayEditAttributes(selectedEvent[attribute]);
       } else {
         displayEditAttribute(attribute, selectedEvent[attribute]);
@@ -52,19 +51,13 @@ $(document).ready(function() {
   }
 
   function displayEditAttribute(key, val) {
-    var indentStyling = 'style="margin-left: ' + recursionLevel * 15 + 'px;"';
-    var textVal = '';
 
     // If the attribute is the id, do not make it editable
-    if (val != null) {
-      textVal = '<input type="text" class="val" name="' + key + '" value="'
-          + val + '" ' + indentStyling
-          + ((key == 'id') ? ' readonly="readonly"' : '') + ' />';
-    }
+    var textVal = '<input type="text" class="val" name="' + key + '" value="'
+        + val + '" '+ ((key == 'id') ? ' readonly="readonly"' : '') + ' />';
     
 
     $('#edit-event-attributes').append(
-        '<li><span class="key" ' + indentStyling + '>' + key
-        + '</span>' + textVal + '</li>');
+        '<li><span class="key">' + key + '</span>' + textVal + '</li>');
   }
 });

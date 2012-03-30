@@ -1,6 +1,5 @@
 $(document).ready(function() {
-  var recursionLevel = 0;
-  var currentNode = '';
+  var selectedEvent;
 
   $.ajax({
       url: address + '/niths/events/'
@@ -8,7 +7,8 @@ $(document).ready(function() {
       type: 'get',
       cache: false,
       success: function(data) {
-        displayEditAttributes(data);
+        selectedEvent = data;
+        displayEditAttributes();
       },
       error: function(xhr) {
         alert(JSON.stringify(xhr));
@@ -38,19 +38,13 @@ $(document).ready(function() {
     return false;
   });
 
-  function displayEditAttributes(selectedEvent) {
+  function displayEditAttributes() {
     for (var attribute in selectedEvent) {
       if (typeof (selectedEvent[attribute]) == 'object') {
-        $('#edit-event-attributes').append('<li>' + attribute + '</li>');
-        recursionLevel++;
-        currentNode = attribute;
-        displayEditAttributes(selectedEvent[attribute]);
+        $('#edit-event-attributes').append('<li><a href="#" id="' + attribute
+            + '" class="obj" data-role="button">' + attribute + '</a></li>');
       } else {
-        if (recursionLevel > 0) {
-          displayEditChildAttribute(attribute, selectedEvent[attribute]);
-        } else {
-          displayEditRootAttribute(attribute, selectedEvent[attribute]);
-        }
+        displayEditAttribute(attribute, selectedEvent[attribute]);
       }
     }
 
@@ -58,7 +52,7 @@ $(document).ready(function() {
    $('#edit-event').trigger('create');
   }
 
-  function displayEditRootAttribute(key, val) {
+  function displayEditAttribute(key, val) {
 
     // If the attribute is the id, do not make it editable
     var textVal = '<input type="text" class="val" name="' + key + '" value="'
@@ -68,13 +62,13 @@ $(document).ready(function() {
         '<li><span class="key">' + key + '</span>' + textVal + '</li>');
   }
 
-  function displayEditChildAttribute(key, val) {
-    $('#edit-event-attributes').append('<li><span class="key">' + key
-        + '</span><input type="text" name="' + currentNode
-        + '[' + key + ']" value="' + val + '" ' + checkIdConstraint(key) + '/></li>');
+  function checkIdConstraint(key) {
+    return (key == 'id') ? 'readonly="readonly"' : '';
   }
 
-  function checkIdConstraint(key) {
-    return ((key == 'id') ? 'readonly="readonly"' : '');
-  }
+  $('.obj').live('click', function() {
+    sessionStorage.setItem('selectedSub',
+        JSON.stringify(selectedEvent[$(this).attr('id')]));
+    $.mobile.changePage('edit-event-sub.html');
+  });
 });

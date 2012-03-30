@@ -1,0 +1,11 @@
+#edit {
+  visibility: hidden;
+}
+
+#delete {
+  visibility: hidden;
+}
+
+.val {
+  float: right;
+}

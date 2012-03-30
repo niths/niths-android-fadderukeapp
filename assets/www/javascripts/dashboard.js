@@ -6,7 +6,7 @@ $(document).ready(function() {
 
   function getEvents() {
     $.ajax({
-      url: 'http://146.247.157.119:8080/niths/events',
+      url: address + '/niths/events',
       type: 'get',
       cache: false,
       success: function(data) {
@@ -34,6 +34,6 @@ $(document).ready(function() {
   $('#events a').live('click', function(event) {
     sessionStorage.setItem('event_id', event.target.id);
 
-    $.mobile.changePage('event-info.html');
+    $.mobile.changePage('event/event-info.html');
   })
 });

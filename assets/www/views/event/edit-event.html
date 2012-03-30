@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head></head>
+  <body>
+    <section id="edit-event" data-role="page" data-theme="c">
+      <link rel="stylesheet" href="../stylesheets/edit-event.css"/>
+      <script type="text/javascript" charset="utf-8"
+        src="../javascripts/edit-event.js"></script>
+      <script type="text/javascript" charset="utf-8"
+        src="../javascripts/common/to-json.js"></script>
+      <header data-role="header" data-theme="c">
+        <h1>Rediger event</h1>
+      </header>
+      <div data-role="content">
+        <form action="event-info">
+          <button type="submit" id="update" data-role="button">Oppdater</button>
+          <ul id="edit-event-attributes" data-role="listview" data-inset="true"
+              data-theme="c"></ul>
+        </form>
+        
+      </div>
+    </section>
+  </body>

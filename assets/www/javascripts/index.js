@@ -1,4 +1,5 @@
 $(document).ready(function() {
+  address = 'http://10.21.26.15:8080';
   var callbackURL      = 'http://niths.no/callback';
   var stateURLFragment = 'state=/profile';
   var isNITHMail       = false;

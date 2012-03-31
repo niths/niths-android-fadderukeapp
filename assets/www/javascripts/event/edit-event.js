@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  var selectedEvent;
+  var recursionLevel = 0;
 
   $.ajax({
       url: address + '/niths/events/'
@@ -7,49 +7,48 @@ $(document).ready(function() {
       type: 'get',
       cache: false,
       success: function(data) {
-        selectedEvent = data;
-        displayEditAttributes();
+        displayEditAttributes(data);
+        updateLists();
+        $('#edit-event').trigger('create');
       },
       error: function(xhr) {
         alert(JSON.stringify(xhr));
       }
-    });
+    }); 
 
-  $('form').submit(function() {
-    var obj = $('form').toJSON();
-    alert(JSON.stringify(obj));
+  $('form').live('submit', function(event) {
     $.ajax({
-      url: address + '/niths/events',
+      url: address + '/niths/' + findDomainName($(this)),
       type: 'put',
       cache: false,
       contentType: 'application/json',
       beforeSend: function(xhr) {
         xhr.setRequestHeader("Authorization", "Basic YWRtaW46bml0aHNfYWRtaW4=");
       },
-      data :  JSON.stringify(obj),
-      success: function(data, status) {
+      success: function(data) {
         history.back();
       },
+      data:  JSON.stringify($(this)),
       error: function(xhr) {
         alert(JSON.stringify(xhr));
       }
     });
 
+    $('form').die('submit');
+
     return false;
   });
 
-  function displayEditAttributes() {
+  function displayEditAttributes(selectedEvent) {
     for (var attribute in selectedEvent) {
       if (typeof (selectedEvent[attribute]) == 'object') {
-        $('#edit-event-attributes').append('<li><a href="#" id="' + attribute
-            + '" class="obj" data-role="button">' + attribute + '</a></li>');
+        recursionLevel++;
+        addSubList(attribute);
+        displayEditAttributes(selectedEvent[attribute]);
       } else {
         displayEditAttribute(attribute, selectedEvent[attribute]);
       }
     }
-
-   $('#edit-event-attributes').listview('refresh');
-   $('#edit-event').trigger('create');
   }
 
   function displayEditAttribute(key, val) {
@@ -58,7 +57,7 @@ $(document).ready(function() {
     var textVal = '<input type="text" class="val" name="' + key + '" value="'
         + val + '" '+ checkIdConstraint(key) + ' />';
 
-    $('#edit-event-attributes').append(
+    $('#submit-element-' + recursionLevel).before(
         '<li><span class="key">' + key + '</span>' + textVal + '</li>');
   }
 
@@ -66,9 +65,39 @@ $(document).ready(function() {
     return (key == 'id') ? 'readonly="readonly"' : '';
   }
 
-  $('.obj').live('click', function() {
-    sessionStorage.setItem('selectedSub',
-        JSON.stringify(selectedEvent[$(this).attr('id')]));
-    $.mobile.changePage('edit-event-sub.html');
-  });
+  function addSubList(listTitle) {
+    $('#container').append(
+        '<form>' +
+          '<ul id="edit-event-attributes-list-' + recursionLevel +
+              '" data-role="listview" data-inset="true">' +
+            '<li id="key-name" data-role="list-divider">' + listTitle + '</li>' +
+            '<li id="submit-element-' + recursionLevel + '">' +
+              '<button type="submit" data-role="button">Oppdater</button>' +
+            '</li>' +
+          '</ul>' +
+        '</form>');
+  }
+
+  function updateLists() {
+    $('#edit-event-attributes-list-0').listview('refresh');
+
+    for (var i = 1; i < recursionLevel; i++) {
+      $('#edit-event-attributes-list-' + i).listview();
+    }
+  }
+
+  function findDomainName(form) {
+    var domain = 'events';
+    var child = form.find('#key-name').html();
+
+    if (child != null) {
+      domain = child;
+
+      if (child[child.length - 1] != 's') {
+        domain += 's';
+      }
+    }
+
+    return domain;
+  }
 });

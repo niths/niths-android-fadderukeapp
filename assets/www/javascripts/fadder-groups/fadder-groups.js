@@ -5,9 +5,7 @@ $(document).ready(function() {
     $.ajax({
       url: address + 'fadder',
       type: 'GET',
-      beforeSend: function(xhr) {
-        xhr.setRequestHeader("Authorization", "Basic YWRtaW46bml0aHNfYWRtaW4=");
-      },
+      cache: false,
       success: function(data) {
         traverseFadderGroups(data);
       },
@@ -20,12 +18,20 @@ $(document).ready(function() {
       $.each(fadderGroups, function(i, fadderGroup) {
         displayFadderGroup(fadderGroup);
       });
+
+      $('ul').listview('refresh');
     }
 
     function displayFadderGroup(fadderGroup) {
-      $('#fadder-groups-list').append(
-          '<li id="' fadderGroup.id + '">' +
-            fadderGroup.groupNumber)
+      $('ul').append(
+          '<li><a id="' + fadderGroup.id + '">' +
+            fadderGroup.groupNumber +
+          '</a></li>');
     }
+
+    $('ul a').live('click', function(event) {
+      sessionStorage.setItem('fadder_group_id', event.target.id);
+      $.mobile.changePage('fadder-group-info.html');
+    });
   }
 });

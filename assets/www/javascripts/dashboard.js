@@ -35,5 +35,5 @@ $(document).ready(function() {
     sessionStorage.setItem('event_id', event.target.id);
 
     $.mobile.changePage('event/event-info.html');
-  })
+  });
 });

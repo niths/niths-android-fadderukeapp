@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  address = 'http://192.168.1.157:8080';
+  address              = 'http://192.168.1.157:8080/niths/';
   var callbackURL      = 'http://niths.no/callback';
   var stateURLFragment = 'state=/profile';
   var isNITHMail       = false;
@@ -78,7 +78,6 @@ $(document).ready(function() {
       success: function(data) {
 
         // TODO Set role
-        role = 'foo';
 
         window.plugins.childBrowser.close();
         $.mobile.changePage('main-menu.html');

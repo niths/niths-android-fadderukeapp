@@ -3,46 +3,55 @@
   <head>
     <title>NITHs</title>
     <link rel="stylesheet" href="../stylesheets/common/jquery-mobile.css"/>
-    <link rel="stylesheet" href="../stylesheets/common/application.css"/>
+    <link rel="stylesheet" href="../stylesheets/common/main.css"/>
     <link rel="stylesheet" href="../stylesheets/index.css"/>
     <script type="text/javascript" charset="utf-8"
-        src="../javascripts/common/jquery.js"></script>
+      src="../javascripts/common/jquery.js"></script>
     <script>
       $(document).bind("mobileinit", function() {
         $.mobile.touchOverflowEnabled = true;
       });
     </script>
     <script type="text/javascript" charset="utf-8"
-        src="../javascripts/common/jquery-mobile.js">
+      src="../javascripts/common/jquery-mobile.js">
     </script>
     <script type="text/javascript" charset="utf-8"
-        src="../javascripts/common/jsoauth.js">
+      src="../javascripts/common/jsoauth.js">
     </script>
     <script type="text/javascript" charset="utf-8"
-        src="../javascripts/common/phonegap-1.4.1.js">
+      src="../javascripts/common/phonegap-1.4.1.js">
     </script>
-    <script type="text/javascript" charset="utf-8"
-        src="../javascripts/common/childbrowser.js">
+    <script type="text/javascript" charset="utf-8" src="../childbrowser.js">
     </script>
     <script type="text/javascript" charset="utf-8"
         src="../javascripts/common/application.js">
     </script>
     <script type="text/javascript" charset="utf-8"
-        src="../javascripts/index.js">
+      src="../javascripts/index.js">
     </script>
   </head>
   <body>
     <section data-role="page" data-theme="c">
-      <header data-role="header" data-theme="c">
-        <h1>Fadderuke app</h1>
-      </header>
+     <!--    <div data-theme="c" data-role="header" data-position="fixed">
+        	 <a id = "menubtn" href="main-menu.html" data-icon="home">menu</a>
+			<h1>FadderUka</h1>
+			<a id = "profilebtn" href="profile.html" data-icon="info">Profile</a>
+         </div>-->
+
       <div data-role="content">
-        <h2 id="logo">NITHs Fadderuke app</h2>
-        <div>
-          <a id="login" href="#" data-role="button">Logg inn via Google</a>
-          <a id="logout" href="#" data-role="button">Logg ut </a>
-        </div>
-      </div>
+         <div align="center"><img src="../childbrowser/nith.jpg" class="bg"></div>
+        <h2 id="logo">Fadderuke</h2>
+        
+         </div>
+         <div data-theme="c" data-role="controlgroup" >
+			<a id = "logout" href="" data-role="button" >Logg ut</a>
+			<a id = "login" href="" data-role="button" >Logg inn</a>
+			<a id = "menubtn" href="" data-role="button" >Meny</a>
+			
+
+			</div><!-- /navbar -->
+         </div>
+         
     </section>
   </body>
 </html>

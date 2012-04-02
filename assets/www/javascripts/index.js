@@ -5,11 +5,9 @@ $(document).ready(function() {
   
   $('#error').empty();
   if (sessionToken == ""){
-	  $('#logout').css('visibility', 'hidden');
-	  $('#login').css('visibility', 'visible');
+	 hideGui();
   }else{
-	  $('#logout').css('visibility', 'visible');
-	  $('#login').css('visibility', 'hidden');
+	showGui();
   }
 
   $('#login').click(function() {
@@ -52,19 +50,32 @@ $(document).ready(function() {
           //$.mobile.showPageLoadingMsg();
           window.plugins.childBrowser.close();
           onLoggedIn(url.split('=').splice(2, 1)[0].replace('&token_type', ''));
-
       // Triggered when a user logs out
       } else if (url == 'https://accounts.google.com/Login') {
         window.plugins.childBrowser.close();
         sessionToken = "";
         studentId = "";
         $('#error').empty();
-        $('#logout').css('visibility', 'hidden');
-        $('#login').css('visibility', 'visible');
+       hideGui();
         $.mobile.hidePageLoadingMsg();
+      } else{
+    	  $.mobile.hidePageLoadingMsg();
       }
     };
   };
+  
+  function hideGui(){
+      $('#logout').css('visibility', 'hidden');
+      $('#login').css('visibility', 'visible');
+      $('#menubtn').css('visibility', 'hidden');
+	//  $('#profilebtn').css('visibility', 'hidden');  
+  }
+  function showGui(){
+	  $('#logout').css('visibility', 'visible');
+	  $('#login').css('visibility', 'hidden');
+	  $('#menubtn').css('visibility', 'visible');
+	 // $('#profilebtn').css('visibility', 'visible');
+  }
 
   function displayError(error) {
     $('#logo').after('<p id="error">' + error + '</p>');
@@ -74,6 +85,7 @@ $(document).ready(function() {
    * Check if a student logging has the role fadder leader
    * and sets the global variable role
    */
+  
   function checkIfLeader(){
 	  var response;
 	  response = $.ajax({
@@ -115,8 +127,7 @@ $(document).ready(function() {
       contentType:"application/json",
       data: '{"token":"'+token+'"}',
       success: function() { //Signed in!
-    	  $('#login').css('visibility', 'hidden');
-    	  $('#logout').css('visibility', 'visible');
+    	 showGui();
     	  signedIn = true;
     	  sessionToken = loginResponse.getResponseHeader('session-token');
     	  studentId = loginResponse.getResponseHeader('student-id');
@@ -135,16 +146,13 @@ $(document).ready(function() {
     	$('#error').empty();
     	$.mobile.hidePageLoadingMsg();
     	if(resError == 'Email not valid'){
-    		$('#logout').css('visibility', 'visible');
-    		$('#login').css('visibility', 'hidden');
     		displayError('Bruker har ikke @nith.no mail');    		
     		
     	} else {
-    		$('#logout').css('visibility', 'hidden');
-    		$('#login').css('visibility', 'visible');
     		displayError('Vennligst logg inn med en NITH e-postadresse');    		
     		
     	}
+    	hideGui();
       }
     });
   }

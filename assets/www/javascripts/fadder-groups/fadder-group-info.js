@@ -43,8 +43,13 @@ $(document).ready(function() {
               '<a id=fadder-leader-"' + fadderLeader.id + '">' +
                 fadderLeader.firstName + ' ' + fadderLeader.lastName +
               '</a>' +
-            '</li>');
+            '</li>'
+        );
       });
     }
   }
+
+  $('#fadder-groups-info-fadder-children-link').click(function() {
+    $.mobile.changePage('fadder-children/fadder-children.html');
+  })
 });

@@ -70,8 +70,31 @@ $(document).ready(function() {
     $('#logo').after('<p id="error">' + error + '</p>');
   }
   
+  /**
+   * Check if a student logging has the role fadder leader
+   * and sets the global variable role
+   */
   function checkIfLeader(){
-	  //GET TIL SERVER MED STUDENTID OG ROLLEID
+	  var response;
+	  response = $.ajax({
+			url : address + 'roles/isStudent/'+studentId+'/ROLE_FADDER_LEADER',
+			type : 'get',
+			cache : false,
+			success : function() {
+				alert(response.status + '--' +response.getResponseHeader('error'));
+				if(response.status == 200){
+					role = 'ROLE_FADDER_LEADER';
+				}else if (response.status == 204){
+					role = "";
+				}
+			},
+			error : function(xhr) {
+				alert(response.getResponseHeader('error'));
+				
+				alert(JSON
+						.stringify(xhr));
+			}
+		});
   }
 
   function onLoggedIn(token) {
@@ -80,6 +103,8 @@ $(document).ready(function() {
     //alert(token);
     console.log(token);
 
+    
+    
     // Send the token to the server
     // We get the session token in the response header
     // If any error occurred, show error.
@@ -97,9 +122,7 @@ $(document).ready(function() {
     	  studentId = loginResponse.getResponseHeader('student-id');
     	  //alert(studentId);
     	  //alert(sessionToken);
-        
-    	  // TODO Set role
-    	  
+    	  checkIfLeader();
     	  $.mobile.hidePageLoadingMsg();
         $.mobile.changePage('main-menu.html');
       },

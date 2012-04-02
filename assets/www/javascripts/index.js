@@ -1,18 +1,29 @@
 $(document).ready(function() {
-  address              = 'http://192.168.1.157:8080/niths/';
   var callbackURL      = 'http://niths.no/callback';
   var stateURLFragment = 'state=/profile';
   var isNITHMail       = false;
+  
+  $('#error').empty();
+  if (sessionToken == ""){
+	  $('#logout').css('visibility', 'hidden');
+	  $('#login').css('visibility', 'visible');
+  }else{
+	  $('#logout').css('visibility', 'visible');
+	  $('#login').css('visibility', 'hidden');
+  }
 
   $('#login').click(function() {
-    // TODO Remove
-    role = 'foo';
-    $.mobile.changePage('main-menu.html');
-    //signIn(); 
+	  $.mobile.showPageLoadingMsg();
+    sessionToken = "";
+    studentId = 0;
+	  // TODO Remove
+    //role = 'foo';
+    //$.mobile.changePage('main-menu.html');
+    signIn(); 
   });
 
   function signIn() {
-    configureLocationChanged(); 
+    configureLocationChanged(); //https://voyager.nith.no/sso/signon.php?
     window.plugins.childBrowser.showWebPage(
       'https://accounts.google.com/o/oauth2/auth'
       + '?scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email'
@@ -30,33 +41,27 @@ $(document).ready(function() {
       var receiveTokenURL = new RegExp('^' + callbackURL + '#' +
         stateURLFragment + '&access_token=..*$');
 
-      if (url == 'https://www.google.com/a/nith.no/acs') {
-        isNITHMail = true;
-      }
-
       // Triggered if the app is denied access
-      else if (url == callbackURL + '#error=access_denied' + stateURLFragment) {
+      if (url == callbackURL + '#error=access_denied' + stateURLFragment) {
         displayError('Kunne ikke få tilgang');
         window.plugins.childBrowser.close();
 
       // Triggered if a token is received
       } else if (receiveTokenURL.test(url)) {
-        if (isNITHMail) {
-          $.mobile.showPageLoadingMsg();
+
+          //$.mobile.showPageLoadingMsg();
           window.plugins.childBrowser.close();
           onLoggedIn(url.split('=').splice(2, 1)[0].replace('&token_type', ''));
-
-        } else {
-          window.plugins.childBrowser.close();
-          $('#logout').css('visibility', 'visible');
-          displayError('Vennligst logg inn med en NITH e-postadresse');
-        }
 
       // Triggered when a user logs out
       } else if (url == 'https://accounts.google.com/Login') {
         window.plugins.childBrowser.close();
+        sessionToken = "";
+        studentId = "";
         $('#error').empty();
         $('#logout').css('visibility', 'hidden');
+        $('#login').css('visibility', 'visible');
+        $.mobile.hidePageLoadingMsg();
       }
     };
   };
@@ -64,31 +69,67 @@ $(document).ready(function() {
   function displayError(error) {
     $('#logo').after('<p id="error">' + error + '</p>');
   }
+  
+  function checkIfLeader(){
+	  //GET TIL SERVER MED STUDENTID OG ROLLEID
+  }
 
   function onLoggedIn(token) {
-
+	  
     // TODO Remove before launch
-    alert(token);
+    //alert(token);
     console.log(token);
 
     // Send the token to the server
-    $.ajax({
-      url: 'http://http://ec2-46-137-44-111.eu-west-1.compute.amazonaws.com:8080/niths/rooms',
-      type: 'get',
-      success: function(data) {
-
-        // TODO Set role
-
-        window.plugins.childBrowser.close();
+    // We get the session token in the response header
+    // If any error occurred, show error.
+    var loginResponse;
+    loginResponse = $.ajax({
+      url: address + '/auth/login/',
+      type: 'post',
+      contentType:"application/json",
+      data: '{"token":"'+token+'"}',
+      success: function() { //Signed in!
+    	  $('#login').css('visibility', 'hidden');
+    	  $('#logout').css('visibility', 'visible');
+    	  signedIn = true;
+    	  sessionToken = loginResponse.getResponseHeader('session-token');
+    	  studentId = loginResponse.getResponseHeader('student-id');
+    	  //alert(studentId);
+    	  //alert(sessionToken);
+        
+    	  // TODO Set role
+    	  
+    	  $.mobile.hidePageLoadingMsg();
         $.mobile.changePage('main-menu.html');
       },
-      error: function(xhr, status) {
-        alert(JSON.stringify(xhr));
+      error: function(xhr, status) { // Signed in failed
+    	  sessionToken = "";
+    	var resError = loginResponse.getResponseHeader('error');
+    	sessionToken = "";
+    	studentId = 0;
+    	//alert(resError);
+    	$('#error').empty();
+    	$.mobile.hidePageLoadingMsg();
+    	if(resError == 'Email not valid'){
+    		$('#logout').css('visibility', 'visible');
+    		$('#login').css('visibility', 'hidden');
+    		displayError('Bruker har ikke @nith.no mail');    		
+    		
+    	} else {
+    		$('#logout').css('visibility', 'hidden');
+    		$('#login').css('visibility', 'visible');
+    		displayError('Vennligst logg inn med en NITH e-postadresse');    		
+    		
+    	}
       }
     });
   }
 
   $('#logout').click(function(event) {
+	  $.mobile.showPageLoadingMsg();
+	  studentId = 0;
+	  sessionToken = "";
       window.plugins.childBrowser.showWebPage(
       'https://accounts.google.com/Logout');
   });

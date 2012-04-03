@@ -165,7 +165,7 @@ $(document).ready(function() {
     	$.mobile.hidePageLoadingMsg();
     	if(resError == 'Email not valid'){
     		sessionToken = "-1";
-    		displayError('Bruker har ikke @nith.no mail');    		
+    		displayError('Bruker har ikke @nith.no mail, logg ut og inn igjen');    		
     		
     	} else {
     		displayError('Vennligst logg inn med en NITH e-postadresse');    		

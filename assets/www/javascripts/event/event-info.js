@@ -1,7 +1,7 @@
 $(document).ready(function() {
   var recursionLevel = 0;
 
-  if (role == 'foo') {
+  if (role == '') {
     $('#edit').css('visibility', 'visible');
     $('#delete').css('visibility', 'visible');
   }
@@ -9,8 +9,8 @@ $(document).ready(function() {
   var eventId = JSON.parse(sessionStorage.getItem('event_id'));
 
   $.ajax({
-    url: address + '/niths/events/' + eventId,
-    type: 'get',
+    url: address + 'events/' + eventId,
+    type: 'GET',
     cache: false,
     success: function(data) {
       displayAttributes(data);
@@ -26,8 +26,8 @@ $(document).ready(function() {
 
   $('#delete').click(function() {
     $.ajax({
-      url: 'http://146.247.157.119:8080/niths/events/' + selectedEvent.id,
-      type: 'delete',
+      url: address + 'events/' + eventId,
+      type: 'DELETE',
       cache: false,
       beforeSend: function(xhr) {
         xhr.setRequestHeader("Authorization", "Basic YWRtaW46bml0aHNfYWRtaW4=");

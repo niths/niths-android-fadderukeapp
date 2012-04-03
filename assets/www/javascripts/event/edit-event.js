@@ -2,23 +2,23 @@ $(document).ready(function() {
   var recursionLevel = 0;
 
   $.ajax({
-      url: address + '/niths/events/'
-          + JSON.parse(sessionStorage.getItem('event_id')),
-      type: 'get',
-      cache: false,
-      success: function(data) {
-        displayEditAttributes(data);
-        updateLists();
-        $('#edit-event').trigger('create');
-      },
-      error: function(xhr) {
-        alert(JSON.stringify(xhr));
-      }
-    }); 
+    url: address + 'events/'
+        + JSON.parse(sessionStorage.getItem('event_id')),
+    type: 'get',
+    cache: false,
+    success: function(data) {
+      displayEditAttributes(data);
+      updateLists();
+      $('#edit-event').trigger('create');
+    },
+    error: function(xhr) {
+      alert(JSON.stringify(xhr));
+    }
+  }); 
 
   $('form').live('submit', function(event) {
     $.ajax({
-      url: address + '/niths/' + findDomainName($(this)),
+      url: address + '/' + findDomainName($(this)),
       type: 'put',
       cache: false,
       contentType: 'application/json',
@@ -79,6 +79,8 @@ $(document).ready(function() {
   }
 
   function updateLists() {
+    alert("refr");
+
     $('#edit-event-attributes-list-0').listview('refresh');
 
     for (var i = 1; i < recursionLevel; i++) {

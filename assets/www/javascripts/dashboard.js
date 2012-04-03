@@ -6,7 +6,7 @@ $(document).ready(function() {
 
   function getEvents() {
     $.ajax({
-      url: address + '/niths/events',
+      url: address + 'events',
       type: 'get',
       cache: false,
       success: function(data) {

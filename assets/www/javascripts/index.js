@@ -4,22 +4,28 @@ $(document).ready(function() {
   var isNITHMail       = false;
   
   $('#error').empty();
-  if (sessionToken == ""){
-	 hideGui();
-  }else{
-	showGui();
-  }
+  toggleBtnText();
 
-  $('#login').click(function() {
+  $('#loginbtn').click(function() {
 	  $.mobile.showPageLoadingMsg();
-    sessionToken = "";
-    studentId = 0;
-	  // TODO Remove
-    //role = 'foo';
-    //$.mobile.changePage('main-menu.html');
-    signIn(); 
+	  if(sessionToken == ""){
+		  sessionToken = "";
+		  studentId = 0;
+		  // TODO Remove
+		  //role = 'foo';
+		  //$.mobile.changePage('main-menu.html');
+		  signIn(); 		  
+	  }else {
+		  studentId = 0;
+		  sessionToken = "";
+	      window.plugins.childBrowser.showWebPage(
+	      'https://accounts.google.com/Logout');
+	  }
   });
 
+  /**
+   * Opens childbrowser with the Google login site
+   */
   function signIn() {
     configureLocationChanged(); //https://voyager.nith.no/sso/signon.php?
     window.plugins.childBrowser.showWebPage(
@@ -32,6 +38,9 @@ $(document).ready(function() {
       { showLocationBar: false});
   };
 
+  /**
+   * This method runs every time Childbrowser changes page
+   */
   function configureLocationChanged() {
     window.plugins.childBrowser.onLocationChange = function(url) {
       console.log(url);
@@ -43,7 +52,9 @@ $(document).ready(function() {
       if (url == callbackURL + '#error=access_denied' + stateURLFragment) {
         displayError('Kunne ikke få tilgang');
         window.plugins.childBrowser.close();
-
+        sessionToken = "";
+        studentId = "";
+        role = "";
       // Triggered if a token is received
       } else if (receiveTokenURL.test(url)) {
 
@@ -55,26 +66,30 @@ $(document).ready(function() {
         window.plugins.childBrowser.close();
         sessionToken = "";
         studentId = "";
+        role = "";
         $('#error').empty();
-       hideGui();
-        $.mobile.hidePageLoadingMsg();
+        toggleBtnText();
       } else{
-    	  $.mobile.hidePageLoadingMsg();
+    	  sessionToken = "";
+          studentId = "";
+          role = "";
+          toggleBtnText();
+    	$.mobile.hidePageLoadingMsg();
       }
     };
   };
   
-  function hideGui(){
-      $('#logout').css('visibility', 'hidden');
-      $('#login').css('visibility', 'visible');
-      $('#menubtn').css('visibility', 'hidden');
-	//  $('#profilebtn').css('visibility', 'hidden');  
-  }
-  function showGui(){
-	  $('#logout').css('visibility', 'visible');
-	  $('#login').css('visibility', 'hidden');
-	  $('#menubtn').css('visibility', 'visible');
-	 // $('#profilebtn').css('visibility', 'visible');
+  function toggleBtnText(){
+	  if(sessionToken == ""){
+			$("#loginbtn .ui-btn-text").text("Logg inn");
+			$('#menubtn').css('visibility', 'hidden');
+		}else{
+			$("#loginbtn .ui-btn-text").text("Logg ut");
+			if(sessionToken != "-1"){
+				$('#menubtn').css('visibility', 'visible');				
+			}
+			
+		}
   }
 
   function displayError(error) {
@@ -87,6 +102,7 @@ $(document).ready(function() {
    */
   
   function checkIfLeader(){
+	  $.mobile.showPageLoadingMsg();
 	  var response;
 	  response = $.ajax({
 			url : address + 'roles/isStudent/'+studentId+'/ROLE_FADDER_LEADER',
@@ -107,6 +123,7 @@ $(document).ready(function() {
 						.stringify(xhr));
 			}
 		});
+	  $.mobile.hidePageLoadingMsg();
   }
 
   function onLoggedIn(token) {
@@ -127,41 +144,37 @@ $(document).ready(function() {
       contentType:"application/json",
       data: '{"token":"'+token+'"}',
       success: function() { //Signed in!
-    	 showGui();
-    	  signedIn = true;
+    	  
     	  sessionToken = loginResponse.getResponseHeader('session-token');
     	  studentId = loginResponse.getResponseHeader('student-id');
-    	  //alert(studentId);
-    	  //alert(sessionToken);
+    	  
     	  checkIfLeader();
+    	  toggleBtnText();
+    	  
     	  $.mobile.hidePageLoadingMsg();
-        $.mobile.changePage('main-menu.html');
+    	  $.mobile.changePage('main-menu.html');
       },
       error: function(xhr, status) { // Signed in failed
-    	  sessionToken = "";
+    	sessionToken = "";
+    	alert('Error: ' + loginResponse.status)
     	var resError = loginResponse.getResponseHeader('error');
     	sessionToken = "";
     	studentId = 0;
-    	//alert(resError);
+    	role = "";
     	$('#error').empty();
     	$.mobile.hidePageLoadingMsg();
     	if(resError == 'Email not valid'){
+    		sessionToken = "-1";
     		displayError('Bruker har ikke @nith.no mail');    		
     		
     	} else {
     		displayError('Vennligst logg inn med en NITH e-postadresse');    		
     		
     	}
-    	hideGui();
+//    	hideGui();
+    	toggleBtnText();
       }
     });
   }
 
-  $('#logout').click(function(event) {
-	  $.mobile.showPageLoadingMsg();
-	  studentId = 0;
-	  sessionToken = "";
-      window.plugins.childBrowser.showWebPage(
-      'https://accounts.google.com/Logout');
-  });
 });

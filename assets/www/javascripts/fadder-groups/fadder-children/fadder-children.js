@@ -1,11 +1,11 @@
 $(document).ready(function() {
+  var fadderGroupId = sessionStorage.getItem('fadder_group_id');
+
   getFadderChildren();
 
   function getFadderChildren() {
     $.ajax({
-      url:        address + 'fadder/' +
-                      sessionStorage.getItem('fadder_group_id') +
-                      '/get-all-children',
+      url:        address + 'fadder/' + fadderGroupId + '/get-all-children',
       type:       'GET',
       cache:      false,
       beforeSend: function(xhr) {
@@ -35,8 +35,15 @@ $(document).ready(function() {
   }
 
   $('#fadder-children-form').live('submit', function() {
-    alert($(this).serialize());
-    //$.mobile.changePage('confirm.html', 'pop', true, true);
+    sessionStorage.setItem('fadder_children_ids', $(this).serialize());
+    $.mobile.changePage('confirm.html', 'pop', true, true);
     return false;
-  })
+  });
+
+  function removeStudentFromFadderGroup(studentId) {
+    $.ajax({
+      url: address + 'fadder/'
+      
+    });
+  }
 });

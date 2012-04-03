@@ -2,9 +2,8 @@ $(document).ready(function() {
   var recursionLevel = 0;
 
   $.ajax({
-    url: address + 'events/'
-        + JSON.parse(sessionStorage.getItem('event_id')),
-    type: 'get',
+    url: address + 'events/'+ sessionStorage.getItem('event_id'),
+    type: 'GET',
     cache: false,
     success: function(data) {
       displayEditAttributes(data);
@@ -19,14 +18,11 @@ $(document).ready(function() {
   $('form').live('submit', function(event) {
     $.ajax({
       url: address + '/' + findDomainName($(this)),
-      type: 'put',
+      type: 'PUT',
       cache: false,
       contentType: 'application/json',
       beforeSend: function(xhr) {
         xhr.setRequestHeader("Authorization", "Basic YWRtaW46bml0aHNfYWRtaW4=");
-      },
-      success: function(data) {
-        history.back();
       },
       data:  JSON.stringify($(this)),
       error: function(xhr) {
@@ -54,20 +50,16 @@ $(document).ready(function() {
   function displayEditAttribute(key, val) {
 
     // If the attribute is the id, do not make it editable
-    var textVal = '<input type="text" class="val" name="' + key + '" value="'
-        + val + '" '+ checkIdConstraint(key) + ' />';
+    var textVal = '<input type="text" name="' + key + '" value="'
+        + val + '" '+ ((key == 'id') ? 'readonly="readonly"' : '') + ' />';
 
     $('#submit-element-' + recursionLevel).before(
         '<li><span class="key">' + key + '</span>' + textVal + '</li>');
   }
 
-  function checkIdConstraint(key) {
-    return (key == 'id') ? 'readonly="readonly"' : '';
-  }
-
   function addSubList(listTitle) {
     $('#container').append(
-        '<form>' +
+        '<form action="event-info.html">' +
           '<ul id="edit-event-attributes-list-' + recursionLevel +
               '" data-role="listview" data-inset="true">' +
             '<li id="key-name" data-role="list-divider">' + listTitle + '</li>' +
@@ -79,11 +71,9 @@ $(document).ready(function() {
   }
 
   function updateLists() {
-    alert("refr");
-
     $('#edit-event-attributes-list-0').listview('refresh');
 
-    for (var i = 1; i < recursionLevel; i++) {
+    for (var i = 1; i <= recursionLevel; i++) {
       $('#edit-event-attributes-list-' + i).listview();
     }
   }

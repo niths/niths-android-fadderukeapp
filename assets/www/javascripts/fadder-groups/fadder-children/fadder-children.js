@@ -34,16 +34,37 @@ $(document).ready(function() {
     }
   }
 
-  $('#fadder-children-form').live('submit', function() {
-    sessionStorage.setItem('fadder_children_ids', $(this).serialize());
-    $.mobile.changePage('confirm.html', 'pop', true, true);
-    return false;
+  $('#radio-delete').click(function() {
+    $('#fadder-children-form').attr('action', 'confirm.html');
   });
 
-  function removeStudentFromFadderGroup(studentId) {
-    $.ajax({
-      url: address + 'fadder/'
-      
-    });
-  }
+  $('#radio-send-email').click(function() {
+    $('#fadder-children-form').attr('action', 'send-email.html');
+  });
+
+  $('#fadder-children-form').live('submit', function() {
+    var vals = $(this).serialize();
+    validateForm();
+
+    return false;
+
+    function validateForm() {
+      var ids = vals.match(/id=\w+/g);
+
+      if (ids != null) {
+        sessionStorage.setItem(
+            'fadder_children_ids',
+            ids.join(',').replace(/id=/g, ''));
+        var method = vals.match(/radio-method=[\w-]+/g).toString().replace(
+            /radio-method=/g, '');
+
+        if (method == 'delete') {
+          $.mobile.changePage('confirm.html', 'pop');
+        } else if (method == 'send-email') {
+          $.mobile.changePage('../fadder-group-info.html');
+        }
+      }
+    }
+    
+  });
 });

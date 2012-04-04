@@ -10,12 +10,23 @@
         <h1>Fadderbarn</h1>
       </header>
       <div id="container" data-role="content">
-        <form id="fadder-children-form" action="fadder-children.html" method="post" name="myform">
+        <form id="fadder-children-form" method="post" name="foo"
+            data-ajax="false">
           <div data-role="fieldcontain">
             <fieldset id="fadder-children-collection" data-role="controlgroup">
             </fieldset>
           </div>
-          <button type="submit">Slett</button>
+          <div data-role="fieldcontain">
+            <fieldset data-role="controlgroup" data-type="horizontal">
+              <input type="radio" id="radio-delete" name="radio-method"
+                  value="delete" />
+              <label for="radio-delete">Slett</label>
+              <input type="radio" id="radio-send-email" name="radio-method"
+                  value="send-email" checked="checked" />
+              <label for="radio-send-email">Send e-post</label>
+            </fieldset>
+          </div>
+          <button type="submit">Utfør</button>
         </form>
       </div>
     </section>

@@ -7,17 +7,23 @@ $(document).ready(function() {
   toggleBtnText();
 
   $('#loginbtn').click(function() {
-	  $.mobile.showPageLoadingMsg();
 	  if(sessionToken == ""){
-		  sessionToken = "";
-		  studentId = 0;
+		
+		  ///////////////FOR TESTING:
 		  // TODO Remove
-		  //role = 'foo';
-		  //$.mobile.changePage('main-menu.html');
-		  signIn(); 		  
+		  role = 'ROLE_FADDER_LEADER';
+		  studentId = 1;
+		  sessionToken = "test-token";
+		  $.mobile.changePage('main-menu.html');
+		  ///////////////////////////
+		  
+//		  studentId = 0;
+//		  role = "";
+//		  signIn(); 		  
 	  }else {
 		  studentId = 0;
 		  sessionToken = "";
+		  role = "";
 	      window.plugins.childBrowser.showWebPage(
 	      'https://accounts.google.com/Logout');
 	  }
@@ -43,8 +49,8 @@ $(document).ready(function() {
    */
   function configureLocationChanged() {
     window.plugins.childBrowser.onLocationChange = function(url) {
-      console.log(url);
-
+//      console.log(url);
+//      alert("OnChange: " + url);
       var receiveTokenURL = new RegExp('^' + callbackURL + '#' +
         stateURLFragment + '&access_token=..*$');
 
@@ -58,7 +64,6 @@ $(document).ready(function() {
       // Triggered if a token is received
       } else if (receiveTokenURL.test(url)) {
 
-          //$.mobile.showPageLoadingMsg();
           window.plugins.childBrowser.close();
           onLoggedIn(url.split('=').splice(2, 1)[0].replace('&token_type', ''));
       // Triggered when a user logs out
@@ -74,7 +79,6 @@ $(document).ready(function() {
           studentId = "";
           role = "";
           toggleBtnText();
-    	$.mobile.hidePageLoadingMsg();
       }
     };
   };
@@ -107,44 +111,45 @@ $(document).ready(function() {
 	  response = $.ajax({
 			url : address + 'roles/isStudent/'+studentId+'/ROLE_FADDER_LEADER',
 			type : 'get',
+			timeout: 2000,
 			cache : false,
-			success : function() {
+			success : function() { //Server responded
 				alert(response.status + '--' +response.getResponseHeader('error'));
-				if(response.status == 200){
+				if(response.status == 200){ //Got role!
 					role = 'ROLE_FADDER_LEADER';
-				}else if (response.status == 204){
+				}else if (response.status == 204){ //Did not have role
 					role = "";
 				}
+				$.mobile.hidePageLoadingMsg();
 			},
-			error : function(xhr) {
-				alert(response.getResponseHeader('error'));
-				
-				alert(JSON
-						.stringify(xhr));
+			error : function(xhr, status) {
+				role = "";
+				if(status == 'timeout'){ //No contact with server
+					$('#error').empty();
+					displayError('Fikk ikke kontakt med serveren'); 
+				}
+				$.mobile.hidePageLoadingMsg();
 			}
 		});
-	  $.mobile.hidePageLoadingMsg();
   }
 
   function onLoggedIn(token) {
-	  
+	  $.mobile.showPageLoadingMsg();
     // TODO Remove before launch
     //alert(token);
     console.log(token);
-
-    
-    
     // Send the token to the server
     // We get the session token in the response header
     // If any error occurred, show error.
     var loginResponse;
     loginResponse = $.ajax({
-      url: address + '/auth/login/',
+      url: address + 'auth/login/',
       type: 'post',
+      timeout: 2000,
       contentType:"application/json",
       data: '{"token":"'+token+'"}',
       success: function() { //Signed in!
-    	  
+    	  alert("Success, signed in");
     	  sessionToken = loginResponse.getResponseHeader('session-token');
     	  studentId = loginResponse.getResponseHeader('student-id');
     	  
@@ -154,27 +159,31 @@ $(document).ready(function() {
     	  $.mobile.hidePageLoadingMsg();
     	  $.mobile.changePage('main-menu.html');
       },
+      // Sign in failed! Server is down,
+      // or user logged in with a non NITH google account
       error: function(xhr, status) { // Signed in failed
-    	sessionToken = "";
-    	alert('Error: ' + loginResponse.status)
+    	resetUserValues();
     	var resError = loginResponse.getResponseHeader('error');
-    	sessionToken = "";
-    	studentId = 0;
-    	role = "";
     	$('#error').empty();
-    	$.mobile.hidePageLoadingMsg();
     	if(resError == 'Email not valid'){
     		sessionToken = "-1";
     		displayError('Bruker har ikke @nith.no mail, logg ut og inn igjen');    		
-    		
-    	} else {
-    		displayError('Vennligst logg inn med en NITH e-postadresse');    		
-    		
+    	} else if (status == 'timeout'){
+    		displayError('Fikk ikke kontakt med serveren, prøv igjen');    		
+    	}else{
+    		displayError('Vennligst logg inn med din NITH konto');    		    		
     	}
-//    	hideGui();
+    	$.mobile.hidePageLoadingMsg();
     	toggleBtnText();
       }
     });
+  }
+  
+  //Resets logged in values
+  function resetUserValues(){
+	  	sessionToken = "";
+  		studentId = 0;
+  		role = "";
   }
 
 });

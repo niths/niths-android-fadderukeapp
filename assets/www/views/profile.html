@@ -1,24 +1,85 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="../stylesheets/index.css" />
 </head>
 <body>
 	<div data-role="page" data-theme="c" id="profile">
-    <script type="text/javascript" charset="utf-8"
-      src="../javascripts/profile.js">
-    </script>
+		<script type="text/javascript" charset="utf-8"
+			src="../javascripts/common/md5.js">
+			
+		</script>
+		<script type="text/javascript" charset="utf-8"
+			src="../javascripts/profile.js">
+			
+		</script>
 
 		<div data-role="header" id="profileHeader" data-theme="c">
 			<h1>Profil</h1>
 			<a href="" data-rel="back" class="ui-btn-right">Back</a>
 		</div>
-		<div data-role="content" id="contentMain">
+		<div data-role="content" id="contentainer">
 		
+		<img id ="profileImg" src="../childbrowser/nith.jpg" class="profilePic"/>
 		
-		
-		Noe innhold
+	<!--		<div align="center"><img id="profileimg" src="../childbrowser/nith.jpg" class="bg"></div>  -->
+
+			<form id="update-person-form" action="">
+				<ul id="update-person-list" data-role="listview" data-inset="true"
+					data-theme="c">
+
+
+					<li><label for="firstName">Fornavn:</label> <input type="text"
+						name="firstName" id="firstName" value="" /></li>
+					<li><label for="lastName">Etternavn:</label> <input
+						type="text" name="lastName" id="lastName" value="" /></li>
+
+
+					<li><label for="tlf">Telefon:</label> <input type="text"
+						name="tlf" id="tlf" value="" /></li>
+					<li>
+						<div data-role="fieldcontain">
+							<select name="slider" id="slider" data-role="slider">
+								<option value="M">Mann</option>
+								<option value="F">Kvinne</option>
+							</select>
+						</div>
+
+					</li>
+					<li><label for="desc">Beskriv deg selv:</label> <textarea
+							cols="40" rows="8" name="desc" id="desc"></textarea></li>
+					<li id="submit">
+						<button type="submit" data-role="button">Oppdater</button>
+					</li>
+				</ul>
+			</form>
+
+
+
+			<!--  		<div data-role="fieldcontain">
+    			<label for="firstName">Fornavn:</label>
+   				<input type="text" name="firstName" id="firstName" value=""  />
+    			<label for="lastName">Etternavn:</label>
+   				<input type="text" name="lastName" id="lastName" value=""  />
+    			
+    			<label for="tlf">Telefon:</label>
+   				<input type="text" name="tlf" id="tlf" value=""  />
+   				
+   				<label for="gender" class="select">Kjønn:</label>
+					<select name="gender" id="gender"  data-native-menu="false">
+					<option value="uni" disabled="disabled" >Velg</option>
+					<option value="male">Mann</option>
+					<option value="female">Kvinne</option>
+				</select>
+				
+   				<label for="desc">Beskriv deg selv:</label>
+				<textarea cols="40" rows="8" name="desc" id="desc"></textarea>
+			</div>	-->
+
+
+			Noe innhold
 		</div>
-		
+
 		<div data-role="footer" id="footerProfile"></div>
 	</div>
 	<!-- profile -->

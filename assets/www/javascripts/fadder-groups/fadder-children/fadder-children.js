@@ -61,10 +61,9 @@ $(document).ready(function() {
         if (method == 'delete') {
           $.mobile.changePage('confirm.html', 'pop');
         } else if (method == 'send-email') {
-          $.mobile.changePage('../fadder-group-info.html');
+          $.mobile.changePage('send-email.html');
         }
       }
     }
-    
   });
 });

@@ -11,14 +11,14 @@ $(document).ready(function() {
 		
 		  ///////////////FOR TESTING:
 		  // TODO Remove
-		  role = 'ROLE_FADDER_LEADER';
-		  studentId = 1;
-		  sessionToken = "test-token";
-		  $.mobile.changePage('main-menu.html');
+//		  role = 'ROLE_FADDER_LEADER';
+//		  studentId = 1;
+//		  sessionToken = "test-token";
+//		  $.mobile.changePage('main-menu.html');
 		  ///////////////////////////
 		  
-//		  resetUserValues();
-//		  signIn(); 		  
+		  resetUserValues();
+		  signIn(); 		  
 	  }else {				//Already signed in
 		  resetUserValues();
 	      window.plugins.childBrowser.showWebPage(

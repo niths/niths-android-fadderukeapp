@@ -7,7 +7,7 @@ $(document).ready(function() {
   toggleBtnText();
 
   $('#loginbtn').click(function() {
-	  if(sessionToken == ""){
+	  if(sessionToken == ""){ //Not signed in
 		
 		  ///////////////FOR TESTING:
 		  // TODO Remove
@@ -17,13 +17,10 @@ $(document).ready(function() {
 		  $.mobile.changePage('main-menu.html');
 		  ///////////////////////////
 		  
-//		  studentId = 0;
-//		  role = "";
+//		  resetUserValues();
 //		  signIn(); 		  
-	  }else {
-		  studentId = 0;
-		  sessionToken = "";
-		  role = "";
+	  }else {				//Already signed in
+		  resetUserValues();
 	      window.plugins.childBrowser.showWebPage(
 	      'https://accounts.google.com/Logout');
 	  }
@@ -50,17 +47,15 @@ $(document).ready(function() {
   function configureLocationChanged() {
     window.plugins.childBrowser.onLocationChange = function(url) {
 //      console.log(url);
-//      alert("OnChange: " + url);
+//    	alert("OnChange: " + url);
       var receiveTokenURL = new RegExp('^' + callbackURL + '#' +
         stateURLFragment + '&access_token=..*$');
 
       // Triggered if the app is denied access
       if (url == callbackURL + '#error=access_denied' + stateURLFragment) {
-        displayError('Kunne ikke fÃ¥ tilgang');
+        displayError('Kunne ikke få tilgang');
         window.plugins.childBrowser.close();
-        sessionToken = "";
-        studentId = "";
-        role = "";
+        resetUserValues();
       // Triggered if a token is received
       } else if (receiveTokenURL.test(url)) {
 
@@ -69,15 +64,11 @@ $(document).ready(function() {
       // Triggered when a user logs out
       } else if (url == 'https://accounts.google.com/Login') {
         window.plugins.childBrowser.close();
-        sessionToken = "";
-        studentId = "";
-        role = "";
+        resetUserValues();
         $('#error').empty();
         toggleBtnText();
       } else{
-    	  sessionToken = "";
-          studentId = "";
-          role = "";
+    	 // resetUserValues();
           toggleBtnText();
       }
     };
@@ -134,6 +125,7 @@ $(document).ready(function() {
   }
 
   function onLoggedIn(token) {
+	  resetUserValues();
 	  $.mobile.showPageLoadingMsg();
     // TODO Remove before launch
     //alert(token);
@@ -162,7 +154,7 @@ $(document).ready(function() {
       // Sign in failed! Server is down,
       // or user logged in with a non NITH google account
       error: function(xhr, status) { // Signed in failed
-    	resetUserValues();
+    	  
     	var resError = loginResponse.getResponseHeader('error');
     	$('#error').empty();
     	if(resError == 'Email not valid'){

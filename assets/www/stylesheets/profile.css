@@ -1,7 +1,16 @@
 
 
 .profilePic{
-	float: right;
+	float: left;
+	width: 100%;
+}
+#upper{
+	text-align: center;
+	width: 100%;
+}
+#downer{
+	text-align: center;
+	font-weight: bold;
 }
 /* #logout { */
 /*   visibility: hidden; */

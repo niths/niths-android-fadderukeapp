@@ -53,7 +53,7 @@ $(document).ready(function() {
 
       // Triggered if the app is denied access
       if (url == callbackURL + '#error=access_denied' + stateURLFragment) {
-        displayError('Kunne ikke få tilgang');
+        displayError('Kunne ikke fï¿½ tilgang');
         window.plugins.childBrowser.close();
         resetUserValues();
       // Triggered if a token is received
@@ -140,7 +140,8 @@ $(document).ready(function() {
       timeout: 2000,
       contentType:"application/json",
       data: '{"token":"'+token+'"}',
-      success: function() { //Signed in!
+      success: function(data) { //Signed in!
+        student = data;
     	  alert("Success, signed in");
     	  sessionToken = loginResponse.getResponseHeader('session-token');
     	  studentId = loginResponse.getResponseHeader('student-id');
@@ -161,7 +162,7 @@ $(document).ready(function() {
     		sessionToken = "-1";
     		displayError('Bruker har ikke @nith.no mail, logg ut og inn igjen');    		
     	} else if (status == 'timeout'){
-    		displayError('Fikk ikke kontakt med serveren, prøv igjen');    		
+    		displayError('Fikk ikke kontakt med serveren, prï¿½v igjen');    		
     	}else{
     		displayError('Vennligst logg inn med din NITH konto');    		    		
     	}

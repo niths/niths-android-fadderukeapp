@@ -1,5 +1,6 @@
 $(document).ready(function() {
   var fadderGroupId = sessionStorage.getItem('fadder_group_id');
+  var fadderChildren = '';
 
   getFadderChildren();
 
@@ -12,7 +13,8 @@ $(document).ready(function() {
         xhr.setRequestHeader("Accept", "application/json");
       },
       success: function(data) {
-        traverseFadderChildren(data);
+        fadderChildren = data;
+        traverseFadderChildren();
         $('input:checkbox').checkboxradio();
       },
       error:   function(xhr) {
@@ -20,15 +22,15 @@ $(document).ready(function() {
       }
     });
 
-    function traverseFadderChildren(fadderChildren) {
+    function traverseFadderChildren() {
       $.each(fadderChildren, function(i, fadderChild) {
         $('#fadder-children-collection').append(
-            '<input type="checkbox" id="' + fadderChild.id + '" name="id"' +
-            'value="' + fadderChild.id + '" />' +
+            '<input type="checkbox" id="' + fadderChild.id +
+              '" name="index" value="' + i + '" />' +
             '<label for="' + fadderChild.id + '">' + 
               fadderChild.firstName + ' ' +
               fadderChild.lastName +
-            '</label>'
+            '</label>' 
         );
       });
     }
@@ -49,12 +51,16 @@ $(document).ready(function() {
     return false;
 
     function validateForm() {
-      var ids = vals.match(/id=\w+/g);
+      var index = vals.match(/index=\w+/g);
 
-      if (ids != null) {
-        sessionStorage.setItem(
-            'fadder_children_ids',
-            ids.join(',').replace(/id=/g, ''));
+      if (index != null) {
+
+        // Replace the index with the given object at that index
+        var objs = index.join(',').replace(/index=/g, '').replace(/(\d+)/g,
+            function(match) { return JSON.stringify(fadderChildren[match]); });
+
+        sessionStorage.setItem('fadder_children_objs', '[' + objs + ']');
+
         var method = vals.match(/radio-method=[\w-]+/g).toString().replace(
             /radio-method=/g, '');
 

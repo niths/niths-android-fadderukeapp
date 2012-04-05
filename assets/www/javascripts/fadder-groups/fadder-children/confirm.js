@@ -1,19 +1,27 @@
 $(document).ready(function() {
+  var fadderChildren = JSON.parse(
+      sessionStorage.getItem('fadder_children_objs'));
+  var ids = '';
+  
+  $.each(fadderChildren, function(i, fadderChild) {
+    ids += fadderChild.id + ',';
+  });
+
   $('#yes').click(function() {
     $.ajax({
+
       // Building the URL describing which students to remove from the group
-      url: address + 'fadder/' + sessionStorage.getItem('fadder_group_id') +
-          '/remove-children/' + sessionStorage.getItem('fadder_children_ids')
-          .replace(/id=/g, '').replace(/&/g, ','),
-      type: 'DELETE',
-      cache: false,
+      url:        address + 'fadder/' + sessionStorage.getItem(
+                    'fadder_group_id') + '/remove-children/' + ids.slice(0, -1),
+      type:         'DELETE',
+      cache:      false,
       beforeSend: function(xhr) {
         xhr.setRequestHeader("Authorization", "Basic YWRtaW46bml0aHNfYWRtaW4=");
       },
-      success: function() {
+      success:    function() {
         history.back();
       },
-      error: function(xhr) {
+      error:      function(xhr) {
         alert(JSON.stringify(xhr));
       }
     });

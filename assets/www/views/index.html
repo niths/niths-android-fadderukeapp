@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>NITHs</title>
+<head>
+
+<title>NITHs</title>
     <link rel="stylesheet" href="../stylesheets/common/jquery-mobile.css"/>
     <link rel="stylesheet" href="../stylesheets/common/application.css"/>
     <link rel="stylesheet" href="../stylesheets/index.css"/>
@@ -27,27 +28,87 @@
     <script type="text/javascript" charset="utf-8"
         src="../javascripts/common/application.js">
     </script>
-    <script type="text/javascript" charset="utf-8"
-      src="../javascripts/index.js">
-    </script>
-  </head>
-  <body>
-    <div data-role="page" data-theme="b">
+<!--     <script type="text/javascript" charset="utf-8" -->
+<!--       src="../javascripts/index.js"> -->
+<!--     </script> -->
 
-      <div data-role="content">
-         <div align="center"><img src="../childbrowser/nith.jpg" class="bg"></div>
-       		 <h2 id="logo">Fadderuke</h2>
-       		  <p id="error"></p>
-         </div>
-		<div data-role="footer" data-position="fixed" data-theme="b" >
-			<a href="main-menu.html"  data-role="button" data-inline="true" id="menubtn" data-icon="home">Meny</a>
-			<a href="" id= "loginbtn" data-role="button" data-inline="true" data-icon="check">Logg inn</a>
+</head>
+<body>
+	<div data-role="page" data-theme="c" id="dashboard-page">
+		<link rel="stylesheet" href="../stylesheets/dash-board.css"/>
+		<script type="text/javascript" charset="utf-8"
+			src="../javascripts/index.js">
+			
+		</script>
+		<script type="text/javascript" charset="utf-8"
+			src="../javascripts/login.js">
+			
+		</script>
 
-		</div>
-
+		<div data-theme="b" data-role="header" data-position="fixed">
+                <h3>FadderUke NITHs</h3>
+                <a href="" id="loginbtn" data-role="button" class="ui-btn-right">Logg inn</a>
+            </div>
+            <div data-role="content">
+            	<div id="tweets">
+            	<ul id ="tweetlist" data-role="listview" class="ui-listview" data-inset="true">
+            	<li data-role="list-divider" id ="tweetdivider" data-theme="b">Siste tweets</li>
+            		
+            		<li class="li-first" id="loader">
+					    <h3>Laster tweets</h3>
+					</li>          	
+            	</ul>
+            	
+            	<div class="ui-grid-a">
+					<div class="ui-block-a">
+						<a href="" data-role="button" data-mini="true" id="reloadtweetbtn" data-inset="true" data-theme="b">Refresh</a>
 	
-    
-         
-    </div>
-  </body>
+						</div>
+						<div class="ui-block-b">
+						<a href="" data-role="button" data-mini="true" id="expandtweetbtn" data-inset="true" data-theme="b">Expand</a>
+				
+						</div>
+					</div><!-- /grid-a -->
+            	
+            	
+            	</div>
+            	
+            	<div id="events">
+            	<ul id ="eventlist" data-role="listview" class="ui-listview" data-inset="true">
+            	<li data-role="list-divider" id ="eventdivider" data-theme="b">Neste events</li>
+            	
+            		<li class="li-first" id="eventloader">
+					    <h3>Laster events</h3>
+					</li>          	
+            	</ul>
+            	<div class="ui-grid-a">
+					<div class="ui-block-a">
+						<a href="program.html" data-role="button" data-mini="true" data-inset="true" data-theme="b">Program</a>
+	
+						</div>
+						<div class="ui-block-b">
+						<a href="" data-role="button" id="groupbtn" data-mini="true" data-inset="true" data-theme="b">Gruppe</a>
+				
+						</div>
+					</div><!-- /grid-a -->
+				
+		
+            	
+            	</div>
+            
+            </div>
+        
+            <div data-theme="b" data-role="footer" data-position="fixed">
+            	<div data-role="navbar">
+            		<ul>
+                		<li><a href="" id="profilebtn">Profil</a></li>
+						<li><a href="fadder-group-info.html">Min gruppe</a></li>
+						<li><a href="#">QR kode</a></li>
+                	</ul>
+            	</div>
+            </div>
+	</div>
+	<!-- profile -->
+
+</body>
 </html>

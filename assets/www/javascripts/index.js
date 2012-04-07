@@ -1,182 +1,133 @@
+
+
 $(document).ready(function() {
-  var callbackURL      = 'http://niths.no/callback';
-  var stateURLFragment = 'state=/profile';
-  var isNITHMail       = false;
-  
-  $('#error').empty();
-  toggleBtnText();
 
-  $('#loginbtn').click(function() {
-	  if(sessionToken == ""){ //Not signed in
-		
-		  ///////////////FOR TESTING:
-		  // TODO Remove
-//		  role = 'ROLE_FADDER_LEADER';
-//		  studentId = 1;
-//		  sessionToken = "test-token";
-//		  $.mobile.changePage('main-menu.html');
-		  ///////////////////////////
-		  
-		  resetUserValues();
-		  signIn(); 		  
-	  }else {				//Already signed in
-		  resetUserValues();
-	      window.plugins.childBrowser.showWebPage(
-	      'https://accounts.google.com/Logout');
-	  }
-  });
+					//alert("startS");
+					var numTweets = 3;
+					init();
+					
+					function init(){
+						loadTweets();
+						loadEvents();
+//						printTweetHeader();
+					}
+					
+					 $('#groupbtn').click(function() {
+						 alert('showgroup - need to be able to get events belonging to a group');
+					 });
+					 
+					 $('#eventlist').click(function() {
+						 alert('eventlist');
+					 });
 
-  /**
-   * Opens childbrowser with the Google login site
-   */
-  function signIn() {
-    configureLocationChanged(); //https://voyager.nith.no/sso/signon.php?
-    window.plugins.childBrowser.showWebPage(
-      'https://accounts.google.com/o/oauth2/auth'
-      + '?scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email'
-      + '&' + stateURLFragment
-      + '&redirect_uri=' + encodeURIComponent(callbackURL)
-      + '&response_type=token'
-      + '&client_id=1064171706637-f9efklqg3tbrmu7fctvk8khvc0dqmh5i.apps.googleusercontent.com',
-      { showLocationBar: false});
-  };
+					 $('#reloadtweetbtn').click(function(data) {
+						 showTweetLoading();
+						 loadTweets();
+					 });
+					 $('#expandtweetbtn').click(function() {
+						 if(numTweets == 3){
+							 numTweets = 10;
+						 }else{
+							 numTweets = 3;
+						 }
+						 showTweetLoading();
+						 loadTweets();
+					 });
+					 
+					 
+					 
+					 /**
+					  * Shows a loading message
+					  */
+					function showTweetLoading(){
+						var html = '<li data-role="list-divider" id ="tweetdivider" data-theme="b">Siste tweets</li>'
+		            		+'<li class="li-first" id="loader"><h3>Laster tweets</h3></li></ul>';
+					    
+					     document.getElementById('tweetlist').innerHTML = html;
+					     $('#tweetlist').listview('refresh');
+					}
+					/**
+					 * Loader tweets, enten 3 eller 10 (numTweets)
+					 * og kaller på printTweets
+					 */
+					function loadTweets(){
+						var response;
+						response = $.ajax({
+							url : 'http://search.twitter.com/search.json?q=%40NITHutdanning&rpp=' + numTweets,
+							type : 'get',
+							cache : false,
+							contentType : 'application/json',
+							timeout : 2000,
+							success : function(data) {
+								printTweets(data);
+							},
+							error : function(xhr, status) {
+//								printTweets2();
+								printErrorTweet();
+							}
+						});
+					}
+					/**
+					 * Loader og skriver ut de tre første events
+					 */
+					function loadEvents(){
+						 $.ajax({
+						      url: address + 'events/paginated/0/3',
+						      type: 'get',
+						      cache: false,
+						      timeout: 2000,
+						      success: function(data) {
+//						    	  var theResults = data.results;
+							        var theHTML = '';
+							        for(var i=0;i<data.length;i++){	
+							        	theHTML += ['<li class="li-first"><a href="">',
+							      		            '<h3>'+data[i].name+'</h3>',
+							      		            '<p><strong>Beskrivelse: </strong>'+data[i].description+'</p>',
+							      		            '<p><strong>Start: </strong>'+data[i].startTime+'</p>',
+							      		            '</a></li>'].join('');
 
-  /**
-   * This method runs every time Childbrowser changes page
-   */
-  function configureLocationChanged() {
-    window.plugins.childBrowser.onLocationChange = function(url) {
-//      console.log(url);
-//    	alert("OnChange: " + url);
-      var receiveTokenURL = new RegExp('^' + callbackURL + '#' +
-        stateURLFragment + '&access_token=..*$');
+							        }
+							        document.getElementById('eventloader').outerHTML = theHTML;
+							        $('#eventlist').listview('refresh');
+						      },
+						      error: function(xhr) {
+						    	  var theHTML = '<li class="li-first"><a href=""><h3>Ikke kontakt med server</h3></a></li>';
+									document.getElementById('eventloader').outerHTML = theHTML;
+							        $('#eventlist').listview('refresh');
+						      }
+						    });
+					}
+					/**
+					 * Skriver ut liste med tweets
+					 */
+					function printTweets(data){
+						var theResults = data.results;
+				        var theHTML = '';
+				        for(var i=0;i<theResults.length;i++){
+				        	theHTML += ['<li class="li-first"><a href="">',
+				      		            '<img src="http://api.twitter.com/1/users/profile_image/'+ theResults[i].from_user +'?size=bigger" />',
+				      		            '<h2>'+theResults[i].from_user+'</h2>',
+				      		            '<p style="white-space:normal">'+theResults[i].text+'</p>',
+				      		            '<p class="ui-li-aside"><strong>'+theResults[i].created_at.substring(17,22)+'</strong></p>',
+				      		            '</a></li>'].join('');
 
-      // Triggered if the app is denied access
-      if (url == callbackURL + '#error=access_denied' + stateURLFragment) {
-        displayError('Kunne ikke fï¿½ tilgang');
-        window.plugins.childBrowser.close();
-        resetUserValues();
-      // Triggered if a token is received
-      } else if (receiveTokenURL.test(url)) {
-
-          window.plugins.childBrowser.close();
-          onLoggedIn(url.split('=').splice(2, 1)[0].replace('&token_type', ''));
-      // Triggered when a user logs out
-      } else if (url == 'https://accounts.google.com/Login') {
-        window.plugins.childBrowser.close();
-        resetUserValues();
-        $('#error').empty();
-        toggleBtnText();
-      } else{
-    	 // resetUserValues();
-          toggleBtnText();
-      }
-    };
-  };
-  
-  function toggleBtnText(){
-	  if(sessionToken == ""){
-			$("#loginbtn .ui-btn-text").text("Logg inn");
-			$('#menubtn').css('visibility', 'hidden');
-		}else{
-			$("#loginbtn .ui-btn-text").text("Logg ut");
-			if(sessionToken != "-1"){
-				$('#menubtn').css('visibility', 'visible');				
-			}
-			
-		}
-  }
-
-  function displayError(error) {
-    $('#logo').after('<p id="error">' + error + '</p>');
-  }
-  
-  /**
-   * Check if a student logging has the role fadder leader
-   * and sets the global variable role
-   */
-  
-  function checkIfLeader(){
-	  $.mobile.showPageLoadingMsg();
-	  var response;
-	  response = $.ajax({
-			url : address + 'roles/isStudent/'+studentId+'/ROLE_FADDER_LEADER',
-			type : 'get',
-			timeout: 2000,
-			cache : false,
-			success : function() { //Server responded
-				alert(response.status + '--' +response.getResponseHeader('error'));
-				if(response.status == 200){ //Got role!
-					role = 'ROLE_FADDER_LEADER';
-				}else if (response.status == 204){ //Did not have role
-					role = "";
-				}
-				$.mobile.hidePageLoadingMsg();
-			},
-			error : function(xhr, status) {
-				role = "";
-				if(status == 'timeout'){ //No contact with server
-					$('#error').empty();
-					displayError('Fikk ikke kontakt med serveren'); 
-				}
-				$.mobile.hidePageLoadingMsg();
-			}
-		});
-  }
-
-  function onLoggedIn(token) {
-	  resetUserValues();
-	  $.mobile.showPageLoadingMsg();
-    // TODO Remove before launch
-    //alert(token);
-    console.log(token);
-    // Send the token to the server
-    // We get the session token in the response header
-    // If any error occurred, show error.
-    var loginResponse;
-    loginResponse = $.ajax({
-      url: address + 'auth/login/',
-      type: 'post',
-      timeout: 2000,
-      contentType:"application/json",
-      data: '{"token":"'+token+'"}',
-      success: function(data) { //Signed in!
-        student = data;
-    	  alert("Success, signed in");
-    	  sessionToken = loginResponse.getResponseHeader('session-token');
-    	  studentId = loginResponse.getResponseHeader('student-id');
-    	  
-    	  checkIfLeader();
-    	  toggleBtnText();
-    	  
-    	  $.mobile.hidePageLoadingMsg();
-    	  $.mobile.changePage('main-menu.html');
-      },
-      // Sign in failed! Server is down,
-      // or user logged in with a non NITH google account
-      error: function(xhr, status) { // Signed in failed
-    	  
-    	var resError = loginResponse.getResponseHeader('error');
-    	$('#error').empty();
-    	if(resError == 'Email not valid'){
-    		sessionToken = "-1";
-    		displayError('Bruker har ikke @nith.no mail, logg ut og inn igjen');    		
-    	} else if (status == 'timeout'){
-    		displayError('Fikk ikke kontakt med serveren, prï¿½v igjen');    		
-    	}else{
-    		displayError('Vennligst logg inn med din NITH konto');    		    		
-    	}
-    	$.mobile.hidePageLoadingMsg();
-    	toggleBtnText();
-      }
-    });
-  }
-  
-  //Resets logged in values
-  function resetUserValues(){
-	  	sessionToken = "";
-  		studentId = 0;
-  		role = "";
-  }
-
-});
+				        }
+				        document.getElementById('loader').outerHTML = theHTML;
+				        $('#tweetlist').listview('refresh');
+				        if(numTweets == 3){
+				        	$("#expandtweetbtn .ui-btn-text").text("Expand");				        	
+				        }else{
+				        	$("#expandtweetbtn .ui-btn-text").text("Collapse");				        	
+				        	
+				        }
+					}
+					
+					/**
+					 * Skriver ut feilmelding og at twitter ikke kunne nås
+					 */
+					function printErrorTweet(){
+						var theHTML = '<li class="li-first"><a href=""><h3>Ikke kontakt med twitter</h3></a></li>';
+						document.getElementById('loader').outerHTML = theHTML;
+				        $('#tweetlist').listview('refresh');
+					}
+				});

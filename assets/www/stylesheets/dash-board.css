@@ -8,7 +8,11 @@
     visibility:hidden;
 }
 
-
+img {
+	padding:15px;
+/*     padding-left: 10px; */
+/*     padding-top:: 10px; */
+}
 
 
 /* .small{ */

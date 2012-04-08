@@ -29,18 +29,20 @@ $(document).ready(function() {
                   $.ajax({
                     url:     address + xhr.getResponseHeader('location'),
                     type:    'GET',
-                    success: function(data) {
+                    complete: function() {
                       $.mobile.hidePageLoadingMsg();
+                    },
+                    success: function(data) {
                       student.fadderGroup = data;
                     },
                     error:   function(xhr) {
-                      $.mobile.hidePageLoadingMsg();
                       alert(JSON.stringify(xhr));
                     }
                   });
                 }
               },
               error:   function(xhr) {
+                $.mobile.hidePageLoadingMsg();
                 alert(JSON.stringify(xhr));
               }
             });

@@ -1,4 +1,7 @@
 $(document).ready(function() {
+  $( "#yourformid" ) .attr( "enctype", "multipart/form-data" ) .attr( "encoding", "multipart/form-data" );
+
+
 
   $('#capture-qr-code').click(function() {
     navigator.camera.getPicture(
@@ -13,10 +16,11 @@ $(document).ready(function() {
             // Send a POST to scan the image and return the id of the
             // corresponding fadder group
             $.ajax({
-              url:     address + 'fadder/scan-qr-code',
-              type:    'POST',
-              data:    imageData,
-              success: function(data, status, xhr) {
+              url:         address + 'fadder/scan-qr-code',
+              type:        'POST',
+              contentType: 'text/plain',
+              data:        imageData,
+              success:     function(data, status, xhr) {
                 getFadderGroup();
 
                 function getFadderGroup() {

@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="../stylesheets/common/jquery-mobile.css"/>
     <link rel="stylesheet" href="../stylesheets/common/application.css"/>
     <link rel="stylesheet" href="../stylesheets/index.css"/>
+    <link rel="stylesheet" href="../stylesheets/jquery.mobile.scrollview.css"/>
     <script type="text/javascript" charset="utf-8"
       src="../javascripts/common/jquery.js"></script>
     <script>
@@ -16,6 +17,22 @@
     <script type="text/javascript" charset="utf-8"
       src="../javascripts/common/jquery-mobile.js">
     </script>
+    
+    <!-- Scrollview -->
+    <script type="text/javascript" charset="utf-8"
+      src="../javascripts/common/jquery.easing.1.3.js">
+    </script>
+    <script type="text/javascript" charset="utf-8"
+      src="../javascripts/common/jquery.mobile.scrollview.js">
+    </script>
+    <script type="text/javascript" charset="utf-8"
+      src="../javascripts/common/scrollview.js">
+    </script>
+	    
+    
+    
+    <!-- Scrollview -->
+    
     <script type="text/javascript" charset="utf-8"
       src="../javascripts/common/jsoauth.js">
     </script>
@@ -35,7 +52,7 @@
 </head>
 <body>
 	<div data-role="page" data-theme="c" id="dashboard-page">
-		<link rel="stylesheet" href="../stylesheets/dash-board.css"/>
+		<link rel="stylesheet" href="../stylesheets/index.css"/>
 		<script type="text/javascript" charset="utf-8"
 			src="../javascripts/index.js">
 			
@@ -45,65 +62,87 @@
 			
 		</script>
 
-		<div data-theme="b" data-role="header" data-position="fixed">
-                <h3>NITHS</h3>
+		<div  data-role="header" data-position="fixed">
                 <a href="" id="loginbtn" data-role="button" class="ui-btn-right">Logg inn</a>
+                <h3>NITHS</h3>
             </div>
-            <div data-role="content">
-            	<div id="tweets">
+            <div data-role="content" data-scroll="y" >
+            
+            
+           	 <div id="events">
+           	 	<h2 class="withborder">Neste events</h2>
+            		<ul id ="eventlist" data-role="listview" class="ui-listview" data-inset="true">
+            			<li class="li-first" id="eventloader">
+					    	<h3>Laster events</h3>
+						</li>          	
+            		</ul>
+            		<div class="listbtns">
+						<a href="" data-role="button" id="resfresheventsbtn" data-icon="refresh" data-inline="true" data-iconpos="notext" >Refresh</a>
+						<a href="program.html" data-role="button" data-icon="calendar" data-iconpos="notext" data-inline="true" >Program</a>
+					</div>
+<!--             		<div class="ui-grid-a"> -->
+<!-- 						<div class="ui-block-a"> -->
+<!-- 							<a href="" data-role="button" id="resfresheventsbtn" data-icon="refresh" data-iconpos="notext" >Refresh</a> -->
+<!-- 						</div> -->
+<!-- 					<div class="ui-block-b"> -->
+<!-- 						<a href="program.html" data-role="button" data-icon="calendar" data-iconpos="notext">Program</a> -->
+<!-- 					</div> -->
+<!-- 				</div>/grid-a -->
+            </div><!-- /events -->
+            
+			<div id="images" >
+				<h2 class="withborder">Siste bilder</h2>
+      			<div data-scroll="x" class="threeByThree">
+					<div class="square"><img src="../images/mm.jpg" /></div>
+					<div class="square"><img src="../images/mm.jpg" /></div>
+					<div class="square"><img src="../images/nith.jpg" /></div>
+					<div class="square"><img src="../images/nith.jpg" /></div>
+					<div class="square"><img src="../images/mm.jpg" /></div>
+					<div class="square"><img src="../images/nith.jpg" /></div>
+				</div><!--End of scrolling div-->
+            </div><!--end images-->
+            
+            <div id="tweets">
+            	<h2 class="withborder">Siste tweets</h2>
             	<ul id ="tweetlist" data-role="listview" class="ui-listview" data-inset="true">
-            	<li data-role="list-divider" id ="tweetdivider" data-theme="b">Siste tweets</li>
             		
             		<li class="li-first" id="loader">
 					    <h3>Laster tweets</h3>
 					</li>          	
             	</ul>
-            	
-            	<div class="ui-grid-a">
-					<div class="ui-block-a">
-						<a href="" data-role="button" data-mini="true" id="refreshtweetbtn" data-inset="true" data-theme="b">Refresh</a>
-	
-						</div>
-						<div class="ui-block-b">
-						<a href="" data-role="button" data-mini="true" id="expandtweetbtn" data-inset="true" data-theme="b">Flere</a>
-				
-						</div>
-					</div><!-- /grid-a -->
-            	
-            	
+            	<div class="listbtns">
+						<a href="" data-role="button" id="refreshtweetbtn" data-icon="refresh" data-iconpos="notext" data-inline="true" >Refresh</a>
+						<a href="" data-role="button" id="expandtweetbtn" data-icon="plus" data-iconpos="notext" data-inline="true">Flere</a>
             	</div>
-            	
-            	<div id="events">
-            	<ul id ="eventlist" data-role="listview" class="ui-listview" data-inset="true">
-            	<li data-role="list-divider" id ="eventdivider" data-theme="b">Neste events</li>
-            	
-            		<li class="li-first" id="eventloader">
-					    <h3>Laster events</h3>
-					</li>          	
-            	</ul>
-            	<div class="ui-grid-a">
-					<div class="ui-block-a">
-						<a href="" data-role="button" id="resfresheventsbtn" data-mini="true" data-inset="true" data-theme="b">Refresh</a>
+<!--             	<div class="ui-grid-a"> -->
+<!-- 					<div class="ui-block-a"> -->
+<!-- 						<a href="" data-role="button" data-mini="true" id="refreshtweetbtn" data-inset="true" >Refresh</a> -->
 	
-						</div>
-						<div class="ui-block-b">
-						<a href="program.html" data-role="button" data-mini="true" data-inset="true" data-theme="b">Program</a>
-				
-						</div>
-					</div><!-- /grid-a -->
-				
-		
+<!-- 					</div> -->
+<!-- 					<div class="ui-block-b"> -->
+<!-- 						<a href="" data-role="button" data-mini="true" id="expandtweetbtn" data-inset="true" >Flere</a> -->
+<!-- 					</div> -->
+<!-- 				</div>/grid-a -->
             	
-            	</div>
+            	
+            </div><!--end tweets-->
+            	
             
+            	<div id="endcontent">
+            		<p><strong>NITH</strong> - Norges Informasjonsteknologiske Høgskole AS <br />
+					<strong>Adr:</strong> Schweigaardsgate 14, 0185 Oslo<br />
+						<strong>Tlf:</strong> 22 05 99 99<br />
+						<strong>Mail:</strong> oslo@nith.no<br />
+				<strong>Kontortid:</strong> 09.00 - 11.30 og 12.00 - 15.00</p>
+            	</div>
             </div>
         
-            <div data-theme="b" data-role="footer" data-position="fixed">
+            <div data-role="footer" data-position="fixed">
             	<div data-role="navbar">
             		<ul>
-                		<li><a href="" id="profilebtn">Profil</a></li>
-						<li><a href="fadder-group-info.html">Min gruppe</a></li>
-						<li><a href="qr-code.html">QR kode</a></li>
+                		<li><a href="" id="profilebtn" data-icon="person" data-iconpos="top">Profil</a></li>
+						<li><a href="fadder-group-info.html" data-icon="star" data-iconpos="top">Min gruppe</a></li>
+						<li><a href="qr-code.html" data-icon="grid" data-iconpos="top">QR kode</a></li>
                 	</ul>
             	</div>
             </div>

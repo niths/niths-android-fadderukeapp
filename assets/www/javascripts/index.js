@@ -1,15 +1,11 @@
-
-
 $(document).ready(function() {
 
-					//alert("startS");
 					var numTweets = 3;
 					init();
 					
 					function init(){
 						loadTweets();
 						loadEvents();
-//						printTweetHeader();
 					}
 					
 					 $('#resfresheventsbtn').click(function() {
@@ -39,8 +35,7 @@ $(document).ready(function() {
 						 * Shows a loading message
 						 */
 						function showEventsLoading(){
-							var theHTML = '<li data-role="list-divider" id ="eventdivider" data-theme="b">Neste events</li>'+
-							'<li class="li-first" id="eventloader">Laster events...</li>';
+							var theHTML = '<li class="li-first" id="eventloader"><h3>Laster events...</h3></li>';
 							$('#eventlist').html(theHTML);
 					        $('#eventlist').listview('refresh');
 							
@@ -51,8 +46,7 @@ $(document).ready(function() {
 					  * Shows a loading message
 					  */
 					function showTweetLoading(){
-						var html = '<li data-role="list-divider" id ="tweetdivider" data-theme="b">Siste tweets</li>'
-		            		+'<li class="li-first" id="loader"><h3>Laster tweets</h3></li></ul>';
+						var html = '<li class="li-first" id="loader"><h3>Laster tweets</h3></li></ul>';
 					     $('#tweetlist').html(html);
 					     $('#tweetlist').listview('refresh');
 					}
@@ -63,7 +57,8 @@ $(document).ready(function() {
 					function loadTweets(){
 						var response;
 						response = $.ajax({
-							url : 'http://search.twitter.com/search.json?q=to%3Anithutdanning&rpp=' + numTweets,
+							url : 'http://search.twitter.com/search.json?q=from%3Anithutdanning&rpp=' + numTweets,
+//							url : 'http://search.twitter.com/search.json?q=to%3Anithutdanning&rpp=' + numTweets,
 							type : 'get',
 							cache : false,
 							contentType : 'application/json',
@@ -72,17 +67,16 @@ $(document).ready(function() {
 								printTweets(data);
 							},
 							error : function(xhr, status) {
-//								printTweets2();
 								printErrorTweet();
 							}
 						});
 					}
 					/**
-					 * Loader og skriver ut de tre første events
+					 * Loader og skriver ut de to første events
 					 */
 					function loadEvents(){
 						 $.ajax({
-						      url: address + 'events/paginated/0/3',
+						      url: address + 'events/paginated/0/2',
 						      type: 'get',
 						      cache: false,
 						      timeout: 2000,
@@ -97,15 +91,11 @@ $(document).ready(function() {
 							      		            '</a></li>'].join('');
 
 							        }
-							        document.getElementById('eventloader').outerHTML = theHTML;
+							        $('#eventlist').html(theHTML);
 							        $('#eventlist').listview('refresh');
 						      },
 						      error: function(xhr) {
-//						    	  var theHTML = '<li class="li-first"><h3>Ikke kontakt med server</h3></li>';
-//									document.getElementById('eventloader').outerHTML = theHTML;
-//							        $('#eventlist').listview('refresh');
-							        var theHTML = '<li data-role="list-divider" id ="eventdivider" data-theme="b">Neste events</li>'+
-									'<li class="li-first" id="eventloader">Ikke kontakt med server...</li>';
+							        var theHTML = '<li class="li-first" id="eventloader"><h3>Ikke kontakt med server...</h3></li>';
 									$('#eventlist').html(theHTML);
 							        $('#eventlist').listview('refresh');
 						      }
@@ -126,12 +116,17 @@ $(document).ready(function() {
 				      		            '</li>'].join('');
 
 				        }
-				        document.getElementById('loader').outerHTML = theHTML;
+				        $('#tweetlist').html(theHTML);
 				        $('#tweetlist').listview('refresh');
+				        
 				        if(numTweets == 3){
-				        	$("#expandtweetbtn .ui-btn-text").text("Flere");				        	
+				        	$('#expandtweetbtn').attr('data-icon','plus');
+				            $('#expandtweetbtn').children().children().next().removeClass('ui-icon-minus').addClass('ui-icon-plus');
+//				        	$("#expandtweetbtn .ui-btn-text").text("Flere");				        	
 				        }else{
-				        	$("#expandtweetbtn .ui-btn-text").text("Færre");				        	
+				        	$('#expandtweetbtn').attr('data-icon','minus');
+				        	$('#expandtweetbtn').children().children().next().removeClass('ui-icon-plus').addClass('ui-icon-minus');
+//				        	$("#expandtweetbtn .ui-btn-text").text("Færre");				        	
 				        	
 				        }
 					}
@@ -140,13 +135,7 @@ $(document).ready(function() {
 					 * Skriver ut feilmelding og at twitter ikke kunne nås
 					 */
 					function printErrorTweet(){
-//						var theHTML = '<li class="li-first"><a href=""><h3>Ikke kontakt med twitter</h3></a></li>';
-//						document.getElementById('loader').outerHTML = theHTML;
-//						var theHTML = '<h3>Ikke kontakt med twitter</h3>';
-//						$('#loader').html(theHTML);
-//					     $('#tweetlist').listview('refresh');
-						var html = '<li data-role="list-divider" id ="tweetdivider" data-theme="b">Siste tweets</li>'
-		            		+'<li class="li-first" id="loader"><h3>Ikke kontakt med twitter</h3></li></ul>';
+						var html = '<li class="li-first" id="loader"><h3>Ikke kontakt med twitter</h3></li></ul>';
 					     $('#tweetlist').html(html);
 				        $('#tweetlist').listview('refresh');
 					}

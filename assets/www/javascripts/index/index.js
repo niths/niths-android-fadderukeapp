@@ -121,12 +121,10 @@ $(document).ready(function() {
 				        
 				        if(numTweets == 3){
 				        	$('#expandtweetbtn').attr('data-icon','plus');
-				            $('#expandtweetbtn').children().children().next().removeClass('ui-icon-minus').addClass('ui-icon-plus');
-//				        	$("#expandtweetbtn .ui-btn-text").text("Flere");				        	
+				            $('#expandtweetbtn').children().children().next().removeClass('ui-icon-minus').addClass('ui-icon-plus');		        	
 				        }else{
 				        	$('#expandtweetbtn').attr('data-icon','minus');
-				        	$('#expandtweetbtn').children().children().next().removeClass('ui-icon-plus').addClass('ui-icon-minus');
-//				        	$("#expandtweetbtn .ui-btn-text").text("Færre");				        	
+				        	$('#expandtweetbtn').children().children().next().removeClass('ui-icon-plus').addClass('ui-icon-minus');				        	
 				        	
 				        }
 					}

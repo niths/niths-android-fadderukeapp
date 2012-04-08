@@ -13,9 +13,12 @@ $(document).ready(function() {
 						 loadEvents();
 					 });
 					 
-					 $('#eventlist').click(function() {
-						 alert('eventlist');
-					 });
+//					 $('#eventlist').click(function(data) {
+//						
+//							 alert(data.target);
+//						 
+//						 $.mobile.changePage('#event-page');
+//					 });
 
 					 $('#refreshtweetbtn').click(function(data) {
 						 showTweetLoading();
@@ -84,7 +87,7 @@ $(document).ready(function() {
 //						    	  var theResults = data.results;
 							        var theHTML = '';
 							        for(var i=0;i<data.length;i++){	
-							        	theHTML += ['<li class="li-first"><a href="">',
+							        	theHTML += ['<li class="li-first"><a href="#event-page?event-id='+data[i].id+'">',
 							      		            '<h3>'+data[i].name+'</h3>',
 							      		            '<p><strong>Beskrivelse: </strong>'+data[i].description+'</p>',
 							      		            '<p><strong>Start: </strong>'+data[i].startTime+'</p>',

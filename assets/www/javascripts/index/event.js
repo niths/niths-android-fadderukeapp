@@ -27,13 +27,16 @@ function loadEvents(eventId){
 	      success: function(data) {
 
 		        $('#eventname').html(data.name);
-		        $('#eventdesc').html('<strong>Hva: </strong>' + data.description);
-		        $('#starttime').html('<strong>Start: </strong>' + data.startTime);
-		        $('#endtime').html('<strong>Slutt: </strong>' + data.endTime);
+		        $('#eventdesc').html(data.description);
+		        $('#eventtime').html('<strong>' + data.startTime.substring(0,5) + ' ' + data.startTime.substring(11,16)+' - ' + data.endTime.substring(11,16) +'</strong>');
+		        
+		        var url = 'http://maps.googleapis.com/maps/api/staticmap?center='+data.location.latitude+','+data.location.longitude+'&maptype=roadmap&markers=color:blue%7Clabel:X%7C'+data.location.latitude+','+data.location.longitude+'&amp;zoom=6&amp;size='+($(window).width()-30)+'x150&amp;sensor=false';
+		        $('#map').html('<img alt="" src="' + url + '"/>');
  
 	      },
 	      error: function(xhr) {
 	    	  $('#eventinfo').html('Fikk ikke kontakt med serveren');
 	      }
 	    });
+	 
 }

@@ -81,7 +81,7 @@
             		</ul>
             		<div class="listbtns">
 						<a href="" data-role="button" id="resfresheventsbtn" data-icon="refresh" data-inline="true" data-iconpos="notext" >Refresh</a>
-						<a href="program.html" data-role="button" data-icon="calendar" data-iconpos="notext" data-inline="true" >Program</a>
+						<a href="#program" data-role="button" data-icon="calendar" data-iconpos="notext" data-inline="true" >Program</a>
 					</div>
             </div><!-- /events -->
             
@@ -141,25 +141,49 @@
 	<div data-role="header" data-position="fixed" data-theme="b">
                 <a href="#"  data-role="button" data-rel="back" class="ui-btn-right">Back</a>
         	<h3>EVENT</h3>
+                <a href="#program"  data-role="button" class="ui-btn-left">Program</a>
      </div>
             
      <div data-role="content" data-scroll="y" >
      	<div id="singleevent">
      		<input type="hidden" name="event_id" id="event_id" value="5" />
-     		<h2 class="withborder" id="eventname" >Event</h2>
      		<div id ="eventinfo">
-     			<p id="eventdesc"><strong>Hva: </strong>Beskrivelse</p>
-     			<p id = "starttime"><strong>Starter: </strong>1/12 12:20</p>
-     			<p id = "endtime"><strong>Slutter: </strong>1/12 12:20</p>
-     			<p id = "location"><strong>Hvor: </strong></p>
-     			KART HER
+     			<h2 class="withborder" id="eventname" >Event</h2>
+     			<p id = "eventtime"></p>
+     			<p id="eventdesc"></p>
+     			<div id = "map"></div>
      		</div>
+     		
      	</div><!-- /singleevent -->
             	
     </div> <!-- content -->
         
 	
 	</div><!-- event-page -->
+	
+	
+	<div data-role="page" id="program">
+<!-- 		<script type="text/javascript" charset="utf-8" -->
+<!-- 			src="../javascripts/index/event.js"> -->
+<!-- 		</script> -->
+	
+	<div data-role="header" data-position="fixed" data-theme="b">
+                <a href="#"  data-role="button" data-rel="back" class="ui-btn-right">Back</a>
+        	<h3>PROGRAM</h3>
+     </div>
+            
+     <div data-role="content" data-scroll="y" >
+     	<div id="programlist">
+     			<h2 class="withborder">Program</h2>
+     			<p>Trenger metoder for å hente ut events innenfor et visst tidsrom</p>
+     			<p>Hente ut for de fem neste dagene og skrive disse ut</p>
+     		
+     	</div><!-- /programlist-->
+            	
+    </div> <!-- content -->
+        
+	
+	</div><!-- program -->
 
 </body>
 </html>

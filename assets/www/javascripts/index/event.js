@@ -12,8 +12,6 @@ $(document).bind( "pagebeforechange", function( e, data ) {
 				var id = split[1];
 				loadEvents(id);
 			}
-		}else{
-			//e.preventDefault();
 		}
 		
 	}

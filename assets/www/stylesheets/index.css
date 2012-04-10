@@ -1,7 +1,83 @@
-#logo {
-  text-align: center;
+
+
+.li-first .ui-btn-text {
+    text-align:left;
 }
 
-#logout {
-  visibility: hidden;
+.li-first .ui-icon {
+    visibility:hidden;
 }
+
+
+#tweetlist img {
+	padding:15px;
+}
+
+
+#eventtime{
+	text-align:right;
+}
+
+
+.ui-content.ui-scrollview-clip {
+                                    padding: 0;
+                        }
+                        .ui-content.ui-scrollview-clip > div.ui-scrollview-view {
+                                    margin: 0;
+                                    padding: 15px;
+                        }
+                        .ui-content.ui-scrollview-clip > .ui-listview.ui-scrollview-view {
+                                    margin: 0;
+                        }
+                        .square {
+                                    max-width: 150px;
+                                    max-height: 150px;
+                                    text-align: center;
+                                    margin:6px;
+                        }
+                        .square img{
+                                    max-width: 145px;
+                                    min-height: 145px;
+                        }
+                        
+                        .ui-scrollview-clip .ui-scrollview-clip .square {
+/*                                     background-color: #3CF; */
+                        }
+                        .ui-scrollview-clip .ui-scrollview-clip .ui-scrollview-clip .square {
+/*                                     background-color: #F39; */
+                        }
+                        .ui-scrollview-clip .ui-scrollview-clip .ui-scrollview-clip .ui-scrollview-clip .square {
+/*                                     background-color: #0F6; */
+                        }
+                        .ui-scrollview-clip .ui-scrollview-clip .ui-scrollview-clip .ui-scrollview-clip .ui-scrollview-clip .square {
+/*                                     background-color: #FF6; */
+                        } 
+
+                        .threeByThree {
+/*         							border-top: dotted 2px black; */
+/*         							border-bottom: dotted 2px black; */
+        							padding: 10px;
+                                    overflow: hidden;
+                        }                        
+                        .vertical {
+/*                                     border: solid 1px black; */
+                                    overflow: hidden;
+                        }
+                        .threeByThree > .ui-scrollview-view {
+                                    width: 1000px;
+                        }
+                        .threeByThree .square {
+                                    float: left;
+                        }
+                        
+                        
+                        
+                    
+                        #endcontent{
+                        border-top: dotted 2px black;
+                        	margin-top:50px;
+                        	font-size:70%;
+                        }
+                        
+                        
+           

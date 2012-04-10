@@ -67,7 +67,7 @@ $("#profile-page").live('pageinit', function() {
 			type : 'get',
 			cache : false,
 			contentType : 'application/json',
-			timeout : 2000,
+			timeout : 3000,
 			beforeSend : function(xhr) {
 				xhr.setRequestHeader("Authorization","Basic YWRtaW46bml0aHNfYWRtaW4=");
 			},
@@ -97,7 +97,7 @@ function getGroup() {
 		type : 'get',
 		cache : false,
 		contentType : 'application/json',
-		timeout : 2000,
+		timeout : 3000,
 		beforeSend : function(xhr) {
 			xhr.setRequestHeader("Authorization","Basic YWRtaW46bml0aHNfYWRtaW4=");
 		},

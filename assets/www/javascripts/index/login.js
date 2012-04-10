@@ -13,10 +13,8 @@ $(document).ready(function() {
 //		  role = 'ROLE_FADDER_LEADER';
 //		  studentId = 3;
 //		  sessionToken = "test-token";
-////		  $.mobile.changePage('main-page.html');
-//		  $.mobile.changePage('dash-board.html');
 		  ///////////////////////////
-		  //alert("hei");
+		  
 		  resetUserValues();
 		  signIn(); 		  
 	  }else {				//Already signed in
@@ -113,7 +111,7 @@ $(document).ready(function() {
 	  response = $.ajax({
 			url : address + 'roles/isStudent/'+studentId+'/ROLE_FADDER_LEADER',
 			type : 'get',
-			timeout: 2000,
+			timeout: 3000,
 			cache : false,
 			success : function() { //Server responded
 				alert(response.status + '--' +response.getResponseHeader('error'));
@@ -145,7 +143,7 @@ $(document).ready(function() {
 	  loginResponse = $.ajax({
 		  url: address + 'auth/login/',
 		  type: 'post',
-		  timeout: 5000,
+		  timeout: 3000,
 		  contentType:"application/json",
 		  data: '{"token":"'+token+'"}',
 		  	success: function(data) { //Signed in!

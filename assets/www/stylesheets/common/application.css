@@ -34,6 +34,7 @@
 }
 
 .bottomborder {
+	margin-bottom:15px;
 	border-bottom: dotted 2px black;
 }
 

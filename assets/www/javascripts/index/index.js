@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$("#dashboard-page").live('pageinit', function() {
 
 					var numTweets = 3;
 					init();

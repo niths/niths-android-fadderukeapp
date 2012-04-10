@@ -4,7 +4,7 @@ $(document).ready(function() {
 					init();
 					
 					function init(){
-						loadTweets();
+						loadTweets(); 
 						loadEvents();
 					}
 					
@@ -55,7 +55,7 @@ $(document).ready(function() {
 					}
 					/**
 					 * Loader tweets, enten 3 eller 10 (numTweets)
-					 * og kaller på printTweets
+					 * og kaller pï¿½ printTweets
 					 */
 					function loadTweets(){
 						var response;
@@ -75,7 +75,7 @@ $(document).ready(function() {
 						});
 					}
 					/**
-					 * Loader og skriver ut de to første events
+					 * Loader og skriver ut de to fï¿½rste events
 					 */
 					function loadEvents(){
 						 $.ajax({
@@ -133,7 +133,7 @@ $(document).ready(function() {
 					}
 					
 					/**
-					 * Skriver ut feilmelding og at twitter ikke kunne nås
+					 * Skriver ut feilmelding og at twitter ikke kunne nï¿½s
 					 */
 					function printErrorTweet(){
 						var html = '<li class="li-first" id="loader"><h3>Ikke kontakt med twitter</h3></li></ul>';

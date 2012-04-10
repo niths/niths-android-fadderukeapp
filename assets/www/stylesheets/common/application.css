@@ -8,7 +8,7 @@
 
 }
 
-.ui-btn-active { color: none !important; background: none !important; background-color: none !important;  }
+.ui-btn-active { color: none !important; background: none !important; background-color: #00ADEF !important;  }
 
 @font-face {
 	font-family: header_font;
@@ -23,6 +23,18 @@
 	border-bottom: dotted 2px black;
 	padding-top:20px;
 	padding-bottom:14px;
+}
+
+.dividerwithborder{
+	padding-top:12px;
+	padding-bottom:10px;
+	margin-bottom:10px;
+	border-bottom: dotted 2px black;	
+	border-top: dotted 2px black;	
+}
+
+.bottomborder {
+	border-bottom: dotted 2px black;
 }
 
 

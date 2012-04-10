@@ -81,7 +81,7 @@
             		</ul>
             		<div class="listbtns">
 						<a href="" data-role="button" id="resfresheventsbtn" data-icon="refresh" data-inline="true" data-iconpos="notext" >Refresh</a>
-						<a href="#program" data-role="button" data-icon="calendar" data-iconpos="notext" data-inline="true" >Program</a>
+						<a href="#program-page" data-role="button" data-icon="calendar" data-iconpos="notext" data-inline="true" >Program</a>
 					</div>
             </div><!-- /events -->
             
@@ -141,7 +141,7 @@
 	<div data-role="header" data-position="fixed" data-theme="b">
                 <a href="#"  data-role="button" data-rel="back" class="ui-btn-right">Back</a>
         	<h3>EVENT</h3>
-                <a href="#program"  data-role="button" class="ui-btn-left">Program</a>
+                <a href="#program-page"  data-role="button" class="ui-btn-left">Program</a>
      </div>
             
      <div data-role="content" data-scroll="y" >
@@ -162,10 +162,10 @@
 	</div><!-- event-page -->
 	
 	
-	<div data-role="page" id="program">
-<!-- 		<script type="text/javascript" charset="utf-8" -->
-<!-- 			src="../javascripts/index/event.js"> -->
-<!-- 		</script> -->
+	<div data-role="page" id="program-page">
+		<script type="text/javascript" charset="utf-8"
+			src="../javascripts/index/program.js">
+ 		</script>
 	
 	<div data-role="header" data-position="fixed" data-theme="b">
                 <a href="#"  data-role="button" data-rel="back" class="ui-btn-right">Back</a>
@@ -175,8 +175,17 @@
      <div data-role="content" data-scroll="y" >
      	<div id="programlist">
      			<h2 class="withborder">Program</h2>
-     			<p>Trenger metoder for å hente ut events innenfor et visst tidsrom</p>
-     			<p>Hente ut for de fem neste dagene og skrive disse ut</p>
+     			
+            	<ul id ="eventlist" data-role="listview" class="ui-listview" data-inset="true">
+            		
+            		<li class="li-first" id="loader">
+					    <h3>Laster events</h3>
+					</li>          	
+            	</ul>
+<!--             	<div class="listbtns"> -->
+<!-- 						<a href="" data-role="button" id="refreshtweetbtn" data-icon="refresh" data-iconpos="notext" data-inline="true" >Refresh</a> -->
+<!-- 						<a href="" data-role="button" id="expandtweetbtn" data-icon="plus" data-iconpos="notext" data-inline="true">Flere</a> -->
+<!--             	</div> -->
      		
      	</div><!-- /programlist-->
             	

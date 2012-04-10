@@ -1,91 +1,77 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="../stylesheets/profile.css" />
 </head>
 <body>
-	<div data-role="page" data-theme="c" id="profile">
+	<div data-role="page" data-theme="c" id="profile-page">
 	
+		<link rel="stylesheet" href="../stylesheets/profile.css" />
 		<script type="text/javascript" charset="utf-8"
 			src="../javascripts/common/md5.js">
 		</script>
 		
 		<script type="text/javascript" charset="utf-8"
-			src="../javascripts/profile.js">
-			
-		</script>
+			src="../javascripts/profile.js">	
+ 		</script>
 
-		<div data-role="header" id="profileHeader" data-theme="b">
-			<h1>Profil</h1>
-			<a href="index.html"  class="ui-btn-right">Back</a>
+		<div data-role="header" data-position="fixed" data-theme="b">
+			<a href="#"  data-role="button" data-rel="back" class="ui-btn-right">Back</a>
+			<h3>PROFIL</h3>
 		</div>
+		
 		<div data-role="content" id="container">
-		
-		<div class="ui-grid-a">
-			<div class="ui-block-a"><img id ="profileImg" src="../images/mm.jpg" class="profilePic"/>
-			</div>
-			<div class="ui-block-b">
-				<div id="upper">Faddergruppe:</div>
-				<div id="downer">0</div>
-			</div>
-		</div><!-- /grid-a -->
-		
-	<!--		<div align="center"><img id="profileimg" src="../childbrowser/nith.jpg" class="bg"></div>  -->
+			<div class="dividerwithborder">
+				<img id ="profileImg" src="../images/mm.jpg" />
+				<div id="faddergroup">Faddergruppe:</div>
+			</div><!-- /top -->
 
 			<form id="update-person-form">
-				<ul id="update-person-list" data-role="listview" data-inset="true">
-
-
-					<li data-role="list-divider">Profil</li>
-					<li>
-						<input id="id" name="id" type="hidden" value="" />
+<!-- 						<input id="id" name="id" type="hidden" value="" /> -->
 						<div class="ui-hide-label">
 							<label for="firstName">Fornavn:</label> 
 							<input type="text" name="firstName" id="firstName" value="" placeholder="Fornavn" />
 						</div>
-					</li>
-					
-					
-					
-					<li>
+
 						<div class="ui-hide-label">
 							<label for="lastName">Etternavn:</label> 
 							<input type="text" name="lastName" id="lastName" value="" placeholder="Etternavn" />
 						</div>
-					</li>
 
-
-					<li>
 						<div  class="ui-hide-label">
 							<label for="telephoneNumber">Telefon:</label> 
 							<input type="text" name="telephoneNumber" id="telephoneNumber" value="" placeholder="Telefon" />
 						</div>
-					</li>
-					<li>
-						<div class="ui-hide-label">
-							<select name="gender" id="gender" data-role="slider">
-								<option value="M">Mann</option>
-								<option value="F">Kvinne</option>
-							</select>
-						</div>
-
-					</li>
-					<li>
+						
 						<div class="ui-hide-label">
 							<label for="description">Beskriv deg selv:</label>
 							<textarea cols="40" rows="8" name="description" id="description" placeholder="Beskriv deg selv..."></textarea>
-						</div>		
-					</li>
-					<li id="submit">
-						<button type="submit" if="submit" data-role="button">Oppdater</button>
-					</li>
-				</ul>
-			</form>
-		</div>
+						</div>	
 
-		<div data-role="footer" id="footerProfile"></div>
-	</div>
-	<!-- profile -->
+						<div id="genderradio" >
+							<fieldset data-role="controlgroup" data-mini="true" data-type="horizontal" >
+								<input type="radio" name="gender" id="female" value="F" />
+								<label for="female">Kvinne</label>
+								<input type="radio" name="gender" id="male" value="M" />
+								<label for="male">Mann</label>
+							</fieldset>
+						</div>
+						<div class="bottomborder"></div>
+						
+						
+<!-- 							<select name="gender" id="gender" data-role="slider"> -->
+<!-- 								<option value="M">Mann</option> -->
+<!-- 								<option value="F">Kvinne</option> -->
+<!-- 							</select> -->
+
+							
+
+						<button type="submit" id="profilesubmit" data-role="button">Oppdater</button>
+
+			</form>
+		</div><!-- Content -->
+
+	</div> 	<!-- page -->
+
 
 </body>
 </html>

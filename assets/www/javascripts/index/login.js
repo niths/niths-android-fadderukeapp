@@ -8,7 +8,6 @@ $(document).ready(function() {
 
   $('#loginbtn').click(function() {
 	  if(sessionToken == ""){ //Not signed in
-		
 		  ///////////////FOR TESTING:
 		  // TODO Remove
 //		  role = 'ROLE_FADDER_LEADER';
@@ -32,7 +31,8 @@ $(document).ready(function() {
 			 alert("Vennligst logg inn");
 			 resetUserValues();
 			 signIn(); 
-		 }else if(sessionToken  != "-1"){
+		 }
+		 else if(sessionToken  != "-1"){ //Sign is succeeded, but not NITH mail: = -1;
 			 $.mobile.changePage('profile.html');
 		 }
 	 });
@@ -108,7 +108,7 @@ $(document).ready(function() {
    */
   
   function checkIfLeader(){
-	  $.mobile.showPageLoadingMsg();
+	 $.mobile.showPageLoadingMsg();
 	  var response;
 	  response = $.ajax({
 			url : address + 'roles/isStudent/'+studentId+'/ROLE_FADDER_LEADER',
@@ -161,24 +161,23 @@ $(document).ready(function() {
     	  toggleBtnText();
     	  
     	  $.mobile.hidePageLoadingMsg();
-//    	  $.mobile.changePage('main-menu.html');
       },
       // Sign in failed! Server is down,
       // or user logged in with a non NITH google account
       error: function(xhr, status) { // Signed in failed
     	  
     	var resError = loginResponse.getResponseHeader('error');
-    	$('#error').empty();
+    	//$('#error').empty();
     	if(resError == 'Email not valid'){
     		sessionToken = "-1";
     		alert('Bruker har ikke @nith.no mail, logg ut og inn igjen');    		
     	} else if (status == 'timeout'){
-    		alert('Fikk ikke kontakt med serveren, pr�v igjen');    		
+    		alert('Fikk ikke kontakt med serveren, logg inn igjen');    		
     	}else{
-    		alert('Vennligst logg inn med din NITH konto');    		    		
+    		alert('En feil skjedde, vennligst logg inn igjen');    		    		
     	}
-    	$.mobile.hidePageLoadingMsg();
     	toggleBtnText();
+    	$.mobile.hidePageLoadingMsg();
       }
     });
   }

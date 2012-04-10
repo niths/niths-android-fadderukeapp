@@ -1,17 +1,16 @@
 
 
-.profilePic{
+#profileImgc{
 	float: left;
-	width: 100%;
 }
-#upper{
-	text-align: center;
-	width: 100%;
+#faddergroup{
+	float:right;
 }
-#downer{
-	text-align: center;
-	font-weight: bold;
+
+#profilesubmit{
+	margin-top:10px;
 }
+
 /* #logout { */
 /*   visibility: hidden; */
 /* } */

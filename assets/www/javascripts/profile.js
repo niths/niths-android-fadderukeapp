@@ -1,16 +1,22 @@
-$(document).ready(function() {
-	$.mobile.showPageLoadingMsg();
-	userEmail = "";
+$("#profile-page").live('pageinit', function() {
 	if (studentId < 1) {
-		$.mobile.changePage('index.html');
+		history.back();
+		return false;
 	} else {
+		init();
+	}
+});
+
+
+
+	
+	function init(){
+		userEmail = "";
 		getUser();
 		getGroup();
-		$.mobile.hidePageLoadingMsg();
 	}
 	
-	$.fn.serializeObject = function()
-	{
+	$.fn.serializeObject = function(){
 	    var o = {};
 	    var a = this.serializeArray();
 	    $.each(a, function() {
@@ -26,7 +32,7 @@ $(document).ready(function() {
 	    return o;
 	};
 	
-	  $('#submit').click(function() {
+	  $('#profilesubmit').click(function() {
 		  var response;
 		  response = $.ajax({
 		      url: address + 'students',
@@ -74,14 +80,16 @@ $(document).ready(function() {
 						if (status == 'timeout') {
 							alert("Greier ikke koble til server");
 						} else {
-							alert(status);
+							alert("Feil med server, vennligst gjenta");
 						}
-						$.mobile.changePage('main-menu.html');
+						history.back();
+						return false;
+//						$.mobile.changePage('index.html');
 						// alert(JSON.stringify(xhr));
 					}
 				});
 			}
-		});
+		
 function getGroup() {
 	var response;
 	response = $.ajax({
@@ -95,16 +103,16 @@ function getGroup() {
 		},
 		success : function(data) {
 			if(response.status == 200){
-				alert("Din gruppe: " + response.responseText);
-				$('#downer').text(response.responseText);
+				//alert("Din gruppe: " + response.responseText);
+				$('#faddergroup').html(response.responseText);
 			} else{
-				$('#downer').text("Ingen gruppe");
-				alert("Du har ingen faddergruppe");
+				$('#faddergroup').html("Ingen faddergruppe");
+				//alert("Du har ingen faddergruppe");
 			}
 
 		},
 		error : function(xhr, status) {
-				alert(status);
+				alert("Greide ikke hente gruppe");
 		}
 	});
 }
@@ -125,14 +133,16 @@ function getGroup() {
 				} else if(attribute == "description"){
 					$('#description').val(data[attribute]);
 				} else if(attribute == "gender"){
-					
-					var myselect = $("select#gender");
+//					$("input[type='radio']").prop("checked",true).checkboxradio("refresh");
+//					var myselect = $("select#gender");
 					if(data[attribute] == 'M'){
-						myselect[0].selectedIndex = 0;
+						//alert("Male");
+						$("input[value=M]").attr('checked',true).checkboxradio('refresh');
 					}else if (data[attribute] == 'F'){
-						myselect[0].selectedIndex = 1;				
+						//alert("feMale");
+						$("input[value=F]").attr('checked',true).checkboxradio('refresh');			
 					}
-					myselect.slider("refresh")
+//					myselect.slider("refresh")
 				} else if (attribute == 'email'){
 					userEmail = hex_md5(data[attribute]);
 				} else if (attribute == 'id'){
@@ -141,3 +151,4 @@ function getGroup() {
 			}
 		}
 	}
+//});

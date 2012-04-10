@@ -1,57 +1,31 @@
 $(document).ready(function() {
-  $( "#yourformid" ) .attr( "enctype", "multipart/form-data" ) .attr( "encoding", "multipart/form-data" );
-
-
 
   $('#capture-qr-code').click(function() {
-    navigator.camera.getPicture(
+    navigator.camera.getPicture(uploadPhoto,
+        function(message) { alert('get picture failed'); },
+        { quality: 50, 
+        destinationType: navigator.camera.DestinationType.FILE_URI }
+        );
 
-        function(imageData) {
-          console.log(imageData);
-          $.mobile.showPageLoadingMsg();
-          scanImage();
 
-          function scanImage() {
+function uploadPhoto(imageURI) {
+var options = new FileUploadOptions();
+options.fileKey="file";
+options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
+options.mimeType="image/jpeg";
 
-            // Send a POST to scan the image and return the id of the
-            // corresponding fadder group
-            $.ajax({
-              url:         address + 'fadder/scan-qr-code',
-              type:        'POST',
-              contentType: 'text/plain',
-              data:        imageData,
-              success:     function(data, status, xhr) {
-                getFadderGroup();
+var ft = new FileTransfer();
+ft.upload(imageURI, address + 'fadder/scan-qr-code', win, fail, options);
+}
 
-                function getFadderGroup() {
+function win(r) {
+console.log("Code = " + r.responseCode);
+console.log("Response = " + r.response);
+console.log("Sent = " + r.bytesSent);
+}
 
-                  // Get the fadder group based on the id
-                  $.ajax({
-                    url:     address + xhr.getResponseHeader('location'),
-                    type:    'GET',
-                    complete: function() {
-                      $.mobile.hidePageLoadingMsg();
-                    },
-                    success: function(data) {
-                      student.fadderGroup = data;
-                    },
-                    error:   function(xhr) {
-                      alert(JSON.stringify(xhr));
-                    }
-                  });
-                }
-              },
-              error:   function(xhr) {
-                $.mobile.hidePageLoadingMsg();
-                alert(JSON.stringify(xhr));
-              }
-            });
-          }
-        },
-        function(error) {
-          alert(error);
-        }
-        , { quality: 50, destinationType : Camera.DestinationType.DATA_URL }
-    );
+function fail(error) {
+alert("An error has occurred: Code = " = error.code);
+}
   });
 });

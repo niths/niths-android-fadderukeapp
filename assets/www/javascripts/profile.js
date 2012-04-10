@@ -1,4 +1,6 @@
+
 $("#profile-page").live('pageinit', function() {
+	//alert("pageinit");
 	if (studentId < 1) {
 		history.back();
 		return false;

@@ -10,15 +10,15 @@ $(document).ready(function() {
 	  if(sessionToken == ""){ //Not signed in
 		  ///////////////FOR TESTING:
 		  // TODO Remove
-//		  role = 'ROLE_FADDER_LEADER';
-//		  studentId = 1;
-//		  sessionToken = "test-token";
+		  role = 'ROLE_FADDER_LEADER';
+		  studentId = 3;
+		  sessionToken = "test-token";
 ////		  $.mobile.changePage('main-page.html');
 //		  $.mobile.changePage('dash-board.html');
 		  ///////////////////////////
 		  //alert("hei");
-		  resetUserValues();
-		  signIn(); 		  
+//		  resetUserValues();
+//		  signIn(); 		  
 	  }else {				//Already signed in
 		  resetUserValues();
 	      window.plugins.childBrowser.showWebPage(

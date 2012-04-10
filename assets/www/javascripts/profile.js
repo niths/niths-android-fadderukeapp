@@ -103,10 +103,15 @@ function getGroup() {
 		},
 		success : function(data) {
 			if(response.status == 200){
+				for (obj in data){
+					if(obj == 'groupNumber'){
+						$('#faddergroup').html(data[obj]);
+					}
+				}
 				//alert("Din gruppe: " + response.responseText);
-				$('#faddergroup').html(response.responseText);
+				
 			} else{
-				$('#faddergroup').html("Ingen faddergruppe");
+				$('#faddergroup').html("Ingen");
 				//alert("Du har ingen faddergruppe");
 			}
 

@@ -4,11 +4,21 @@
 	float: left;
 }
 #faddergroup{
-	float:right;
+	text-align:center;
 }
 
 #update-person-form{
 	padding-top:3px;
+}
+
+#groupinfo{
+	float:right;
+	font-family: header_font;
+}
+
+#groupinfo h1{
+	margin:0;
+	padding:0;
 }
 
 /* #logout { */

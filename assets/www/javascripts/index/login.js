@@ -13,6 +13,11 @@ $(document).ready(function() {
 //		  role = 'ROLE_FADDER_LEADER';
 //		  studentId = 3;
 //		  sessionToken = "test-token";
+//		  student.id = 3;
+//		  student.email = 'rosben09@nith.no';
+//		  student.firstName = 'Bendik';
+//		  student.lastName = 'Rostad';
+//		  student.gender = 'M';
 		  ///////////////////////////
 		  
 		  resetUserValues();
@@ -96,15 +101,42 @@ $(document).ready(function() {
 		}
   }
 
-//  function displayError(error) {
-//    $('#logo').after('<p id="error">' + error + '</p>');
-//  }
+  function getGroup() {
+		var response;
+		response = $.ajax({
+			url : address + 'fadder/getGroupBelongingTo/' + student.id,
+			type : 'get',
+			cache : false,
+			contentType : 'application/json',
+			timeout : 3000,
+			beforeSend : function(xhr) {
+				xhr.setRequestHeader("Authorization","Basic YWRtaW46bml0aHNfYWRtaW4=");
+			},
+			success : function(data) {
+				if(response.status == 200){
+					for (obj in data){
+						if(obj == 'groupNumber'){
+							groupNumber = data[obj];
+							alert("Din gruppe: " + groupNumber);
+						}
+					}
+				} 
+				else{
+					//$('#faddergroup').html("Ingen");
+					alert("Du har ingen faddergruppe");
+				}
+
+			},
+			error : function(xhr, status) {
+					alert("Greide ikke hente gruppe");
+			}
+		});
+	}
   
   /**
    * Check if a student logging has the role fadder leader
    * and sets the global variable role
-   */
-  
+   */  
   function checkIfLeader(){
 	 $.mobile.showPageLoadingMsg();
 	  var response;
@@ -114,7 +146,7 @@ $(document).ready(function() {
 			timeout: 3000,
 			cache : false,
 			success : function() { //Server responded
-				alert(response.status + '--' +response.getResponseHeader('error'));
+				//alert(response.status + '--' + response.getResponseHeader('error'));
 				if(response.status == 200){ //Got role!
 					role = 'ROLE_FADDER_LEADER';
 				}else if (response.status == 204){ //Did not have role
@@ -125,7 +157,6 @@ $(document).ready(function() {
 			error : function(xhr, status) {
 				role = "";
 				if(status == 'timeout'){ //No contact with server
-//					$('#error').empty();
 					alert('Fikk ikke kontakt med serveren'); 
 				}
 				$.mobile.hidePageLoadingMsg();
@@ -147,12 +178,13 @@ $(document).ready(function() {
 		  contentType:"application/json",
 		  data: '{"token":"'+token+'"}',
 		  	success: function(data) { //Signed in!
+		  		alert("Du er innlogget");
 		  		student = data;
-		  		alert("Success, signed in");
 		  		sessionToken = loginResponse.getResponseHeader('session-token');
-		  		studentId = loginResponse.getResponseHeader('student-id');
+		  		//studentId = loginResponse.getResponseHeader('student-id');
     	  
 		  		checkIfLeader();
+		  		getGroup();
 		  		toggleBtnText();
     	  
 		  		$.mobile.hidePageLoadingMsg();
@@ -178,9 +210,11 @@ $(document).ready(function() {
   
   //Resets logged in values
   function resetUserValues(){
-	  	sessionToken = "";
+	  	sessionToken = '';
   		studentId = 0;
-  		role = "";
+  		role = '';
+  		student= {};
+  		groupNumber = 0;
   }
 
 });

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+<meta http-equiv="Content-Type" content="text-html" charset="UTF-8"/>
 <title>NITHs</title>
 <!-- 	<link rel="stylesheet" href="../stylesheets/common/nithstheme.min.css" /> -->
 <!--     <link rel="stylesheet" href="../stylesheets/common/jquery.mobile.notheme.css"/> -->
@@ -73,7 +73,7 @@
             
             
            	 <div id="events">
-           	 	<h2 class="withborder">Neste events</h2>
+           	 	<h1 class="withborder">Neste events</h1>
             		<ul id ="eventlist" data-role="listview" class="ui-listview" data-inset="true">
             			<li class="li-first" id="eventloader">
 					    	<h3>Laster events</h3>
@@ -86,7 +86,7 @@
             </div><!-- /events -->
             
 			<div id="images" >
-				<h2 class="withborder">Siste bilder</h2>
+				<h1 class="withborder">Siste bilder</h1>
       			<div data-scroll="x" class="threeByThree">
 					<div class="square"><img src="../images/mm.jpg" /></div>
 					<div class="square"><img src="../images/mm.jpg" /></div>
@@ -98,7 +98,7 @@
             </div><!--end images-->
             
             <div id="tweets">
-            	<h2 class="withborder">Siste tweets</h2>
+            	<h1 class="withborder">Siste tweets</h1>
             	<ul id ="tweetlist" data-role="listview" class="ui-listview" data-inset="true">
             		
             		<li class="li-first" id="loader">
@@ -114,7 +114,7 @@
             	
             
             	<div id="endcontent">
-            		<p><strong>NITH</strong> - Norges Informasjonsteknologiske Høgskole AS <br />
+            		<p><strong>NITH</strong> - Norges Informasjonsteknologiske HÃ¸gskole AS <br />
 					<strong>Adr:</strong> Schweigaardsgate 14, 0185 Oslo<br />
 						<strong>Tlf:</strong> 22 05 99 99<br />
 						<strong>Mail:</strong> oslo@nith.no<br />
@@ -134,41 +134,43 @@
 	</div> <!-- Dashboard-page -->
 	
 	<div data-role="page" id="event-page">
+		<link rel="stylesheet" href="../stylesheets/event/event-info.css"/>
 		<script type="text/javascript" charset="utf-8"
 			src="../javascripts/index/event.js">
 		</script>
 	
-	<div data-role="header" data-position="fixed" data-theme="b">
-                <a href="#"  data-role="button" data-rel="back" class="ui-btn-right">Back</a>
-        	<h3>EVENT</h3>
-                <a href="#program-page"  data-role="button" class="ui-btn-left">Program</a>
-     </div>
+		<div data-role="header" data-position="fixed" data-theme="b">
+			<a href="#"  data-role="button" data-rel="back" class="ui-btn-left">Back</a>
+			<h3>EVENT</h3>
+			<a href="#program-page"  data-role="button" class="ui-btn-right">Program</a>
+     	</div>
             
-     <div data-role="content" data-scroll="y" >
-     	<div id="singleevent">
-     		<input type="hidden" name="event_id" id="event_id" value="5" />
-     		<div id ="eventinfo">
-     			<h2 class="withborder" id="eventname" >Event</h2>
-     			<p id = "eventtime"></p>
-     			<p id="eventdesc"></p>
-     			<div id = "map"></div>
-     		</div>
+     	<div data-role="content" data-scroll="y" >
+     		<div id="singleevent">
+<!--      		<input type="hidden" name="event_id" id="event_id" value="5" /> -->
+				
+				<div id="loadingmsg"><img class="spin" src="../stylesheets/common/images/loader.png" /></div>
+				
+     			<div id ="eventinfo">
+     				<h2 class="withborder" id="eventname" >Event</h2>
+     				<p id = "eventtime"></p>
+     				<p id="eventdesc"></p>
+     				<div id = "map"></div>
+     			</div>
      		
-     	</div><!-- /singleevent -->
-            	
-    </div> <!-- content -->
-        
-	
+     		</div><!-- /singleevent -->    	
+    	</div> <!-- content -->
 	</div><!-- event-page -->
 	
 	
 	<div data-role="page" id="program-page">
+ 		<link rel="stylesheet" href="../stylesheets/event/program.css"/>
 		<script type="text/javascript" charset="utf-8"
 			src="../javascripts/index/program.js">
  		</script>
 	
 	<div data-role="header" data-position="fixed" data-theme="b">
-                <a href="#"  data-role="button" data-rel="back" class="ui-btn-right">Back</a>
+                <a href="#"  data-role="button" data-rel="back" class="ui-btn-left">Back</a>
         	<h3>PROGRAM</h3>
      </div>
             
@@ -176,17 +178,15 @@
      	<div id="programlist">
      			<h2 class="withborder">Program</h2>
      			
-            	<ul id ="eventlist" data-role="listview" class="ui-listview" data-inset="true">
-            		
-            		<li class="li-first" id="loader">
-					    <h3>Laster events</h3>
-					</li>          	
-            	</ul>
-<!--             	<div class="listbtns"> -->
-<!-- 						<a href="" data-role="button" id="refreshtweetbtn" data-icon="refresh" data-iconpos="notext" data-inline="true" >Refresh</a> -->
-<!-- 						<a href="" data-role="button" id="expandtweetbtn" data-icon="plus" data-iconpos="notext" data-inline="true">Flere</a> -->
-<!--             	</div> -->
-     		
+     			<div id="loadingmsg"><img class="spin" src="../stylesheets/common/images/loader.png" /></div>
+     			
+     			<div id="programinfo">
+     				<div id="day1"></div>
+     				<div id="day2"></div>
+     				<div id="day3"></div>
+     				<div id="day4"></div>
+     				<div id="day5"></div>
+            	</div>
      	</div><!-- /programlist-->
             	
     </div> <!-- content -->

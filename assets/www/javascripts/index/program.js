@@ -1,4 +1,5 @@
-$("#program-page").live('pageinit', function() {
+//$("#program-page").live('pageinit', function() {
+$('#program-page').live('pageshow',function(event, ui){
 	//getDatesBetweenUrlParam();
 	loadEvents();
 });
@@ -53,63 +54,59 @@ $("#program-page").live('pageinit', function() {
 		    	  if(response.status == 200){
 		    		  handleData(data);
 		    	  }
-			      //alert('succ ' + response.status);
-//			      $('#programlist').html(theHTML);
-//			      $('#programlist').listview();
-////			      $('#programlist').listview('refresh');
-//		    	  $('#loadingmsg').hide();
-//		    	  $('#programinfo').css('visibility', 'visible');
 		      },
 		      error: function(xhr) {
 		    	  alert('err ' + response.status);
-		    	  var theHTML = '<li class="li-first" id="eventloader"><h3>Ikke kontakt med server...</h3></li>';
-//		    	  $('#programlist').html(theHTML);
-//		    	  $('#programlist').listview('refresh');
-//		    	  $('#loadingmsg').hide();
-//		    	  $('#programinfo').css('visibility', 'visible');
-		
+		    	  var theHTML = '<h3>Ikke kontakt med server...</h3>';
+		    	  $('#programlist').html(theHTML);
 		      }
 		    });
 	}
 	
+	function getHeader(date){
+		return '<h1 class="withborder">'+getDayName(date.getDay())+' '+date.getDate()+'/'+(date.getMonth()+1)+'</h1>';
+	}
+
+	function getListElement(data){
+		return '<li class="li-first" id="eventloader">'+
+				'<a href="#event-page?event-id='+data.id+'">'+
+				'<h3>'+data.name+'</h3>'+
+				'<p><strong>Beskrivelse: </strong>'+ data.description+'</p>'+
+				'<p><strong>Start: </strong>'+data.startTime+'</p>'+
+				'</a></li>';
+	}
+	
+	function getNewList(name){
+		return '<ul id="'+name+'" data-role="listview" class="ui-listview" data-inset="true">';
+	}
+	
 	function handleData(data){
-		var firstEventDate = new Date();
-		var eventDate = new Date();
+		var currentEventDate = new Date();
+		var tempEventDate = new Date();
 		var html = '';
 		var current = 1;
 		for(var i=0;i<data.length;i++){
+			//First event, set currentEventDate
 			if(i == 0){
-				firstEventDate.setFullYear(data[i].startTime.substring(6,10), (data[i].startTime.substring(3,5)-1), data[i].startTime.substring(0,2));
-				$('#programlist').html('<h1 class="withborder">'+getDayName(firstEventDate.getDay())+' '+firstEventDate.getDate()+'/'+(firstEventDate.getMonth()+1)+'</h1>');
-				$('#programlist').append('<ul id="list'+current+'" data-role="listview" class="ui-listview" data-inset="true">');
-//				html += '<h1 class="withborder">'+getDayName(firstEventDate.getDay())+' '+firstEventDate.getDate()+'/'+(firstEventDate.getMonth()+1)+'</h1>';
-//				html += '<ul data-role="listview" class="ui-listview" data-inset="true">';
+				currentEventDate.setFullYear(data[i].startTime.substring(6,10), (data[i].startTime.substring(3,5)-1), data[i].startTime.substring(0,2));
+				html = getHeader(currentEventDate) + getNewList('list' + current);
 			}
-		      
-			eventDate.setFullYear(data[i].startTime.substring(6,10), (data[i].startTime.substring(3,5)), data[i].startTime.substring(0,2));
-			if(firstEventDate.getDate() != eventDate.getDate()){
-				$('#programlist').append('</ul>');
-//				$('#list'+current).listview();
-//				$('#list'+current).listview('refresh');
+		    //Set the temp date to the object were iterating over 
+			tempEventDate.setFullYear(data[i].startTime.substring(6,10), (data[i].startTime.substring(3,5)), data[i].startTime.substring(0,2));
+			//If temp date != currentDate, we print a new header and start a new list
+			if(currentEventDate.getDate() != tempEventDate.getDate()){
+				html += '</ul>';
 				current++;
-				firstEventDate.setFullYear(eventDate.getFullYear(), (eventDate.getMonth()-1), eventDate.getDate());
-				$('#programlist').append('<h1 class="withborder">'+getDayName(firstEventDate.getDay())+' '+firstEventDate.getDate()+'/'+(firstEventDate.getMonth()+1)+'</h1>');
-				$('#programlist').append('<ul id="list'+current+'" data-role="listview" class="ui-listview" data-inset="true">');
+				currentEventDate.setFullYear(tempEventDate.getFullYear(), (tempEventDate.getMonth()-1), tempEventDate.getDate());
+
+				html += getHeader(currentEventDate) + getNewList('list' + current);
 			}
-			
-			$('#programlist').append('<a href="#event-page?event-id='+data[i].id+'"><li class="li-first" id="eventloader"><p>'+data[i].id + ' - '+ data[i].name+'</p></li></a>');
+			html += getListElement(data[i]);
 		}
-		$('#programlist').append('</ul>');
-//		$('#list'+current).listview();
-//		$('#list'+current).listview('refresh');
+		
+		html += '</ul>';
+		$('#programlist').html(html);
 		for (var i = 1; i <= current; i++){
 			$('#list'+i).listview();
-			$('#list'+i).listview('refresh');
 		}
-		$("#program-page").trigger("create");
-	}
-	
-	function showAList(listName){
-		var list = '<ul id="'+listName+'" data-role="listview" class="ui-listview" data-inset="true"></ul>';
-  	  	var theHTML = '<li class="li-first" id="eventloader"><h3>Ingen events funnet for de neste fem dagene...</h3></li>';
 	}

@@ -1,6 +1,5 @@
-//$("#program-page").live('pageinit', function() {
-$('#program-page').live('pageshow',function(event, ui){
-	//getDatesBetweenUrlParam();
+$("#program-page").live('pageinit', function() {
+
 	loadEvents();
 });
 
@@ -109,4 +108,7 @@ $('#program-page').live('pageshow',function(event, ui){
 		for (var i = 1; i <= current; i++){
 			$('#list'+i).listview();
 		}
+		
+		$('#loadingmsg2').css('display', 'none');
+	    $('#programlist').css('visibility', 'visible');
 	}

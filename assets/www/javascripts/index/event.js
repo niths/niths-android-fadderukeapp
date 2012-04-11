@@ -33,7 +33,7 @@ function loadEvent(eventId){
 	    		  	var url = 'http://maps.googleapis.com/maps/api/staticmap?center='+data.location.latitude+','+data.location.longitude+'&maptype=roadmap&markers=color:blue%7Clabel:X%7C'+data.location.latitude+','+data.location.longitude+'&amp;zoom=6&amp;size='+($(window).width()-30)+'x150&amp;sensor=false';
 	    	  		$('#map').html('<img alt="" src="' + url + '"/>');
 	    	  }else{
-	    		  $('#map').html("Kan ikke vise kart, jeg vet dessverre ikke hvor festen er. Kan du be fadderlederen din si det til meg?");
+	    		  $('#map').html("Kan ikke vise kart, ingen har fortalt meg hvor eventen er");
 	    	  }
 	    	  $('#loadingmsg').hide();
 	    	  $('#eventinfo').css('visibility', 'visible');

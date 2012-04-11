@@ -3,7 +3,7 @@ $(document).ready(function() {
 
   function getFadderGroupInfo() {
     $.ajax({
-      url: address + 'fadder/' + sessionStorage.getItem('fadder_group_id'),
+      url: address + 'fadder/' + groupNumber;//sessionStorage.getItem('fadder_group_id'),
       type: 'GET',
       success: function(data) {
         traverseAttributes(data);

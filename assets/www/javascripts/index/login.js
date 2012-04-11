@@ -18,6 +18,7 @@ $(document).ready(function() {
 //		  student.firstName = 'Bendik';
 //		  student.lastName = 'Rostad';
 //		  student.gender = 'M';
+//		  groupNumber = 3;
 		  ///////////////////////////
 		  
 		  resetUserValues();
@@ -39,6 +40,7 @@ $(document).ready(function() {
 			 $.mobile.changePage('profile.html');
 		 }
 	 });
+	 
 
   /**
    * Opens childbrowser with the Google login site

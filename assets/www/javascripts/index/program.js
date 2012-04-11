@@ -1,6 +1,12 @@
 $("#program-page").live('pageinit', function() {
 
 	loadEvents();
+	
+	$('#refreshprogrambtn').click(function(data) {
+		 $('#loadingmsg2').css('visibility', 'visible');
+		 $('#programlist').css('visibility', 'hidden');
+		 loadEvents();
+	 });
 });
 
 	function getDayName(day){
@@ -14,6 +20,8 @@ $("#program-page").live('pageinit', function() {
 		weekday[6]="L&Oslash;rdag";
 		return weekday[day];
 	}
+	
+	 
 	
 
 	function getDatesBetweenUrlParam(){
@@ -58,6 +66,8 @@ $("#program-page").live('pageinit', function() {
 		    	  alert('err ' + response.status);
 		    	  var theHTML = '<h3>Ikke kontakt med server...</h3>';
 		    	  $('#programlist').html(theHTML);
+		    	  $('#loadingmsg2').css('display', 'none');
+		    	  $('#programlist').css('visibility', 'visible');
 		      }
 		    });
 	}

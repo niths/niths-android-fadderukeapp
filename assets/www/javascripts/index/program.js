@@ -1,12 +1,15 @@
 $("#program-page").live('pageinit', function() {
 
 	loadEvents();
-	
+
+});
+$("#program-page").live('pageshow', function() {
 	$('#refreshprogrambtn').click(function(data) {
-		 $('#loadingmsg2').css('visibility', 'visible');
-		 $('#programlist').css('visibility', 'hidden');
-		 loadEvents();
-	 });
+		$('#loadingmsg2').css('display', 'block');
+		$('#loadingmsg2').css('visibility', 'visible');
+		$('#programlist').css('visibility', 'hidden');
+		loadEvents();
+	});
 });
 
 	function getDayName(day){

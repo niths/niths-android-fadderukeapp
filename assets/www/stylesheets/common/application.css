@@ -17,6 +17,10 @@
 	
 }
 
+.customfont{
+	font-family: header_font;
+}
+
 .withborder{
 	margin-top: 2px;
 	font-family: header_font;

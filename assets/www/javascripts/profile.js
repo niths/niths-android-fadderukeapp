@@ -43,7 +43,11 @@ $("#profile-page").live('pageinit', function() {
 		      cache: false,
 		      contentType: 'application/json',
 		      beforeSend: function(xhr) {
-		        xhr.setRequestHeader("Authorization", "Basic YWRtaW46bml0aHNfYWRtaW4=");
+		        xhr.setRequestHeader("Application-key", applicationKey);
+		        xhr.setRequestHeader("Application-token", applicationToken);
+		        xhr.setRequestHeader("Developer-key", developerKey);
+		        xhr.setRequestHeader("Developer-token", developerToken);
+		        xhr.setRequestHeader("Session-token", sessionToken);
 		      },
 		      data:  JSON.stringify($("#update-person-form").serializeObject()),
 		      success : function(data){

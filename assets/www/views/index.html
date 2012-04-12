@@ -48,6 +48,9 @@
     <script type="text/javascript" charset="utf-8"
         src="../javascripts/common/application.js">
     </script>
+    	<script type="text/javascript" charset="utf-8"
+			src="../javascripts/common/md5.js">
+		</script>
 <!--     <script type="text/javascript" charset="utf-8" -->
 <!--       src="../javascripts/index.js"> -->
 <!--     </script> -->
@@ -126,7 +129,7 @@
             	<div data-role="navbar">
             		<ul>
                 		<li><a href="#" id="profilebtn" data-icon="person" data-iconpos="top">Profil</a></li>
-						<li><a href="#" id="myGroupBtn" data-icon="star" data-iconpos="top">Min gruppe</a></li>
+						<li><a href="fadder-groups/fadder-groups.html" id="myGroupBtn" data-icon="star" data-iconpos="top">Faddergrupper</a></li>
 						<li><a href="qr-code.html" data-icon="grid" data-iconpos="top">QR kode</a></li>
                 	</ul>
             	</div>
@@ -152,7 +155,7 @@
 				<div id="loadingmsg"><img class="spin" src="../stylesheets/common/images/loader.png" /></div>
 				
      			<div id ="eventinfo">
-     				<h2 class="withborder" id="eventname" >Event</h2>
+     				<h1 class="withborder" id="eventname" ></h1>
      				<p id = "eventtime"></p>
      				<p id="eventdesc"></p>
      				<div id = "map"></div>

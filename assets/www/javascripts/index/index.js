@@ -13,13 +13,13 @@ $("#dashboard-page").live('pageinit', function() {
 						 loadEvents();
 					 });
 					 
-					 $('#myGroupBtn').click(function(data) {
-						 if(groupNumber != 0){
-							 $.mobile.changePage('fadder-groups/fadder-group-info.html');							 
-						 }else{
-							 alert("Du har ingen faddergruppe");
-						 }
-					 });
+//					 $('#myGroupBtn').click(function(data) {
+//						 if(groupNumber != 0){
+//							 $.mobile.changePage('fadder-groups/fadder-group-info.html');							 
+//						 }else{
+//							 alert("Du har ingen faddergruppe");
+//						 }
+//					 });
 
 					 $('#refreshtweetbtn').click(function(data) {
 						 showTweetLoading();

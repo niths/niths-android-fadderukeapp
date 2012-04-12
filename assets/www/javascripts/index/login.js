@@ -143,7 +143,7 @@ $(document).ready(function() {
 	 $.mobile.showPageLoadingMsg();
 	  var response;
 	  response = $.ajax({
-			url : address + 'roles/isStudent/'+studentId+'/ROLE_FADDER_LEADER',
+			url : address + 'roles/'+studentId+'/ROLE_FADDER_LEADER',
 			type : 'get',
 			timeout: 3000,
 			cache : false,

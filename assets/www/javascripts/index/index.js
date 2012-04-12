@@ -75,28 +75,57 @@ $("#dashboard-page").live('pageinit', function() {
 							}
 						});
 					}
+					
+					function getDatesBetweenUrlParam(){
+						
+						var today = new Date();
+						var dd = today.getDate();
+						var mm = today.getMonth()+1; //January is 0!
+
+						var yyyy = today.getFullYear();
+						if(dd<10){
+							dd='0'+dd
+						} 
+						if(mm<10){
+							mm='0'+mm
+						} 
+						var today = dd+'/'+mm+'/'+yyyy + '-00:00';
+						var inFiveDays = (dd + 4) + '/'+mm+'/'+yyyy + '-23:59';
+						var param = '?startTime='+today + '&endTime=' + inFiveDays;
+						return param;
+						//events/dates?startTime=09/04/2010-10:55&endTime=09/04/2010-10:55
+					}
+					
 					/**
 					 * Loader og skriver ut de to f�rste events
 					 */
 					function loadEvents(){
 						 $.ajax({
-						      url: address + 'events/paginated/0/2',
+						      url: address + 'events/dates' + getDatesBetweenUrlParam(),
 						      type: 'get',
 						      cache: false,
 						      timeout: 2000,
 						      success: function(data) {
 //						    	  var theResults = data.results;
 							        var theHTML = '';
-							        for(var i=0;i<data.length;i++){	
-							        	theHTML += ['<li class="li-first"><a href="#event-page?event-id='+data[i].id+'">',
-							      		            '<h3>'+data[i].name+'</h3>',
-							      		            '<p><strong>Beskrivelse: </strong>'+data[i].description+'</p>',
-							      		            '<p><strong>Start: </strong>'+data[i].startTime+'</p>',
-							      		            '</a></li>'].join('');
-
+							        var num = 0;
+							        if(data.length < 1){
+							        	var theHTML = '<li class="li-first" id="eventloader"><h3 style="white-space:normal">Ingen de neste 5 dagene...</h3></li>';
+										$('#eventlist').html(theHTML);
+								        $('#eventlist').listview('refresh');
+							        }else{
+							        	for(var i=0;i<data.length && num < 2;i++){
+							        		num++;
+							        		theHTML += ['<li class="li-first"><a href="#event-page?event-id='+data[i].id+'">',
+							        		            '<h3>'+data[i].name+'</h3>',
+							        		            '<p><strong>Beskrivelse: </strong>'+data[i].description+'</p>',
+							        		            '<p><strong>Start: </strong>'+data[i].startTime+'</p>',
+							        		            '</a></li>'].join('');
+							        		
+							        	}
+							        	$('#eventlist').html(theHTML);
+							        	$('#eventlist').listview('refresh');
 							        }
-							        $('#eventlist').html(theHTML);
-							        $('#eventlist').listview('refresh');
 						      },
 						      error: function(xhr) {
 							        var theHTML = '<li class="li-first" id="eventloader"><h3>Ikke kontakt med server...</h3></li>';

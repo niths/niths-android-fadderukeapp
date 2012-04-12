@@ -59,14 +59,20 @@ $("#program-page").live('pageshow', function() {
 		      cache: false,
 		      timeout: 3000,
 		      success: function(data) {
-		    	  var list = '<ul id="programlist" data-role="listview" class="ui-listview" data-inset="true"></ul>';
-		    	  var theHTML = '<li class="li-first" id="eventloader"><h3>Ingen events funnet for de neste fem dagene...</h3></li>';
+//		    	  var list = '<ul id="programlist" data-role="listview" class="ui-listview" data-inset="true"></ul>';
 		    	  if(response.status == 200){
-		    		  handleData(data);
+		    		  if(data.length > 0){
+		    			  handleData(data);		    			  
+		    		  }else{
+		    			  var theHTML = '<li class="li-first" id="eventloader"><h3>Ingen events funnet for de neste fem dagene...</h3></li>';
+				    	  $('#programlist').html(theHTML);
+				    	  $('#loadingmsg2').css('display', 'none');
+				    	  $('#programlist').css('visibility', 'visible');
+		    		  }
 		    	  }
 		      },
 		      error: function(xhr) {
-		    	  alert('err ' + response.status);
+		    	 // alert('err ' + response.status);
 		    	  var theHTML = '<h3>Ikke kontakt med server...</h3>';
 		    	  $('#programlist').html(theHTML);
 		    	  $('#loadingmsg2').css('display', 'none');

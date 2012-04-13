@@ -16,6 +16,17 @@
 	font-family: header_font;
 }
 
+a.blacklink:link{
+	color:black;
+}
+a.blacklink:visited {
+	color:black;
+}
+
+a.blacklink:active {
+	color: #00ADEF;
+}
+
 #groupinfo h1{
 	margin:0;
 	padding:0;

@@ -22,6 +22,7 @@
     </script>
     
     <!-- Scrollview -->
+    
     <script type="text/javascript" charset="utf-8"
       src="../javascripts/common/jquery.easing.1.3.js">
     </script>
@@ -32,9 +33,7 @@
       src="../javascripts/common/scrollview.js">
     </script>
 	    
-    
-    
-    <!-- Scrollview -->
+    <!-- /Scrollview -->
     
     <script type="text/javascript" charset="utf-8"
       src="../javascripts/common/jsoauth.js">
@@ -51,12 +50,17 @@
     	<script type="text/javascript" charset="utf-8"
 			src="../javascripts/common/md5.js">
 		</script>
-<!--     <script type="text/javascript" charset="utf-8" -->
-<!--       src="../javascripts/index.js"> -->
-<!--     </script> -->
 
 </head>
 <body>
+	
+	
+	<!-- DASHBOARD PAGE --> 
+	<!-- The index page, the first page the user sees -->
+	<!-- Contains a list of the two next events(in the next five days), last images and last tweets -->
+	<!-- Also contains links to the other pages -->
+	
+	
 	<div data-role="page" data-theme="c" id="dashboard-page">
 		<link rel="stylesheet" href="../stylesheets/index.css"/>
 		<script type="text/javascript" charset="utf-8"
@@ -129,12 +133,18 @@
             	<div data-role="navbar">
             		<ul>
                 		<li><a href="#" id="profilebtn" data-icon="person" data-iconpos="top">Profil</a></li>
-						<li><a href="all-fadder-groups.html" id="myGroupBtn" data-icon="star" data-iconpos="top">Faddergrupper</a></li>
+						<li><a href="#all-fadder-groups-page" id="myGroupBtn" data-icon="star" data-iconpos="top">Faddergrupper</a></li>
 						<li><a href="qr-code.html" data-icon="grid" data-iconpos="top">QR kode</a></li>
                 	</ul>
             	</div>
             </div><!-- footer -->
 	</div> <!-- Dashboard-page -->
+	
+	
+	<!-- EVENT PAGE -->
+	<!-- Shows information about a specific event -->
+	<!-- Also shows a map from Google with location -->
+	
 	
 	<div data-role="page" id="event-page">
 		<link rel="stylesheet" href="../stylesheets/event/event-info.css"/>
@@ -166,6 +176,10 @@
 	</div><!-- event-page -->
 	
 	
+	<!-- PROGRAM PAGE -->
+	<!-- Shows a list of all events the next five days -->
+	
+	
 	<div data-role="page" id="program-page">
  		<link rel="stylesheet" href="../stylesheets/event/program.css"/>
 		<script type="text/javascript" charset="utf-8"
@@ -188,6 +202,68 @@
         
 	
 	</div><!-- program -->
+	
+	
+	<!-- ALL FADDERGROUPS  -->
+	<!-- Shows a lits of all faddergroups -->
+	
+	
+	<div data-role="page" data-theme="c" id="all-fadder-groups-page">
+			<link rel="stylesheet" href="../stylesheets/all-fadder-groups.css"/>
+			<script type="text/javascript" charset="utf-8"
+						src="../javascripts/index/all-fadder-groups.js">
+			</script>
+
+			<div data-role="header" data-position="fixed" data-theme="b">
+				<a href="#"  data-role="button" data-rel="back" class="ui-btn-left">Back</a>
+				<h3>ALLE GRUPPER</h3>
+			</div>
+
+			<div data-role="content" data-scroll="y">	
+				<h1 class="withborder">faddergrupper</h1>	
+				
+				<div id="loadingmsgdiv"><img class="spin" src="../stylesheets/common/images/loader.png" /></div>
+				
+     			<div id ="grouplistdiv">
+     				<ul id ="groupList" data-role="listview" class="ui-listview" data-inset="true"></ul>
+     			</div>
+				
+				
+			</div><!-- /content -->
+
+		</div><!-- /page -->
+		
+		
+		<!-- SINGLE FADDER GROUP PAGE -->
+		<!-- Shows information about a specific group -->
+		
+		
+		<div data-role="page" data-theme="c" id="single-fadder-group-page">
+			<script type="text/javascript" charset="utf-8"
+						src="../javascripts/index/single-fadder-group.js">
+			</script>
+
+			<div data-role="header" data-position="fixed" data-theme="b">
+				<a href="#"  data-role="button" data-rel="back" class="ui-btn-left">Back</a>
+				<h3>FADDERGRUPPE</h3>
+			</div>
+
+			<div data-role="content" data-scroll="y">	
+				<h1 id="agroupheader" class="withborder">gruppe</h1>	
+				
+				<div id="loadinggroupmsgdiv"><img class="spin" src="../stylesheets/common/images/loader.png" /></div>
+				
+     			<div class="bottomborder" id ="groupinfodiv">
+     				<h3 class="customfont">Ledere:</h3>
+     				<ul id ="groupleaderlist" data-role="listview" class="ui-listview" data-inset="true"></ul>
+     				<h3 class="customfont">Fadderbarn:</h3>
+     				<ul id ="groupmemberslist" data-role="listview" class="ui-listview" data-inset="true"></ul>
+     			</div>
+				
+				
+			</div><!-- /content -->
+
+		</div><!-- /page -->
 
 </body>
 </html>

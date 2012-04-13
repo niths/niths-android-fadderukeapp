@@ -10,19 +10,18 @@ $(document).ready(function() {
 	  if(sessionToken == ""){ //Not signed in
 		  ///////////////FOR TESTING:
 		  // TODO Remove
-//		  role = 'ROLE_FADDER_LEADER';
-//		  studentId = 3;
-//		  sessionToken = "test-token";
-//		  student.id = 3;
-//		  student.email = 'rosben09@nith.no';
-//		  student.firstName = 'Bendik';
-//		  student.lastName = 'Rostad';
-//		  student.gender = 'M';
-//		  groupNumber = 3;
+		  role = 'ROLE_FADDER_LEADER';
+		  sessionToken = "test-token";
+		  student.id = 3;
+		  student.email = 'rosben09@nith.no';
+		  student.firstName = 'Bendik';
+		  student.lastName = 'Rostad';
+		  student.gender = 'M';
+		  groupNumber = 3;
 		  ///////////////////////////
 		  
-		  resetUserValues();
-		  signIn(); 		  
+//		  resetUserValues();
+//		  signIn(); 		  
 	  }else {				//Already signed in
 		  resetUserValues();
 	      window.plugins.childBrowser.showWebPage(

@@ -1,4 +1,9 @@
 $("#dashboard-page").live('pageinit', function() {
+	
+
+			        $.mobile.defaultPageTransition = 'none';
+			        $.mobile.defaultDialogTransition = 'none';
+	
 
 					var numTweets = 3;
 					init();

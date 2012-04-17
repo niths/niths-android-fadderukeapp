@@ -1,5 +1,11 @@
-$("#admin-page").live('pageinit', function() {
+$("#admin-page").live('pageshow', function() {
 	loadEvents();
+	$('#refreshallbtn').click(function() {
+		$('#loadinforallevents').css('display', 'block');
+		$('#alleventlist').css('display', 'none');
+		
+		loadEvents();
+	});
 });
 
 function showEvents(){
@@ -7,13 +13,6 @@ function showEvents(){
 	$('#loadinforallevents').css('display', 'none');
 	
 }
-
-$('#refreshallbtn').click(function() {
-	$('#loadinforallevents').css('display', 'block');
-	$('#alleventlist').css('display', 'none');
-
-	loadEvents();
-});
 
 
 
@@ -34,12 +33,6 @@ function getDatesBetweenUrlParam(){
 	return param;
 }
 
-//$('#alleventlist li').live('vclick', function(event) {
-//    event.preventDefault();
-//    alert($(this).attr('id'));
-//    
-//});
-
 /**
  * REMEMBER TO CHANGE LINK!
  * address + 'events/dates' + getDatesBetweenUrlParam(),
@@ -56,15 +49,16 @@ function loadEvents(){
 	    		  var theHTML = '';
 	    		  if(data.length > 0){
 	    			  for (var i = 0; i < data.length; i++){
-	    					theHTML += '<li class="li-first" id="'+data[i].id+'"><a href="#admin-edit-event-page?edit-event-id='+data[i].id+'"><h3>'+data[i].id + ' - '+data[i].name+'</h3></a></li>';
+	    					theHTML += '<li class="li-first" id="'+data[i].id+'"><a href="#admin-edit-event-page?edit-event-id='+data[i].id+'"><h3>'+data[i].id + ' - '+data[i].name+'</h3></a>'+
+	    					'</li>';
 	    			  }
-	    		  }else{
-	    			  theHTML = '<li class="li-first"><h3>Ingen events funnet...</h3></li>';
 	    		  }
-	    		  $('#alleventlist').html(theHTML);
-	    		  $('#alleventlist').listview('refresh');
-	    		  showEvents();
+	    	  }else{
+	    		  theHTML = '<li class="li-first"><h3>Ingen events funnet...</h3></li>';
 	    	  }
+	    	  $('#alleventlist').html(theHTML);
+	    	  $('#alleventlist').listview('refresh');
+	    	  showEvents();
 	      },
 	      error: function(xhr) {
 	    	  var theHTML = '<li class="li-first"><h3>Ikke kontakt med server...</h3></li>';

@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="../stylesheets/common/application.css"/>
     <link rel="stylesheet" href="../stylesheets/index.css"/>
     <link rel="stylesheet" href="../stylesheets/jquery.mobile.scrollview.css"/>
+    <link rel="stylesheet" href="../stylesheets/common/dialog-plugin.css"/>
     <script type="text/javascript" charset="utf-8"
       src="../javascripts/common/jquery.js"></script>
     <script>
@@ -49,6 +50,9 @@
     </script>
     	<script type="text/javascript" charset="utf-8"
 			src="../javascripts/common/md5.js">
+		</script>
+    	<script type="text/javascript" charset="utf-8"
+			src="../javascripts/common/dialog-plugin.js">
 		</script>
 
 </head>
@@ -302,7 +306,8 @@
 	<!-- Show info about an event and lets user update/delete -->
 	
 	<div data-role="page" data-theme="c" id="admin-edit-event-page">
-
+		<link rel="stylesheet" href="../stylesheets/admin/editevent.css"/>
+		
 		<script type="text/javascript" charset="utf-8"
 			src="../javascripts/admin/edit-event.js">
 		</script>
@@ -352,11 +357,17 @@
 				</div>
 				<div class="bottomborder"></div>
 				<button type="submit" id="editeventsubmit" data-role="button">Oppdater</button>
-        
+<!-- 				<button type="submit" id="deleteeventsubmit" data-role="button">Slett</button> -->
+				
+				<a href="#" id="opendialog" data-role="button">Slett</a>
+				
         	</form>
         	</div><!-- updateventinfodiv -->
 		</div><!-- Content -->
 	</div> 	<!-- page -->
+	
+
+	
 
 </body>
 </html>

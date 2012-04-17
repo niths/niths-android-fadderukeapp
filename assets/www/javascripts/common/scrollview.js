@@ -10,7 +10,8 @@ function ResizePageContentHeight(page) {
 	$content.height(wh - (hh + fh) - (pt + pb));
 }
 
-$( ":jqmData(role='page')" ).live( "pageshow", function(event) {
+$( ".scrollview" ).live( "pageshow", function(event) {
+//	$( ":jqmData(role='page')" ).live( "pageshow", function(event) {
 	var $page = $( this );
 
 	// For the demos that use this script, we want the content area of each
@@ -21,7 +22,8 @@ $( ":jqmData(role='page')" ).live( "pageshow", function(event) {
 	// This code that looks for [data-scroll] will eventually be folded
 	// into the jqm page processing code when scrollview support is "official"
 	// instead of "experimental".
-
+	
+	
 	$page.find( ":jqmData(scroll):not(.ui-scrollview-clip)" ).each(function () {
 		var $this = $( this );
 		// XXX: Remove this check for ui-scrolllistview once we've

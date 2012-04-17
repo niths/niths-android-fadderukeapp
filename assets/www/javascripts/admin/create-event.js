@@ -1,7 +1,5 @@
 
 $("#admin-create-event-page").live('pageinit', function() {	
-
-	alert('HOLLLLAAAA');
 	
 	$('#createeventsubmit').click(function() {
 		$.mobile.showPageLoadingMsg();

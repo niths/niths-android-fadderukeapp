@@ -58,8 +58,6 @@ $("#program-page").live('pageshow', function() {
 		      cache: false,
 		      timeout: 3000,
 		      success: function(data) {
-		    	  alert(response.status);
-//		    	  var list = '<ul id="programlist" data-role="listview" class="ui-listview" data-inset="true"></ul>';
 		    	  if(response.status == 200){
 		    		  if(data.length > 0){
 		    			  handleData(data);		    			  

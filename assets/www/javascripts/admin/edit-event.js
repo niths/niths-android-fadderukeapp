@@ -142,15 +142,7 @@ function hideTheEvent2() {
 
 
 function showData(event){
-	$('#id').val('');
-	$('#name').val('');
-	$('#description').val('');
-	$('#startTime').val('');
-	$('#endTime').val('');
-	$('#tags').val('');
-	$('#place').val('');
-	$('#latitude').val('');
-	$('#longitude').val('');
+	$('#updateeventinfodiv input').val('');
 	$('#id').val(event.id);
 	$('#name').val(event.name);
 	$('#description').val(event.description);

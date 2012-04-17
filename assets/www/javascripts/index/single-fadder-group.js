@@ -8,6 +8,7 @@ $(document).bind( "pagebeforechange", function( e, data ) {
 			var split = data.toPage.substring(index).split("=");
 			if(split.length == 2){
 				var id = split[1];
+				hideGroup();
 				//alert(id);
 				loadGroup(id);
 			}
@@ -15,9 +16,14 @@ $(document).bind( "pagebeforechange", function( e, data ) {
 	}
 });
 
+function hideGroup(){
+	$('#loadinggroupmsgdiv').css('display', 'block');
+	$('#groupinfodiv').css('display', 'none');
+}
+
 function showGroup(){
 	$('#loadinggroupmsgdiv').css('display', 'none');
-	$('#groupinfodiv').css('visibility', 'visible');
+	$('#groupinfodiv').css('display', 'block');
 }
 
 function loadGroup(id){

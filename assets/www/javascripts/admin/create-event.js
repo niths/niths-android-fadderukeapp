@@ -1,4 +1,8 @@
 
+$("#admin-create-event-page").live('pageshow', function() {
+	$('#createeventdiv input').val('');
+});
+
 $("#admin-create-event-page").live('pageinit', function() {	
 	
 	$('#createeventsubmit').click(function() {

@@ -97,7 +97,7 @@ $(document).ready(function() {
 					for (obj in data){
 						if(obj == 'groupNumber'){
 							groupNumber = data[obj];
-							alert("Din gruppe: " + groupNumber);
+							//alert("Din gruppe: " + groupNumber);
 						}
 					}
 				} 

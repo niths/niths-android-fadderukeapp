@@ -294,6 +294,8 @@
 		</div>
 		
 		<div data-role="content" id="admincontent">
+			<a href="#admin-create-event-page" data-role="button">Opprett event</a>
+		
            	<h1 class="withborder">Kommende Events</h1>
 			<div id="loadinforallevents"><img class="spin" src="../stylesheets/common/images/loader.png" /></div>
             <ul id ="alleventlist" data-role="listview" class="ui-listview" data-inset="true">
@@ -360,6 +362,65 @@
 <!-- 				<button type="submit" id="deleteeventsubmit" data-role="button">Slett</button> -->
 				
 				<a href="#" id="opendialog" data-role="button">Slett</a>
+				
+        	</form>
+        	</div><!-- updateventinfodiv -->
+		</div><!-- Content -->
+	</div> 	<!-- page -->
+	
+	<!-- CREATE NEW EVENT PAGE -->
+	
+	<div data-role="page" data-theme="c" id="admin-create-event-page">
+		
+		<script type="text/javascript" charset="utf-8"
+			src="../javascripts/admin/create-event.js">
+		</script>
+		
+		<div data-role="header" data-position="fixed" data-theme="b">
+			<a href="#"  data-role="button" data-rel="back" class="ui-btn-left">Back</a>
+			<h3>OPPRETT EVENT</h3>
+		</div>
+		<div data-role="content">
+			<h1 class="withborder">Opprett event</h1>
+			<div id="createeventdiv">
+			<form id="create-event-form" >
+<!-- 				<input id="id" name="id" type="hidden" value="" /> -->
+			
+				<div class="ui-hide-label">
+					<label for="name2">Navn:</label> 
+					<input type="text" name="name2" id="name2" value="" placeholder="Navn" />
+				</div>
+				<div class="ui-hide-label">
+					<label for="description2">Beskrivelse:</label> 
+					<textarea cols="40" rows="8" name="description2" id="description2" placeholder="Beskrivelse"></textarea>
+				</div>
+				<div class="ui-hide-label">
+					<label for="startTime2">Start:</label> 
+					<input type="text" name="starTime2" id="startTime2" value="" placeholder="Start: dd/mm/yyyy-hh:mm" />
+				</div>
+				<div class="ui-hide-label">
+					<label for="endTime2">Slutt:</label> 
+					<input type="text" name="endTime2" id="endTime2" value="" placeholder="Stopp: dd/mm/yyyy-hh:mm" />
+				</div>
+				<div class="ui-hide-label">
+					<label for="tags2">Tags:</label> 
+					<input type="text" name="tags2" id="tags2" value="" placeholder="Tags" />
+				</div>
+				<div class="ui-hide-label">
+					<label for="place2">Sted:</label> 
+					<input type="text" name="place2" id="place2" value="" placeholder="Sted" />
+				</div>
+				<div class="ui-hide-label">
+					<label for="latitude2">Latitude:</label> 
+					<input type="text" name="latitude2" id="latitude2" value="" placeholder="Latitude" />
+				</div>
+				<div class="ui-hide-label">
+					<label for="longitude2">Longitude:</label> 
+					<input type="text" name="longitude2" id="longitude2" value="" placeholder="Longitude" />
+				</div>
+				<div class="bottomborder"></div>
+				<button type="submit" id="createeventsubmit" data-role="button">Opprett</button>
+<!-- 				<button type="submit" id="deleteeventsubmit" data-role="button">Slett</button> -->
 				
         	</form>
         	</div><!-- updateventinfodiv -->

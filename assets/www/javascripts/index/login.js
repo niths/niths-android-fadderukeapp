@@ -8,18 +8,6 @@ $(document).ready(function() {
 
   $('#loginbtn').click(function() {
 	  if(sessionToken == ""){ //Not signed in
-		  ///////////////FOR TESTING:
-		  // TODO Remove
-//		  role = 'ROLE_FADDER_LEADER';
-//		  sessionToken = "test-token";
-//		  student.id = 3;
-//		  student.email = 'rosben09@nith.no';
-//		  student.firstName = 'Bendik';
-//		  student.lastName = 'Rostad';
-//		  student.gender = 'M';
-//		  groupNumber = 3;
-		  ///////////////////////////
-		  
 		  resetUserValues();
 		  signIn(); 		  
 	  }else {				//Already signed in
@@ -83,7 +71,6 @@ $(document).ready(function() {
         
         toggleBtnText();
       } else{
-    	 // resetUserValues();
           toggleBtnText();
       }
     };
@@ -92,13 +79,8 @@ $(document).ready(function() {
   function toggleBtnText(){
 	  if(sessionToken == ""){
 			$("#loginbtn .ui-btn-text").text("Logg inn");
-//			$('#menubtn').css('visibility', 'hidden');
 		}else{
 			$("#loginbtn .ui-btn-text").text("Logg ut");
-//			if(sessionToken != "-1"){
-//				$('#menubtn').css('visibility', 'visible');				
-//			}
-			
 		}
   }
 
@@ -110,9 +92,6 @@ $(document).ready(function() {
 			cache : false,
 			contentType : 'application/json',
 			timeout : 3000,
-			beforeSend : function(xhr) {
-				xhr.setRequestHeader("Authorization","Basic YWRtaW46bml0aHNfYWRtaW4=");
-			},
 			success : function(data) {
 				if(response.status == 200){
 					for (obj in data){
@@ -123,13 +102,12 @@ $(document).ready(function() {
 					}
 				} 
 				else{
-					//$('#faddergroup').html("Ingen");
-					alert("Du har ingen faddergruppe");
+					//alert("Du har ingen faddergruppe");
 				}
 
 			},
 			error : function(xhr, status) {
-					alert("Greide ikke hente gruppe");
+					alert("Ikke kontakt med server");
 			}
 		});
 	}
@@ -142,7 +120,7 @@ $(document).ready(function() {
 	 $.mobile.showPageLoadingMsg();
 	  var response;
 	  response = $.ajax({
-			url : address + 'roles/'+studentId+'/ROLE_FADDER_LEADER',
+			url : address + 'students/'+student.id+'/ROLE_FADDER_LEADER',
 			type : 'get',
 			timeout: 3000,
 			cache : false,
@@ -150,6 +128,7 @@ $(document).ready(function() {
 				//alert(response.status + '--' + response.getResponseHeader('error'));
 				if(response.status == 200){ //Got role!
 					role = 'ROLE_FADDER_LEADER';
+					$('#adminsectionbtn').css('display', 'block');
 				}else if (response.status == 204){ //Did not have role
 					role = "";
 				}
@@ -212,10 +191,10 @@ $(document).ready(function() {
   //Resets logged in values
   function resetUserValues(){
 	  	sessionToken = '';
-  		studentId = 0;
   		role = '';
   		student= {};
   		groupNumber = 0;
+  		$('#adminsectionbtn').css('display', 'none');
   }
 
 });

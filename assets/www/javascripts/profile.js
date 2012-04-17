@@ -5,11 +5,18 @@ $("#profile-page").live('pageinit', function() {
 		history.back();
 		return false;
 	} else {
+//		if (role == 'ROLE_FADDER_LEADER'){
+//			$('#admindiv').css('display', 'block');
+//		}
 		init();
 	}
 });
 
 
+function showProfile(){
+	$('#loadingforprofile').css('display', 'none');
+	$('#profilediv').css('visibility', 'visible');
+}
 
 	
 	function init(){
@@ -79,14 +86,19 @@ $("#profile-page").live('pageinit', function() {
 			$("input[value=F]").attr('checked',true).checkboxradio('refresh');			
 		}
 		
+		userEmail = hex_md5(student.email);
+		
+		$('#profileImg').attr("src", 'http://www.gravatar.com/avatar/' + userEmail + '?d=mm');
+		
 		if(groupNumber != 0){
 			$('#faddergroup').html('<a class="blacklink" href="#single-fadder-group-page?group-id='+groupNumber+'">' + groupNumber + '</a>');
 		}else{
 			$('#faddergroup').html("Ingen");
 		}
 		
-		userEmail = hex_md5(student.email);
-
-		$('#profileImg').attr("src", 'http://www.gravatar.com/avatar/' + userEmail + '?d=mm');
-
+//		if(role == 'ROLE_FADDER_LEADER'){
+//			$('#adminbtn').css('display', 'block');
+//		}
+		
+		showProfile();
 	}

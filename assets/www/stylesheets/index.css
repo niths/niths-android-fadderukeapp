@@ -1,4 +1,6 @@
-
+#adminsectionbtn{
+	display:none;
+}
 
 .li-first .ui-btn-text {
     text-align:left;

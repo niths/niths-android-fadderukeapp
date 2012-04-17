@@ -1,14 +1,13 @@
 $("#program-page").live('pageinit', function() {
-
-	loadEvents();
+	loadAllEvents();
 
 });
 $("#program-page").live('pageshow', function() {
 	$('#refreshprogrambtn').click(function(data) {
 		$('#loadingmsg2').css('display', 'block');
-		$('#loadingmsg2').css('visibility', 'visible');
+//		$('#loadingmsg2').css('visibility', 'visible');
 		$('#programlist').css('visibility', 'hidden');
-		loadEvents();
+		loadAllEvents();
 	});
 });
 
@@ -51,7 +50,7 @@ $("#program-page").live('pageshow', function() {
 		//events/dates?startTime=09/04/2010-10:55&endTime=09/04/2010-10:55
 	}
 
-	function loadEvents(){
+	function loadAllEvents(){
 		var response;
 		response = $.ajax({
 		      url: address + 'events/dates' + getDatesBetweenUrlParam(),
@@ -59,6 +58,7 @@ $("#program-page").live('pageshow', function() {
 		      cache: false,
 		      timeout: 3000,
 		      success: function(data) {
+		    	  alert(response.status);
 //		    	  var list = '<ul id="programlist" data-role="listview" class="ui-listview" data-inset="true"></ul>';
 		    	  if(response.status == 200){
 		    		  if(data.length > 0){
@@ -72,7 +72,7 @@ $("#program-page").live('pageshow', function() {
 		    	  }
 		      },
 		      error: function(xhr) {
-		    	 // alert('err ' + response.status);
+		    	  alert('err ' + response.status);
 		    	  var theHTML = '<h3>Ikke kontakt med server...</h3>';
 		    	  $('#programlist').html(theHTML);
 		    	  $('#loadingmsg2').css('display', 'none');

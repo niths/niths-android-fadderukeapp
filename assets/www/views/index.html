@@ -72,10 +72,14 @@
 		<script type="text/javascript" charset="utf-8"
 			src="../javascripts/index/fb.js">
  		</script>
+		<script type="text/javascript" charset="utf-8"
+			src="../javascripts/index/fb.js">
+ 		</script>
 
 		<div  data-role="header" data-position="fixed" data-theme="b">
                 <a href="" id="loginbtn" data-role="button" class="ui-btn-right">Logg inn</a>
                 <h3>NITHS</h3>
+                <a id="adminsectionbtn" href="#admin-page" data-role="button" class="ui-btn-left">admin</a>
             </div>
             <div data-role="content" data-scroll="y" >
             
@@ -93,19 +97,17 @@
 					</div>
             </div><!-- /events -->
             
+            
 			<div id="images" >
 				<h1 class="withborder">Siste bilder</h1>
-      			<div id="imageslider" >
-				</div><!--End of scrolling div-->
-<!-- 				<h1 class="withborder">Siste bilder</h1> -->
-<!--       			<div id="imageslider" data-scroll="x" class="threeByThree"> -->
-<!-- 					<div class="square"><img src="../images/mm.jpg" /></div> -->
-<!-- 					<div class="square"><img src="../images/mm.jpg" /></div> -->
-<!-- 					<div class="square"><img src="../images/nith.jpg" /></div> -->
-<!-- 					<div class="square"><img src="../images/nith.jpg" /></div> -->
-<!-- 					<div class="square"><img src="../images/mm.jpg" /></div> -->
-<!-- 					<div class="square"><img src="../images/nith.jpg" /></div> -->
-<!-- 				</div>End of scrolling div -->
+      			<div id="imageslider" data-scroll="x" class="threeByThree">
+					<div class="square"><img src="../images/mm.jpg" /></div>
+					<div class="square"><img src="../images/mm.jpg" /></div>
+					<div class="square"><img src="../images/nith.jpg" /></div>
+					<div class="square"><img src="../images/nith.jpg" /></div>
+					<div class="square"><img src="../images/mm.jpg" /></div>
+					<div class="square"><img src="../images/nith.jpg" /></div>
+				</div>
             </div><!--end images-->
             
             <div id="tweets">
@@ -136,7 +138,7 @@
             <div data-role="footer" data-position="fixed"  data-theme="b">
             	<div data-role="navbar">
             		<ul>
-                		<li><a href="#" id="profilebtn" data-icon="person" data-iconpos="top">Profil</a></li>
+                		<li><a href="#" id="profilebtn" data-icon="info" data-iconpos="top">Profil</a></li>
 						<li><a href="#all-fadder-groups-page" id="myGroupBtn" data-icon="star" data-iconpos="top">Faddergrupper</a></li>
 						<li><a href="qr-code.html" data-icon="grid" data-iconpos="top">QR kode</a></li>
                 	</ul>
@@ -185,7 +187,7 @@
 	
 	
 	<div data-role="page" id="program-page">
- 		<link rel="stylesheet" href="../stylesheets/event/program.css"/>
+ 		<link rel="stylesheet" href="../stylesheets/program.css"/>
 		<script type="text/javascript" charset="utf-8"
 			src="../javascripts/index/program.js">
  		</script>
@@ -268,6 +270,93 @@
 			</div><!-- /content -->
 
 		</div><!-- /page -->
+		
+		
+		
+		<!-- ADMIN SECTION -->
+		<!-- FADDER LEADER SECTION -->
+		
+	<div data-role="page" data-theme="c" id="admin-page">
+
+		<link rel="stylesheet" href="../stylesheets/admin/admin.css"/>
+		<script type="text/javascript" charset="utf-8"
+			src="../javascripts/admin/admin.js">
+		</script>
+		
+		<div data-role="header" data-position="fixed" data-theme="b">
+			<a href="#"  data-role="button" data-rel="back" class="ui-btn-left">Back</a>
+			<h3>ADMIN</h3>
+			<a href="#"  id="refreshallbtn" data-role="button" class="ui-btn-right">Refresh</a>
+		</div>
+		
+		<div data-role="content" id="admincontent">
+           	<h1 class="withborder">Kommende Events</h1>
+			<div id="loadinforallevents"><img class="spin" src="../stylesheets/common/images/loader.png" /></div>
+            <ul id ="alleventlist" data-role="listview" class="ui-listview" data-inset="true">
+            </ul>
+		</div><!-- Content -->
+	</div> 	<!-- page -->
+	
+	
+	<!-- EDIT EVENT PAGE -->
+	<!-- Show info about an event and lets user update/delete -->
+	
+	<div data-role="page" data-theme="c" id="admin-edit-event-page">
+
+		<script type="text/javascript" charset="utf-8"
+			src="../javascripts/admin/edit-event.js">
+		</script>
+		
+		<div data-role="header" data-position="fixed" data-theme="b">
+			<a href="#"  data-role="button" data-rel="back" class="ui-btn-left">Back</a>
+			<h3>EDIT EVENT</h3>
+		</div>
+		<div data-role="content">
+			<h1 class="withborder">Endre event</h1>
+			<div id="loadinforupdateventdiv"><img class="spin" src="../stylesheets/common/images/loader.png" /></div>
+			<div id="updateeventinfodiv">
+			<form id="update-event-form" >
+				<input id="id" name="id" type="hidden" value="" />
+			
+				<div class="ui-hide-label">
+					<label for="name">Navn:</label> 
+					<input type="text" name="name" id="name" value="" placeholder="Navn" />
+				</div>
+				<div class="ui-hide-label">
+					<label for="description">Beskrivelse:</label> 
+					<textarea cols="40" rows="8" name="description" id="description" placeholder="Beskrivelse"></textarea>
+				</div>
+				<div class="ui-hide-label">
+					<label for="startTime">Start:</label> 
+					<input type="text" name="starTime" id="startTime" value="" placeholder="Start" />
+				</div>
+				<div class="ui-hide-label">
+					<label for="endTime">Slutt:</label> 
+					<input type="text" name="endTime" id="endTime" value="" placeholder="Slutt" />
+				</div>
+				<div class="ui-hide-label">
+					<label for="tags">Tags:</label> 
+					<input type="text" name="tags" id="tags" value="" placeholder="Tags" />
+				</div>
+				<div class="ui-hide-label">
+					<label for="place">Sted:</label> 
+					<input type="text" name="place" id="place" value="" placeholder="Sted" />
+				</div>
+				<div class="ui-hide-label">
+					<label for="latitude">Latitude:</label> 
+					<input type="text" name="latitude" id="latitude" value="" placeholder="Latitude" />
+				</div>
+				<div class="ui-hide-label">
+					<label for="longitude">Longitude:</label> 
+					<input type="text" name="longitude" id="longitude" value="" placeholder="Longitude" />
+				</div>
+				<div class="bottomborder"></div>
+				<button type="submit" id="editeventsubmit" data-role="button">Oppdater</button>
+        
+        	</form>
+        	</div><!-- updateventinfodiv -->
+		</div><!-- Content -->
+	</div> 	<!-- page -->
 
 </body>
 </html>

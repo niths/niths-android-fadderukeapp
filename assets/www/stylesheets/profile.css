@@ -1,9 +1,14 @@
+#adminbtn{
+	display:none;
+}
 
 
-#profileImgc{
+
+#profileImg{
 	float: left;
 }
 #faddergroup{
+	float:right;
 	text-align:center;
 }
 
@@ -32,6 +37,6 @@ a.blacklink:active {
 	padding:0;
 }
 
-/* #profileinfo { */
-/*   visibility: hidden; */
-/* } */
+#profilediv {
+  visibility: hidden;
+}

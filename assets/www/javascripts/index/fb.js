@@ -8,19 +8,16 @@ function getImages(){
         dataType: "json",
         type: 'get',
         success: function(album){
-        	$('#imageslider').html('<div id="imgss" data-scroll="x" class="threeByThree">');
+        	//$('#imageslider').html('<div id="imgss" data-scroll="x" class="threeByThree">');
            // var imgs = album.data[3].images;
             var imgss = album.data;
-            for (var i = 0; i<1; i++){
+            for (var i = 0; i<2; i++){
 //          for (var i = 0; i<imgss.length; i++){
             	var img = imgss[i].images[4]['source'];
-            	$('#imageslider').append('<div class="square"><img src="'+img+'" /></div>');
-            	
+            	//$('#imageslider').append('<div class="square"><a href="#"><img src="'+img+'" /></a></div>');
             	// $('#imageslider').append('<div class="square"><img src="../images/mm.jpg" /></div><div class="square"><img src="../images/mm.jpg" /></div><div class="square"><img src="../images/mm.jpg" /></div>');
             }
-            $('#imageslider').append('</div>');
-            $('#imgss').scrollview();
-            $('#imageslider').trigger('create');
+           // $('#imageslider').append('</div>');
         },
         error: function(){
             alert('error');

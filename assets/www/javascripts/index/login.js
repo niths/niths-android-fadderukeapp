@@ -3,7 +3,6 @@ $(document).ready(function() {
   var stateURLFragment = 'state=/profile';
   var isNITHMail       = false;
   
-//  $('#error').empty();
   toggleBtnText();
 
   $('#loginbtn').click(function() {
@@ -24,6 +23,7 @@ $(document).ready(function() {
 			 signIn(); 
 		 }
 		 else if(sessionToken  != "-1"){ //Sign is succeeded, but not NITH mail: = -1;
+			 //alert("LOGGED IN");
 			 $.mobile.changePage('profile.html');
 		 }
 	 });
@@ -84,65 +84,6 @@ $(document).ready(function() {
 		}
   }
 
-  function getGroup() {
-		var response;
-		response = $.ajax({
-			url : address + 'fadder/getGroupBelongingTo/' + student.id,
-			type : 'get',
-			cache : false,
-			contentType : 'application/json',
-			timeout : 3000,
-			success : function(data) {
-				if(response.status == 200){
-					for (obj in data){
-						if(obj == 'groupNumber'){
-							groupNumber = data[obj];
-							//alert("Din gruppe: " + groupNumber);
-						}
-					}
-				} 
-				else{
-					//alert("Du har ingen faddergruppe");
-				}
-
-			},
-			error : function(xhr, status) {
-					alert("Ikke kontakt med server");
-			}
-		});
-	}
-  
-  /**
-   * Check if a student logging has the role fadder leader
-   * and sets the global variable role
-   */  
-  function checkIfLeader(){
-	 $.mobile.showPageLoadingMsg();
-	  var response;
-	  response = $.ajax({
-			url : address + 'students/'+student.id+'/ROLE_FADDER_LEADER',
-			type : 'get',
-			timeout: 3000,
-			cache : false,
-			success : function() { //Server responded
-				//alert(response.status + '--' + response.getResponseHeader('error'));
-				if(response.status == 200){ //Got role!
-					role = 'ROLE_FADDER_LEADER';
-					$('#adminsectionbtn').css('display', 'block');
-				}else if (response.status == 204){ //Did not have role
-					role = "";
-				}
-				$.mobile.hidePageLoadingMsg();
-			},
-			error : function(xhr, status) {
-				role = "";
-				if(status == 'timeout'){ //No contact with server
-					alert('Fikk ikke kontakt med serveren'); 
-				}
-				$.mobile.hidePageLoadingMsg();
-			}
-		});
-  }
 
   function onLoggedIn(token) {
 	  resetUserValues();
@@ -161,10 +102,14 @@ $(document).ready(function() {
 		  		alert("Du er innlogget");
 		  		student = data;
 		  		sessionToken = loginResponse.getResponseHeader('session-token');
-		  		//studentId = loginResponse.getResponseHeader('student-id');
-    	  
-		  		checkIfLeader();
-		  		getGroup();
+		  		
+		  		//If student is leader for a group, show admin btn
+		  		if(student.groupLeaders != null){ //NEEDED?
+		  			if(student.groupLeaders.length > 0){
+		  				$('#adminsectionbtn').css('display', 'block');		  				
+		  			}
+		  		}
+
 		  		toggleBtnText();
     	  
 		  		$.mobile.hidePageLoadingMsg();
@@ -191,9 +136,9 @@ $(document).ready(function() {
   //Resets logged in values
   function resetUserValues(){
 	  	sessionToken = '';
-  		role = '';
+  		//role = '';
   		student= {};
-  		groupNumber = 0;
+  		//groupNumber = 0;
   		$('#adminsectionbtn').css('display', 'none');
   }
 

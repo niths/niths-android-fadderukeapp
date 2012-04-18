@@ -1,9 +1,10 @@
 $("#admin-page").live('pageshow', function() {
+	showLeaderGroups();
 	loadEvents();
 	$('#refreshallbtn').click(function() {
 		$('#loadinforallevents').css('display', 'block');
 		$('#alleventlist').css('display', 'none');
-		
+		showLeaderGroups();
 		loadEvents();
 	});
 });
@@ -15,6 +16,15 @@ function showEvents(){
 }
 
 
+function showLeaderGroups(){
+	theHTML = '';
+	for (var i = 0; i < student.groupLeaders.length; i++){
+		theHTML += '<li class="li-first" id="'+student.groupLeaders[i].id+'"><a href="#"><h3>Gruppenr: '+student.groupLeaders[i].groupNumber+'</h3></a>'+
+		'</li>';
+	}
+	 $('#leadergrouplist').html(theHTML);
+	 $('#leadergrouplist').listview('refresh');
+}
 
 function getDatesBetweenUrlParam(){
 	var today = new Date();
@@ -32,6 +42,11 @@ function getDatesBetweenUrlParam(){
 	var param = '?startTime='+today; //+ '&endTime=' + inFiveDays;
 	return param;
 }
+
+$('#leadergrouplist li').live('click', function(event) {
+    sessionStorage.setItem('fadder_group_id', $(this).attr('id'));
+    $.mobile.changePage('fadder-groups/fadder-children/fadder-children.html');
+  });
 
 /**
  * REMEMBER TO CHANGE LINK!

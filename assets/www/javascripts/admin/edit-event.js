@@ -1,6 +1,6 @@
 // Listen for any attempts to call changePage().
 $(document).bind( "pagebeforechange", function( e, data ) {
-	
+
 	if ( typeof data.toPage === "string" ) {
 		var term = 'edit-event-id';
 		var index = data.toPage.indexOf(term);
@@ -55,7 +55,7 @@ function deleteAnEvent(){
 		        xhr.setRequestHeader("Session-token", sessionToken);
 	      },
 	      success: function(data, status) {
-	    	  alert('Oppdatering vellykket');
+	    	  alert('Sletting vellykket');
 	    	  $.mobile.hidePageLoadingMsg();
 	    	  history.back();
 	      },
@@ -70,11 +70,6 @@ function deleteAnEvent(){
 
 $("#admin-edit-event-page").live('pageshow', function() {	
 
-	
-//	$('#deleteeventsubmit').click(function() {
-//			
-//	});
-	
 	$('#editeventsubmit').click(function() {
 		$.mobile.showPageLoadingMsg();
 		  var response;
@@ -98,7 +93,7 @@ $("#admin-edit-event-page").live('pageshow', function() {
 		    		  alert("Beklager, oppdatering feilet. Prøv igjen");
 		    	  } 
 		    	  $.mobile.hidePageLoadingMsg();
-		    	  
+
 		      },
 		      error: function(xhr) {
 		    	  alert("Beklager, en feil oppsto: " + response.getResponseHeader('error'));
@@ -112,7 +107,7 @@ $("#admin-edit-event-page").live('pageshow', function() {
 });
 
 function loadEventToEdit(id){
-	
+
 $.ajax({
     url: address + 'events/'+ id,
     type: 'GET',

@@ -48,12 +48,12 @@
     <script type="text/javascript" charset="utf-8"
         src="../javascripts/common/application.js">
     </script>
-    	<script type="text/javascript" charset="utf-8"
-			src="../javascripts/common/md5.js">
-		</script>
-    	<script type="text/javascript" charset="utf-8"
-			src="../javascripts/common/dialog-plugin.js">
-		</script>
+    <script type="text/javascript" charset="utf-8"
+		src="../javascripts/common/md5.js">
+	</script>
+    <script type="text/javascript" charset="utf-8"
+		src="../javascripts/common/dialog-plugin.js">
+	</script>
 
 </head>
 <body>
@@ -278,6 +278,8 @@
 		
 		
 		<!-- ADMIN SECTION -->
+		
+		
 		<!-- FADDER LEADER SECTION -->
 		
 	<div data-role="page" data-theme="c" id="admin-page">
@@ -287,21 +289,25 @@
 			src="../javascripts/admin/admin.js">
 		</script>
 		
-		<div data-role="header" data-position="fixed" data-theme="b">
+		<div data-role="header" data-theme="b">
 			<a href="#"  data-role="button" data-rel="back" class="ui-btn-left">Back</a>
 			<h3>ADMIN</h3>
 			<a href="#"  id="refreshallbtn" data-role="button" class="ui-btn-right">Refresh</a>
 		</div>
 		
 		<div data-role="content" id="admincontent">
-			<a href="#admin-create-event-page" data-role="button">Opprett event</a>
-		
-           	<h1 class="withborder">Kommende Events</h1>
+			<h1 class="withborder">Dine Grupper</h1>
+			<ul id ="leadergrouplist" data-role="listview" class="ui-listview" data-inset="true">
+            </ul>
+			
+           	<h1 class="withborder">Events</h1>
+			<a href="#admin-create-event-page" data-role="button">Opprett event</a>		
 			<div id="loadinforallevents"><img class="spin" src="../stylesheets/common/images/loader.png" /></div>
             <ul id ="alleventlist" data-role="listview" class="ui-listview" data-inset="true">
             </ul>
 		</div><!-- Content -->
 	</div> 	<!-- page -->
+	
 	
 	
 	<!-- EDIT EVENT PAGE -->
@@ -316,7 +322,7 @@
 		
 		<div data-role="header" data-position="fixed" data-theme="b">
 			<a href="#"  data-role="button" data-rel="back" class="ui-btn-left">Back</a>
-			<h3>EDIT EVENT</h3>
+			<h3>ENDRE EVENT</h3>
 		</div>
 		<div data-role="content">
 			<h1 class="withborder">Endre event</h1>
@@ -426,6 +432,8 @@
         	</div><!-- updateventinfodiv -->
 		</div><!-- Content -->
 	</div> 	<!-- page -->
+	
+	
 	
 
 	

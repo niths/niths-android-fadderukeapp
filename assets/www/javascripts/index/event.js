@@ -30,7 +30,7 @@ function loadEvent(eventId){
 	    	  $('#eventdesc').html(data.description);
 	    	  $('#eventtime').html('<strong>' + data.startTime.substring(0,5) + ' ' + data.startTime.substring(11,16)+' - ' + data.endTime.substring(11,16) +'</strong>');
 	    	  if (data.location != null){
-	    		  	var url = 'http://maps.googleapis.com/maps/api/staticmap?center='+data.location.latitude+','+data.location.longitude+'&maptype=roadmap&markers=color:blue%7Clabel:X%7C'+data.location.latitude+','+data.location.longitude+'&amp;zoom=6&amp;size='+($(window).width()-30)+'x150&amp;sensor=false';
+	    		  	var url = 'http://maps.googleapis.com/maps/api/staticmap?center='+data.location.latitude+','+data.location.longitude+'&maptype=roadmap&markers=color:blue%7Clabel:X%7C'+data.location.latitude+','+data.location.longitude+'&amp;zoom=15&amp;size='+($(window).width()-30)+'x180&amp;sensor=false';
 	    	  		$('#map').html('<img alt="" src="' + url + '"/>');
 	    	  }else{
 	    		  $('#map').html("Kan ikke vise kart, ingen har fortalt meg hvor eventen er");

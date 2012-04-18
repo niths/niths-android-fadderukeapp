@@ -1,4 +1,5 @@
 $(document).ready(function() {
+  //var fadderGroupId = 1;
   var fadderGroupId = sessionStorage.getItem('fadder_group_id');
   var fadderChildren = '';
 

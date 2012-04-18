@@ -26,7 +26,7 @@ $("#program-page").live('pageshow', function() {
 	 
 	
 
-	function getDatesBetweenUrlParam(){
+	function getUrlParam(){
 		
 		var today = new Date();
 		
@@ -44,7 +44,7 @@ $("#program-page").live('pageshow', function() {
 			mm='0'+mm
 		} 
 		var today = dd+'/'+mm+'/'+yyyy + '-00:00';
-		var inFiveDays = (dd + 4) + '/'+mm+'/'+yyyy + '-23:59';
+		var inFiveDays = (dd + 5) + '/'+mm+'/'+yyyy + '-23:59';
 		var param = '?startTime='+today + '&endTime=' + inFiveDays;
 		return param;
 		//events/dates?startTime=09/04/2010-10:55&endTime=09/04/2010-10:55
@@ -53,7 +53,7 @@ $("#program-page").live('pageshow', function() {
 	function loadAllEvents(){
 		var response;
 		response = $.ajax({
-		      url: address + 'events/dates' + getDatesBetweenUrlParam(),
+		      url: address + 'events/dates' + getUrlParam(),
 		      type: 'get',
 		      cache: false,
 		      timeout: 3000,

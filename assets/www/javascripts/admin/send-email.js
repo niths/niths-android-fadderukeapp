@@ -54,7 +54,7 @@ $(document).ready(function() {
               data:        jsonEmail,
               success:     function(data) {
                 $.mobile.hidePageLoadingMsg();
-                $.mobile.changePage('fadder-children.html');
+                $.mobile.changePage('#single-faddergroup-admin-page');
               },
               error:       function(xhr) {
                 alert(JSON.stringify(xhr));

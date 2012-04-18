@@ -1,13 +1,9 @@
 
 $("#profile-page").live('pageinit', function() {
-	//alert("pageinit");
 	if (student.id < 1) {
 		history.back();
 		return false;
 	} else {
-//		if (role == 'ROLE_FADDER_LEADER'){
-//			$('#admindiv').css('display', 'block');
-//		}
 		init();
 	}
 });
@@ -21,9 +17,6 @@ function showProfile(){
 	
 	function init(){
 		printUserInfo();
-//		userEmail = "";
-//		getUser();
-//		getGroup();
 	}
 	
 	$.fn.serializeObject = function(){
@@ -74,12 +67,11 @@ function showProfile(){
 		  });
 
 	function printUserInfo(){
-		$('#id').val(student.id);
+		$('#idP').val(student.id);
 		$('#firstName').val(student.firstName);
 		$('#lastName').val(student.lastName);
 		$('#telephoneNumber').val(student.telephoneNumber);
-		$('#description').val(student.description);
-		
+		$('#descriptionP').val(student.description);
 		if(student.gender == 'M'){
 			$("input[value=M]").attr('checked',true).checkboxradio('refresh');
 		}else if (student.gender == 'F'){
@@ -90,15 +82,11 @@ function showProfile(){
 		
 		$('#profileImg').attr("src", 'http://www.gravatar.com/avatar/' + userEmail + '?d=mm');
 		
-		if(groupNumber != 0){
-			$('#faddergroup').html('<a class="blacklink" href="#single-fadder-group-page?group-id='+groupNumber+'">' + groupNumber + '</a>');
+		if(student.fadderGroup != null){
+			$('#faddergroup').html('<a class="blacklink" href="#single-fadder-group-page?group-id='+student.fadderGroup.id+'">' + student.fadderGroup.groupNumber + '</a>');
 		}else{
 			$('#faddergroup').html("Ingen");
 		}
-		
-//		if(role == 'ROLE_FADDER_LEADER'){
-//			$('#adminbtn').css('display', 'block');
-//		}
 		
 		showProfile();
 	}

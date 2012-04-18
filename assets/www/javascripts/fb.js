@@ -36,7 +36,7 @@ function getLatestImages(){
         	handleImgsData(album.data);
         },
         error: function(){
-        	alert('error');
+        	alert('Ikke kontakt med facebook');
         }
   });
 }

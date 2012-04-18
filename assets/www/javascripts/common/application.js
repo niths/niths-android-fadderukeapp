@@ -1,12 +1,8 @@
 
 //address = 'http://192.168.1.157:8080/niths/';
-//address = 'http://10.21.24.140:8080/niths/';
-address = 'http://10.110.74.42:8080/niths/';
-//address = 'http://192.168.0.105:8080/niths/'; //Ben
+address = 'http://192.168.0.105:8080/niths/'; //Ben
 student = {};
-//role    = 'foo';
 sessionToken = '';
-//groupNumber = 0;
 
 applicationKey = 'NH3E5WANTJ';
 applicationToken = 'JJbOUVRgFzOvGGUicKnuhB+fXeyvEnJYpl514ar3nU91brUX1EgisRWwEdj1Byw3CeKjPSnqSSO70xwxmupwjw==';

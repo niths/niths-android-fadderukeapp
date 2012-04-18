@@ -3,29 +3,58 @@
 <head>
 </head>
 <body>
-	<div data-role="page" data-theme="c" id="gallery-page">
-		<link rel="stylesheet" href="../stylesheets/gallery.css" />
-		<script type="text/javascript" charset="utf-8"
-			src="../javascripts/fb.js">	
- 		</script>
-
-		<div data-role="header" data-position="fixed" data-theme="b">
-			<a href="#"  data-role="button" data-rel="back" class="ui-btn-left">Back</a>
-			<h3>GALLERI</h3>
-		</div>
+<div data-role="page" id="Gallery1" class="gallery-page">
+	<link href="../stylesheets/gallery/styles.css" type="text/css" rel="stylesheet" />
+	<link href="../stylesheets/gallery/photoswipe.css" type="text/css" rel="stylesheet" />
+	<script type="text/javascript" charset="utf-8" src="../javascripts/fb.js"></script>
+	<script type="text/javascript" src="../javascripts/gallery/klass.min.js"></script>
+	<script type="text/javascript" src="../javascripts/gallery/code.photoswipe.jquery-3.0.4.min.js"></script>
+	<script type="text/javascript">
+		/*
+		 * IMPORTANT!!!
+		 * REMEMBER TO ADD  rel="external"  to your anchor tags. 
+		 * If you don't this will mess with how jQuery Mobile works
+		 */
+		(function(window, $, PhotoSwipe){
+			$(document).ready(function(){
+				$('div.gallery-page')
+					.live('pageshow', function(e){
+						var 
+							currentPage = $(e.target),
+							options = {},
+							photoSwipeInstance = $("ul.gallery a", e.target).photoSwipe(options,  currentPage.attr('id'));
+						return true;
+					})
+					.live('pagehide', function(e){
+						var currentPage = $(e.target),
+							photoSwipeInstance = PhotoSwipe.getInstance(currentPage.attr('id'));
+						if (typeof photoSwipeInstance != "undefined" && photoSwipeInstance != null) {
+							PhotoSwipe.detatch(photoSwipeInstance);
+						}
+						return true;
+					});
+			});
+		}(window, window.jQuery, window.Code.PhotoSwipe));
+	</script>
 		
-		<div data-role="content" id="gallerycontainer">
-			<h1 class="withborder">Siste bilder</h1>
-			
-			<div id="loadingforprofile"><img class="spin" src="../stylesheets/common/images/loader.png" /></div>
-			
-			<div id="galleryimages">
-			</div>
-			
-		</div><!-- Content -->
+		<div data-role="header" data-theme="b">
+			<a href="#" data-rel="back" data-role="button" class="ui-btn-left">Back</a>
+			<h3>GALLERI</h3>
+			<a href="#" id="refreshGalleryBtn" data-role="button" class="ui-btn-right">Refresh</a>
+		</div>
 
-	</div> 	<!-- page -->
-
-
+	<div data-role="content">	
+		<h1 class="withborder">Siste bilder</h1>
+		<div id="galleryloader"><img class="spin" src="../stylesheets/common/images/loader.png" /></div> 
+		<div id="gallerycontent">
+			<ul class="gallery" id="lastPics" >
+			</ul>
+		</div>
+	</div>
+	<div data-role="footer" data-theme="b">
+		<h4>NITHs</h4>
+	</div>
+</div>
 </body>
+
 </html>

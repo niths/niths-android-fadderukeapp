@@ -1,13 +1,32 @@
-$("#gallery-page").live('pageshow', function() {
-	getImages();
+$('#Gallery1').live('pageinit', function() {
+	getLatestImages();
 });
 
 function showImgs(){
-	$('#loadingforprofile').css('display', 'none');
-	$('#galleryimages').css('visibility', 'visible');
+	$('#galleryloader').css('display', 'none');
+	$('#gallerycontent').css('visibility', 'visible');
 }
 
-function getImages(){
+$('#refreshGalleryBtn').click(function() {
+	refresh();
+});
+
+function refresh(){
+	$('#galleryloader').css('display', 'block');
+	$('#gallerycontent').css('visibility', 'hidden');
+	
+	getLatestImages();
+}
+
+/**
+ * Selects an album from facebook
+ * Replace the id with the album id you want to display
+ * the lastest 25. 
+ * 
+ * Open browser, go to facebook, select album, copy paste id from url
+ */
+
+function getLatestImages(){
 	$.ajax({
         url: "https://graph.facebook.com/10150304760787369/photos",
         dataType: "json",
@@ -17,18 +36,23 @@ function getImages(){
         	handleImgsData(album.data);
         },
         error: function(){
-        	$('#galleryimages').html('<h3>Fikk ikke kontakt med facebook</h3>');
-        	showImgs();
+        	alert('error');
         }
   });
 }
 
+/**
+ * Selects two images, one low res thumb, on normal
+ * from facebook json response
+ */
 function handleImgsData(images){
 	var html = '';
 	for (var i = 0; i<images.length; i++){
-    	var img = images[i].images[4]['source'];
-    	html += '<div class="imagewrapper"> <img class ="fbimage" src="' + img + '" /></div>';
+		
+    	var imgT = images[i].images[6]['source'];
+    	var imgN = images[i].images[4]['source'];
+    	$('#lastPics').append('<li><a href="'+imgN+'" rel="external"><img src="'+imgT+'" alt="NITHs" /></a></li>')
+    					.find("a").photoSwipe();
     }
-	$('#galleryimages').html(html);
 	showImgs();
 }

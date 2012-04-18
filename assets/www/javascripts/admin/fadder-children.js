@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  //var fadderGroupId = 1;
+
   var fadderGroupId = sessionStorage.getItem('fadder_group_id');
   var fadderChildren = '';
 
@@ -10,9 +10,6 @@ $(document).ready(function() {
       url:        address + 'fadder/' + fadderGroupId + '/get-all-children',
       type:       'GET',
       cache:      false,
-      beforeSend: function(xhr) {
-        xhr.setRequestHeader("Accept", "application/json");
-      },
       success: function(data) {
         fadderChildren = data;
         traverseFadderChildren();

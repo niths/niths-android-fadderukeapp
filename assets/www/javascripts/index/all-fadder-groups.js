@@ -1,5 +1,4 @@
 $("#all-fadder-groups-page").live('pageinit', function() {
-	//alert("hei");
 	loadFadderGroups();
 });
 
@@ -33,9 +32,14 @@ function traverseFadderGroups(fadderGroups) {
 	}
 }
 
+/**
+ * Displays a faddergroup with group number and images of the three first fadders
+ */
 function displayFadderGroup(fadderGroup) {
-//	$('#groupList').append('<li class="li-first"><a href="#single-fadder-group-page"><h3>Gruppe: '+fadderGroup.groupNumber+'</h3></a></li>');
-	$('#groupList').append('<li class="li-first"><a href="#single-fadder-group-page?group-id='+fadderGroup.id+'"><h3>Gruppe: '+fadderGroup.groupNumber+'</h3></a></li>');
-//	$('#groupList').append('<li class="li-first"><a href="#single-fadder-group-page"><h3>Gruppe: '+fadderGroup.groupNumber+'</h3></a></li>');
-	
+	var html = '<li class="li-first"><a href="#single-fadder-group-page?group-id='+fadderGroup.id+'">';
+	for (var i = 0; (i < fadderGroup.leaders.length && i < 3); i++){
+		html += '<p class="imgwrapper"><img src="http://www.gravatar.com/avatar/' + hex_md5(fadderGroup.leaders[i].email) + '?d=mm" /></p>';
+	}
+	html+= '<h3 class="under">Gruppe: '+fadderGroup.groupNumber+'</h3></a></li>';
+	$('#groupList').append(html);
 }

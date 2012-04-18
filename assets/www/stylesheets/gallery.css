@@ -1,0 +1,16 @@
+#galleryimages {
+  visibility: hidden;
+  text-align:center;
+}
+
+.fbimage {
+	max-width: 98px;
+    max-height: 98px;
+}
+
+
+.imagewrapper{
+	width: 100px;
+    height: 100px;
+    float:left;
+}

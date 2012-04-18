@@ -48,10 +48,7 @@ $('#leadergrouplist li').live('click', function(event) {
     $.mobile.changePage('fadder-groups/fadder-children/fadder-children.html');
   });
 
-/**
- * REMEMBER TO CHANGE LINK!
- * address + 'events/dates' + getDatesBetweenUrlParam(),
- */
+
 function loadEvents(){
 	var response;
 	response = $.ajax({

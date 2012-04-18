@@ -95,34 +95,25 @@
 					</div>
             </div><!-- /events -->
             
-            
+            <!-- TODO: create a better looking button -->
 			<div id="imagesholder" >
 				<h1 class="withborder">Siste bilder</h1>
 				<a href="fbgallery.html" data-role="button" >Gallery</a>
-<!--       			<div id="imageslider" data-scroll="x" class="threeByThree"> -->
-<!-- 					<div class="square"><img src="../images/mm.jpg" /></div> -->
-<!-- 					<div class="square"><img src="../images/mm.jpg" /></div> -->
-<!-- 					<div class="square"><img src="../images/nith.jpg" /></div> -->
-<!-- 					<div class="square"><img src="../images/nith.jpg" /></div> -->
-<!-- 					<div class="square"><img src="../images/mm.jpg" /></div> -->
-<!-- 					<div class="square"><img src="../images/nith.jpg" /></div> -->
-<!-- 				</div> -->
             </div><!--end images-->
             
-            <div id="tweets">
+            <div id="twitter" class="current">
             	<h1 class="withborder">Siste tweets</h1>
-            	<ul id ="tweetlist" data-role="listview" class="ui-listview" data-inset="true">
-            		
-            		<li class="li-first" id="loader">
-					    <h3>Laster tweets</h3>
-					</li>          	
-            	</ul>
+    			<div id="loadingfortwitterfeed"><img class="spin" src="../stylesheets/common/images/loader.png" /></div>
+    			<ul id="tweets2">
+ 				</ul>
+			</div>
+			
+			
             	<div class="listbtns">
 						<a href="" data-role="button" id="refreshtweetbtn" data-icon="refresh" data-iconpos="notext" data-inline="true" >Refresh</a>
 						<a href="" data-role="button" id="expandtweetbtn" data-icon="plus" data-iconpos="notext" data-inline="true">Flere</a>
             	</div>
-            	
-            </div><!--end tweets-->
+
             	
             
             	<div id="endcontent">
@@ -157,7 +148,7 @@
 			src="../javascripts/index/event.js">
 		</script>
 	
-		<div data-role="header" data-position="fixed" data-theme="b">
+		<div data-role="header" data-theme="b">
 			<a href="#"  data-role="button" data-rel="back" class="ui-btn-left">Back</a>
 			<h3>EVENT</h3>
      	</div>
@@ -190,7 +181,7 @@
 			src="../javascripts/index/program.js">
  		</script>
 	
-	<div data-role="header" data-position="fixed" data-theme="b">
+	<div data-role="header" data-theme="b">
 		<a href="#"  data-role="button" data-rel="back" class="ui-btn-left">Back</a>
 		<h3>PROGRAM</h3>
 		<a href="#" id="refreshprogrambtn" data-role="button" class="ui-btn-right">Refresh</a>
@@ -218,7 +209,7 @@
 						src="../javascripts/index/all-fadder-groups.js">
 			</script>
 
-			<div data-role="header" data-position="fixed" data-theme="b">
+			<div data-role="header" data-theme="b">
 				<a href="#"  data-role="button" data-rel="back" class="ui-btn-left">Back</a>
 				<h3>ALLE GRUPPER</h3>
 			</div>
@@ -247,7 +238,7 @@
 						src="../javascripts/index/single-fadder-group.js">
 			</script>
 
-			<div data-role="header" data-position="fixed" data-theme="b">
+			<div data-role="header" data-theme="b">
 				<a href="#"  data-role="button" data-rel="back" class="ui-btn-left">Back</a>
 				<h3>FADDERGRUPPE</h3>
 			</div>
@@ -314,7 +305,7 @@
 			src="../javascripts/admin/edit-event.js">
 		</script>
 		
-		<div data-role="header" data-position="fixed" data-theme="b">
+		<div data-role="header" data-theme="b">
 			<a href="#"  data-role="button" data-rel="back" class="ui-btn-left">Back</a>
 			<h3>ENDRE EVENT</h3>
 		</div>
@@ -376,7 +367,7 @@
 			src="../javascripts/admin/create-event.js">
 		</script>
 		
-		<div data-role="header" data-position="fixed" data-theme="b">
+		<div data-role="header" data-theme="b">
 			<a href="#"  data-role="button" data-rel="back" class="ui-btn-left">Back</a>
 			<h3>OPPRETT EVENT</h3>
 		</div>

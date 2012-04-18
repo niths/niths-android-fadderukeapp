@@ -8,6 +8,7 @@ $("#dashboard-page").live('pageinit', function() {
 	init();
 					
 	function init(){
+		showTweetLoading();
 		loadTweets(); 
 		loadEvents();
 	}
@@ -40,9 +41,8 @@ $("#dashboard-page").live('pageinit', function() {
 	}
 				        
 	function showTweetLoading(){
-		var html = '<li class="li-first" id="loader"><h3>Laster tweets</h3></li></ul>';
-		$('#tweetlist').html(html);
-		$('#tweetlist').listview('refresh');
+		$('#loadingfortwitterfeed').css('display', 'block');
+		$('#tweets2').css('display', 'none');
 	}
 	
 	/**
@@ -132,17 +132,16 @@ $("#dashboard-page").live('pageinit', function() {
 	function printTweets(data){
 		var theResults = data.results;
 		var theHTML = '';
+		$('#tweets2').html('');
 		for(var i=0;i<theResults.length;i++){
-			theHTML += ['<li class="li-first">',
-				 '<img src="http://api.twitter.com/1/users/profile_image/'+ theResults[i].from_user +'?size=bigger" />',
-				   '<h2>'+theResults[i].from_user+'</h2>',
-				    '<p style="white-space:normal">'+theResults[i].text+'</p>',
-				    '<p class="ui-li-aside"><strong>'+theResults[i].created_at.substring(17,22)+'</strong></p>',
-				    '</li>'].join('');
-
+			
+			$('#tweets2').append(
+					'<li>'+
+					'<a class="avatar" href="http://twitter.com/' + theResults[i].from_user + '"><img src="'+theResults[i].profile_image_url+'" alt="'+theResults[i].from_user+'"></a>'+
+            	'<a class="tweetlink" href="http://twitter.com/' + theResults[i].from_user + '"><h2>' + theResults[i].from_user+'</h2></a>'+ 
+            	'<span class="details">'+theResults[i].text+'</span>'+
+        	'</li>');
 		}
-		$('#tweetlist').html(theHTML);
-		$('#tweetlist').listview('refresh');
 				        
 		if(numTweets == 3){
 			$('#expandtweetbtn').attr('data-icon','plus');
@@ -152,12 +151,15 @@ $("#dashboard-page").live('pageinit', function() {
 			$('#expandtweetbtn').children().children().next().removeClass('ui-icon-plus').addClass('ui-icon-minus');				        	
 				        	
 		}
+		$('#loadingfortwitterfeed').css('display', 'none');
+		$('#tweets2').css('display', 'block');
 	}
 					
 	
 	function printErrorTweet(){
-		var html = '<li class="li-first" id="loader"><h3>Ikke kontakt med twitter</h3></li></ul>';
-		$('#tweetlist').html(html);
-		$('#tweetlist').listview('refresh');
+		$('#tweets2').html('<h3>Ikke kontakt med twitter</h3>');
+//		var html = '<li class="li-first" id="loader"><h3>Ikke kontakt med twitter</h3></li></ul>';
+		$('#loadingfortwitterfeed').css('display', 'none');
+		$('#tweets2').css('display', 'block');
 	}
 });

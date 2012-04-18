@@ -1,3 +1,43 @@
+/** Tweets Styling **/
+ 
+#tweets2 {
+    list-style:none;
+    padding:5px;
+}
+ 
+#tweets2 li{
+    font-size:12px;
+    overflow: hidden;
+    margin-bottom:20px;
+}
+ 
+#tweets2 li h2{
+    font-size:16px;
+    margin:0 0 5px 0;
+}
+.avatar{
+    margin-right:10px;
+}
+ 
+#tweets2 li a, #tweets2 li span {
+    float:left;
+}
+
+a.tweetlink:link{
+	color:#00ADEF;
+}
+a.tweetlink:visited {
+	color:#00ADEF;
+}
+
+a.tweetlink:active {
+	color: #00ADEF;
+}
+ 
+#tweets2 li span {
+    width:70%;
+}
+
 #adminsectionbtn{
 	display:none;
 }

@@ -1,15 +1,59 @@
-#grouplistdiv {
-  visibility: hidden;
-}
 
-.under{
-	text-align:right;
+/* main wrapper */
+#allGroupsInfoDiv{
+	font-family: header_font;
+	width:100%;
+	float:none;
+	visibility: hidden;
+}
+#allGroupsInfoDiv h3{
+	margin: 0;
+	
+}
+#allGroupsContentDiv{
+	width:100%;
+}
+#allGroupsHeaderDiv{
+/* 	background-color: grey; */
 	width:100%;
 }
 
-.imgwrapper{
-	float: left; 
-/* /*     width: 80px; height: 80px; */ */
-    text-align: center; 
-    vertical-align: middle; 	
+#groupNumberHeader{
+	text-align: left;
+	width:40%;
+/* 	background-color:purple; */
+	float:left;
 }
+#fadderInfoHeader{
+	text-align: right;
+/* 	width: 100%; */
+/* 	background-color: yellow; */
+/* 	float:none; */
+}
+
+.groupNumberDiv{
+	text-align: center;
+	width:20%;
+	float:left;
+/* 	background-color:green; */
+}
+
+.fadderInfoDiv{
+	text-align: right;
+	vertical-align:middle;
+	width: 100%;
+/* 	background-color: red; */
+}
+
+.groupdivider{
+/* 	padding-top:3px; */
+	border-bottom: dotted 2px black;
+/* 	margin-bottom: 3px; */
+}
+.back1{
+	background-color: #b8b8b8;
+}
+.back2{
+/* 	background-color: #ddd; */
+}
+

@@ -212,18 +212,29 @@
 			<div data-role="header" data-theme="b">
 				<a href="#"  data-role="button" data-rel="back" class="ui-btn-left">Back</a>
 				<h3>ALLE GRUPPER</h3>
+				<a href="#" id="refreshFadderGroupsListBtn" data-role="button" class="ui-btn-right">Refresh</a>
 			</div>
 
-			<div data-role="content" data-scroll="y">	
-				<h1 class="withborder">faddergrupper</h1>	
+			<div data-role="content" >	
+				<h1 class="withborder">faddergrupper</h1>
 				
-				<div id="loadingmsgdiv"><img class="spin" src="../stylesheets/common/images/loader.png" /></div>
+				<div id="allGroupsInfoDiv">
+					<div id="allGroupsHeaderDiv">
+						<div id="groupNumberHeader">
+							<h3>Gruppe:</h3>
+						</div>
+						<div id="fadderInfoHeader">
+							<h3>Faddere:</h3>
+						</div>
+					</div>
+					
+					<div id="allGroupsContentDiv">
+
+					</div>
+				</div>	
 				
-     			<div id ="grouplistdiv">
-     				<ul id ="groupList" data-role="listview" class="ui-listview" data-inset="true"></ul>
-     			</div>
-				
-				
+				<div id="loadingGroupsMsgDiv"><img class="spin" src="../stylesheets/common/images/loader.png" /></div>
+
 			</div><!-- /content -->
 
 		</div><!-- /page -->

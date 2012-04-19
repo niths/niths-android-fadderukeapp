@@ -1,59 +1,100 @@
-
-/* main wrapper */
-#allGroupsInfoDiv{
-	font-family: header_font;
-	width:100%;
-	float:none;
-	visibility: hidden;
+.nameAndImage{
+	float: left;
+	margin-left: 5px;
 }
-#allGroupsInfoDiv h3{
+
+
+#allGroupsGUI ul{
+	list-style: none;
+	padding: 0;
 	margin: 0;
+}
+#allGroupsGUI li {
+	padding: 5px 0 5px 0;
+	margin: 0 0 5px 0;
+	overflow: hidden;
+}
+
+.fadderGroupGUI{
+	border-bottom: dotted 2px black;
+}
+
+.nameGUI{
+	text-align: center;
+	font-family: header_font;
 	
 }
-#allGroupsContentDiv{
-	width:100%;
-}
-#allGroupsHeaderDiv{
-/* 	background-color: grey; */
-	width:100%;
+
+.groupGUI{
+	float:left;
+	font-family: header_font;
 }
 
-#groupNumberHeader{
-	text-align: left;
-	width:40%;
-/* 	background-color:purple; */
-	float:left;
+.groupGUI h2{
+	padding: 0;
+	margin: 0;
 }
-#fadderInfoHeader{
-	text-align: right;
-/* 	width: 100%; */
-/* 	background-color: yellow; */
+
+/* /* main wrapper */ */
+/* #allGroupsInfoDiv{ */
+/* 	font-family: header_font; */
+/* 	width:100%; */
 /* 	float:none; */
-}
+/* 	visibility: hidden; */
+/* } */
+/* #allGroupsInfoDiv h3{ */
+/* 	margin: 0; */
+	
+/* } */
+/* #allGroupsContentDiv{ */
+/* 	width:100%; */
+/* } */
+/* #allGroupsHeaderDiv{ */
+/* /* 	background-color: grey; */ */
+/* 	width:100%; */
+/* } */
 
-.groupNumberDiv{
-	text-align: center;
-	width:20%;
-	float:left;
-/* 	background-color:green; */
-}
+/* #groupNumberHeader{ */
+/* 	text-align: left; */
+/* 	width:40%; */
+/* /* 	background-color:purple; */ */
+/* 	float:left; */
+/* } */
+/* #fadderInfoHeader{ */
+/* 	text-align: right; */
+/* /* 	width: 100%; */ */
+/* /* 	background-color: yellow; */ */
+/* /* 	float:none; */ */
+/* } */
 
-.fadderInfoDiv{
-	text-align: right;
-	vertical-align:middle;
-	width: 100%;
-/* 	background-color: red; */
-}
+/* .fadderInfoDiv img{ */
+/* 	width: 80px; */
+/* 	height: 80px; */
+/* } */
 
-.groupdivider{
-/* 	padding-top:3px; */
-	border-bottom: dotted 2px black;
-/* 	margin-bottom: 3px; */
-}
-.back1{
-	background-color: #b8b8b8;
-}
-.back2{
-/* 	background-color: #ddd; */
-}
+/* .groupNumberDiv{ */
+/* 	text-align: center; */
+/* 	width:20%; */
+/* 	float:left; */
+/* /* 	background-color:green; */ */
+/* } */
+
+/* .fadderInfoDiv{ */
+/* 	text-align: right; */
+/* 	vertical-align:middle; */
+/* 	width: 100%; */
+/* /* 	background-color: red; */ */
+/* } */
+
+/* .groupdivider{ */
+/* /* 	padding-top:3px; */ */
+/* 	border-bottom: dotted 2px black; */
+/* /* 	margin-bottom: 3px; */ */
+/* } */
+/* .back1{ */
+/* 	background-color: #b8b8b8; */
+/* } */
+/* .back2{ */
+/* /* 	background-color: #ddd; */ */
+/* } */
 

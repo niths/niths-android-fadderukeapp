@@ -11,6 +11,7 @@ $(document).ready(function() {
       type:       'get',
       cache:      false,
       contentType : 'application/json',
+      timeout: 3000,
       success: function(data) {
     	  fadderChildren = data;
     	  traverseAllFadderChildren();

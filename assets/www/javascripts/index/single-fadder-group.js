@@ -17,6 +17,7 @@ $(document).bind( "pagebeforechange", function( e, data ) {
 });
 
 function hideGroup(){
+	$('#agroupheader').html('Gruppe');
 	$('#loadinggroupmsgdiv').css('display', 'block');
 	$('#groupinfodiv').css('display', 'none');
 }

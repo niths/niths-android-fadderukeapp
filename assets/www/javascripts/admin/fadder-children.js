@@ -1,26 +1,27 @@
 $(document).ready(function() {
 
   var fadderGroupId = sessionStorage.getItem('fadder_group_id');
-  var fadderChildren = '';
+  var fadderChildren = {};
 
-  getFadderChildren();
+  getOnlyFadderChildren();
 
-  function getFadderChildren() {
+  function getOnlyFadderChildren() {
     $.ajax({
-      url:        address + 'fadder/' + fadderGroupId + '/get-all-children',
-      type:       'GET',
+      url:        address + 'fadder/' + fadderGroupId + '/children',
+      type:       'get',
       cache:      false,
+      contentType : 'application/json',
       success: function(data) {
-        fadderChildren = data;
-        traverseFadderChildren();
-        $('input:checkbox').checkboxradio();
+    	  fadderChildren = data;
+    	  traverseAllFadderChildren();
       },
       error:   function(xhr) {
-        alert(JSON.stringify(xhr));
+    	  alert('Greide ikke hente fadderbarn');
+    	  history.back();
       }
     });
-
-    function traverseFadderChildren() {
+  }
+    function traverseAllFadderChildren() {
       $.each(fadderChildren, function(i, fadderChild) {
         $('#fadder-children-collection').append(
             '<input type="checkbox" id="' + fadderChild.id +
@@ -31,8 +32,8 @@ $(document).ready(function() {
             '</label>' 
         );
       });
+      $('input:checkbox').checkboxradio();
     }
-  }
 
   $('#radio-delete').click(function() {
     $('#fadder-children-form').attr('action', 'confirm.html');

@@ -51,8 +51,12 @@ function handleImgsData(images){
 		
     	var imgT = images[i].images[6]['source'];
     	var imgN = images[i].images[4]['source'];
-    	$('#lastPics').append('<li><a href="'+imgN+'" rel="external"><img src="'+imgT+'" alt="NITHs" /></a></li>')
-    					.find("a").photoSwipe();
+    	$('#lastPics').append('<li><a href="'+imgN+'" rel="external"><img src="'+imgT+'" alt="NITHs" /></a></li>');
+    					//.find("a").photoSwipe();
     }
+	if(Code.PhotoSwipe.getInstance('Gallery1') == null){
+		$("ul.gallery a").photoSwipe(null,  'Gallery1');			
+	}
+
 	showImgs();
 }

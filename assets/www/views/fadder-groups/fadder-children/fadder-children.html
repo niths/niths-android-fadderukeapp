@@ -12,13 +12,16 @@
       </header>
       <div id="container" data-role="content">
       <h1 class="withborder">Fadderbarn</h1>
+      <a href="../admin-add-children.html"  data-role="button">Legg til barn manuelt</a>
+      <h3 class="customfont">Registrerte barn:</h3>
         <form id="fadder-children-form" method="post" name="foo"
             data-ajax="false">
-          <div data-role="fieldcontain">
+<!--           <div data-role="fieldcontain"> -->
             <fieldset id="fadder-children-collection" data-role="controlgroup">
             </fieldset>
-          </div>
+<!--           </div> -->
           <div data-role="fieldcontain">
+          	<h3 class="customfont">Velg handling:</h3>
             <fieldset data-role="controlgroup" data-type="horizontal">
               <input type="radio" id="radio-delete" name="radio-method"
                   value="delete" />
@@ -28,7 +31,7 @@
               <label for="radio-send-email">Send e-post</label>
             </fieldset>
           </div>
-          <button type="submit">UtfÃ¸r</button>
+          <button type="submit">Utfør</button>
         </form>
       </div>
     </section>

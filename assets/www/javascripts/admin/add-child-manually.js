@@ -6,14 +6,43 @@ $("#add-child-admin-page").live('pageinit', function() {
 $('#fadder-groupless-form').live('submit', function() {
 	var fadderGroupId = sessionStorage.getItem('fadder_group_id');
 	alert(fadderGroupId);
-    $('input:checkbox:checked').each(function() {
+    $('#fadder-groupless-form:checkbox:checked').each(function() {
     	var currentId = $(this).attr('id');
     	alert(currentId);
-    	//ajax --> addToGroup/
+    	addGrouplessToGroup(fadderGroupId, currentId);
     });
     
+   
 
   });
+
+function addGrouplessToGroup(fgId, sId){
+	//"{groupId}/add/child/{studentId}"
+	var response;
+	  response = $.ajax({
+	      url: address + 'fadder/' + fgId + 'add/child/' + sId,
+	      type: 'PUT',
+	      cache: false,
+	      contentType: 'application/json',
+	      beforeSend: function(xhr) {
+	        xhr.setRequestHeader("Application-key", applicationKey);
+	        xhr.setRequestHeader("Application-token", applicationToken);
+	        xhr.setRequestHeader("Developer-key", developerKey);
+	        xhr.setRequestHeader("Developer-token", developerToken);
+	        xhr.setRequestHeader("Session-token", sessionToken);
+	      },
+	      success : function(data){
+	    	  if(response.status == 200){
+	    		  alert("Student lagt til");
+	    	  }else{
+	    		  alert("Fikk ikke lagt til student");
+	    	  } 
+	      },
+	      error: function(xhr) {
+	    	  alert("Beklager, en feil oppsto: " + response.getResponseHeader('error'));
+	      }
+	    });
+}
 
 function showLoadingGrouplessStudents(){
 	$('#grouplessloader').css('display', 'block');
@@ -60,6 +89,6 @@ function traverseGrouplessStudents(students) {
       );
     });
     $('input:checkbox').checkboxradio();
-    hideLoadingGrouplessStudents()
+    hideLoadingGrouplessStudents();
 }
 

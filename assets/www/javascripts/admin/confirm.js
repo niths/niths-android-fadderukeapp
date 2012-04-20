@@ -11,8 +11,7 @@ $(document).ready(function() {
     $.ajax({
 
       // Building the URL describing which students to remove from the group
-      url:        address + 'fadder/' + sessionStorage.getItem(
-                    'fadder_group_id') + '/remove-children/' + ids.slice(0, -1),
+      url:        address + 'fadder/' + sessionStorage.getItem('fadder_group_id') + '/remove/children/' + ids.slice(0, -1),
       type:         'DELETE',
       cache:      false,
       beforeSend: function(xhr) {

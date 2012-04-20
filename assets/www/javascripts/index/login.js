@@ -1,3 +1,12 @@
+$("#dashboard-page").live('pageshow', function() {
+	 if(sessionToken == ""){
+			$("#loginbtn .ui-btn-text").text("Logg inn");
+			$('#adminsectionbtn').css('display', 'none');
+		}else{
+			$("#loginbtn .ui-btn-text").text("Logg ut");
+		}
+});
+
 $(document).ready(function() {
   var callbackURL      = 'http://niths.no/callback';
   var stateURLFragment = 'state=/profile';

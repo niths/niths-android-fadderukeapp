@@ -8,7 +8,8 @@ $(document).ready(function() {
   });
 
   $('#yes').click(function() {
-    $.ajax({
+	  var res;
+    res = $.ajax({
 
       // Building the URL describing which students to remove from the group
       url:        address + 'fadder/' + sessionStorage.getItem('fadder_group_id') + '/remove/children/' + ids.slice(0, -1),
@@ -25,7 +26,13 @@ $(document).ready(function() {
         history.back();
       },
       error:      function(xhr) {
-        alert(JSON.stringify(xhr));
+    	  if(response.status == 401){
+    		  alert('Beklager, du har vært inaktiv for lenge, logg inn igjen');
+    		  sessionToken = '';
+    		  $.mobile.changePage('../../index.html');
+    	  }else{
+    		  alert("Beklager, en feil oppsto: " + response.getResponseHeader('error'));		    		  
+    	  }
       }
     });
   });

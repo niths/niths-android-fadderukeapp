@@ -47,8 +47,15 @@ function addGrouplessToGroup(fgId, sId){
 	    	  return false;
 	      },
 	      error: function(xhr) {
-	    	  alert(response.status);
-	    	  alert("Beklager, en feil oppsto: " + response.getResponseHeader('error'));
+	    	  if(response.status == 401){
+	    		  alert('Beklager, du har vært inaktiv for lenge, logg inn igjen');
+	    		  sessionToken = '';
+	    		  $.mobile.changePage('../index.html');
+	    	  }else{
+	    		  alert("Beklager, en feil oppsto: " + response.getResponseHeader('error'));		    		  
+	    	  }
+//	    	  alert(response.status);
+//	    	  alert("Beklager, en feil oppsto: " + response.getResponseHeader('error'));
 	    	  return false;
 	      }
 	});

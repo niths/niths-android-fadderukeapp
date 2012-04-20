@@ -59,7 +59,13 @@ function showProfile(){
 		    	  } 
 		      },
 		      error: function(xhr) {
-		    	  alert("Beklager, en feil oppsto: " + response.getResponseHeader('error'));
+		    	  if(response.status == 401){
+		    		  alert('Beklager, du har vært inaktiv for lenge, logg inn igjen');
+		    		  sessionToken = '';
+		    		  $.mobile.changePage('index.html');
+		    	  }else{
+		    		  alert("Beklager, en feil oppsto: " + response.getResponseHeader('error'));		    		  
+		    	  }
 		      }
 		    });
 

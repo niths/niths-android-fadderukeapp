@@ -1,4 +1,4 @@
-$("#add-child-admin-page").live('pageshow', function() {
+$("#add-child-admin-page").live('pageinit', function() {
 	showLoadingGrouplessStudents();
 	loadGrouplessStudents();
 });
@@ -13,10 +13,12 @@ $('#fadder-groupless-form').live('submit', function() {
 function handleCheckboxesClicked(){
 	var fadderGroupId = sessionStorage.getItem('fadder_group_id');
 	//alert(fadderGroupId);
+	
 	$('#fadder-groupless-collection input:checkbox:checked').each(function() {
 	    	var currentId = $(this).attr('id');
-	    	alert(currentId);
+	    	//alert(currentId);
 	    	addGrouplessToGroup(fadderGroupId, currentId);
+	   
 	});
 }
 
@@ -38,13 +40,16 @@ function addGrouplessToGroup(fgId, sId){
 	      success : function(data){
 	    	  if(response.status == 200){
 	    		  alert("Student lagt til");
+	    		  return true;
 	    	  }else{
 	    		  alert("Fikk ikke lagt til student : " + response.status + " : " + response.getResponseHeader('error'));
 	    	  }
+	    	  return false;
 	      },
 	      error: function(xhr) {
 	    	  alert(response.status);
 	    	  alert("Beklager, en feil oppsto: " + response.getResponseHeader('error'));
+	    	  return false;
 	      }
 	});
 }
@@ -82,7 +87,6 @@ function loadGrouplessStudents(){
 		},
 		error:   function(xhr) {
 			alert('Greide ikke hente fadderbarn');
-			//history.back();
 		}
 	});
 }

@@ -1,5 +1,5 @@
 
-$("#profile-page").live('pageinit', function() {
+$("#profile-page").live('pageshow', function() {
 	if (student.id < 1) {
 		history.back();
 		return false;
@@ -52,6 +52,7 @@ function showProfile(){
 		      data:  JSON.stringify($("#update-person-form").serializeObject()),
 		      success : function(data){
 		    	  if(response.status == 200){
+		    		  refreshStudentValues();
 		    		  alert("Oppdatering vellykket");
 		    	  }else{
 		    		  alert("Beklager, oppdatering feilet. Prøv igjen");
@@ -65,6 +66,18 @@ function showProfile(){
 		    $('form').die('submit');
 		    return false;
 		  });
+	  
+	 function refreshStudentValues(){
+		 student.firstName = $('#firstName').val();
+		 student.lastName = $('#lastName').val();
+		 student.telephoneNumber = $('#telephoneNumber').val();
+		 student.description = $('#descriptionP').val();
+		 if($("input[@name=gender]:checked").attr('id') == 'male'){
+			 student.gender = 'M';
+		 }else{
+			 student.gender = 'F';
+		 }
+	 }
 
 	function printUserInfo(){
 		$('#idP').val(student.id);

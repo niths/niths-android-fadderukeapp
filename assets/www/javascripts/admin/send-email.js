@@ -41,7 +41,8 @@ $(document).ready(function() {
                 '"body": "' + messageBody + '" ' +
               '}';
 
-            $.ajax({
+            var response;
+            response = $.ajax({
               url:         address + 'broadcast',
               type:        'POST',
               cache:       false,

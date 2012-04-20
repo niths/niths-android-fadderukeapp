@@ -1,6 +1,7 @@
 
 //address = 'http://192.168.1.157:8080/niths/';
-address = 'http://192.168.0.105:8080/niths/'; //Ben
+//address = 'http://192.168.0.105:8080/niths/'; //Ben
+address = 'http://10.21.24.134:8080/niths/'; //Ben
 student = {};
 sessionToken = '';
 

@@ -8,6 +8,12 @@ $("#dashboard-page").live('pageshow', function() {
 });
 
 $(document).ready(function() {
+  //WP7 spesific
+  $.support.cors = true;
+
+  // WP7 and iOS specific
+  ChildBrowser.install();
+
   var callbackURL      = 'http://niths.no/callback';
   var stateURLFragment = 'state=/profile';
   var isNITHMail       = false;
@@ -33,7 +39,7 @@ $(document).ready(function() {
 		 }
 		 else if(sessionToken  != "-1"){ //Sign is succeeded, but not NITH mail: = -1;
 			 //alert("LOGGED IN");
-			 $.mobile.changePage('profile.html');
+			 $.mobile.changePage('views/profile.html');
 		 }
 	 });
 	 

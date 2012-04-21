@@ -3,61 +3,60 @@
 <head>
 <meta http-equiv="Content-Type" content="text-html" charset="UTF-8"/>
 <title>NITHs</title>
-<!-- 	<link rel="stylesheet" href="../stylesheets/common/nithstheme.min.css" /> -->
-<!--     <link rel="stylesheet" href="../stylesheets/common/jquery.mobile.notheme.css"/> -->
-    <link rel="stylesheet" href="../stylesheets/common/jq-m-uncom-custom.css"/>
-<!--     <link rel="stylesheet" href="../stylesheets/common/jquery-mobile.css"/> -->
-    <link rel="stylesheet" href="../stylesheets/common/application.css"/>
-    <link rel="stylesheet" href="../stylesheets/index.css"/>
-    <link rel="stylesheet" href="../stylesheets/jquery.mobile.scrollview.css"/>
-    <link rel="stylesheet" href="../stylesheets/common/dialog-plugin.css"/>
+<!-- 	<link rel="stylesheet" href="stylesheets/common/nithstheme.min.css" /> -->
+<!--     <link rel="stylesheet" href="stylesheets/common/jquery.mobile.notheme.css"/> -->
+    <link rel="stylesheet" href="stylesheets/common/jq-m-uncom-custom.css"/>
+<!--     <link rel="stylesheet" href="stylesheets/common/jquery-mobile.css"/> -->
+    <link rel="stylesheet" href="stylesheets/common/application.css"/>
+    <link rel="stylesheet" href="stylesheets/index.css"/>
+    <link rel="stylesheet" href="stylesheets/jquery.mobile.scrollview.css"/>
+    <link rel="stylesheet" href="stylesheets/common/dialog-plugin.css"/>
     <script type="text/javascript" charset="utf-8"
-      src="../javascripts/common/jquery.js"></script>
+      src="javascripts/common/jquery.js"></script>
     <script>
       $(document).bind("mobileinit", function() {
         $.mobile.touchOverflowEnabled = true;
       });
     </script>
     <script type="text/javascript" charset="utf-8"
-      src="../javascripts/common/jquery-mobile.js">
+      src="javascripts/common/jquery-mobile.js">
     </script>
     
     <!-- Scrollview -->
     
     <script type="text/javascript" charset="utf-8"
-      src="../javascripts/common/jquery.easing.1.3.js">
+      src="javascripts/common/jquery.easing.1.3.js">
     </script>
     <script type="text/javascript" charset="utf-8"
-      src="../javascripts/common/jquery.mobile.scrollview.js">
+      src="javascripts/common/jquery.mobile.scrollview.js">
     </script>
     <script type="text/javascript" charset="utf-8"
-      src="../javascripts/common/scrollview.js">
+      src="javascripts/common/scrollview.js">
     </script>
 	    
     <!-- /Scrollview -->
     
     <script type="text/javascript" charset="utf-8"
-      src="../javascripts/common/jsoauth.js">
+      src="javascripts/common/jsoauth.js">
     </script>
     <script type="text/javascript" charset="utf-8"
-      src="../javascripts/common/phonegap-1.4.1.js">
+      src="javascripts/common/phonegap-1.4.1.js">
     </script>
     <script type="text/javascript" charset="utf-8"
-        src="../javascripts/common/childbrowser.js">
+        src="javascripts/common/childbrowser.js">
     </script>
     <script type="text/javascript" charset="utf-8"
-        src="../javascripts/common/application.js">
+        src="javascripts/common/application.js">
     </script>
     <script type="text/javascript" charset="utf-8"
-		src="../javascripts/common/md5.js">
+		src="javascripts/common/md5.js">
 	</script>
     <script type="text/javascript" charset="utf-8"
-		src="../javascripts/common/dialog-plugin.js">
+      src="javascripts/common/dialog-plugin.js">
 	</script>
     <script type="text/javascript" charset="utf-8"
-		src="../javascripts/RestHandler.js">
-	</script>
-
+      src="javascripts/RestHandler.js">
+    </script>
 </head>
 <body>
 	
@@ -69,12 +68,12 @@
 	
 	
 	<div data-role="page" data-theme="c" id="dashboard-page" class="scrollview">
-		<link rel="stylesheet" href="../stylesheets/index.css"/>
+		<link rel="stylesheet" href="stylesheets/index.css"/>
 		<script type="text/javascript" charset="utf-8"
-			src="../javascripts/index/index.js">
+			src="javascripts/index/index.js">
 		</script>
 		<script type="text/javascript" charset="utf-8"
-			src="../javascripts/index/login.js">
+			src="javascripts/index/login.js">
 		</script>
 
 		<div  data-role="header" data-position="fixed" data-theme="b">
@@ -101,12 +100,12 @@
             <!-- TODO: create a better looking button -->
 			<div id="imagesholder" >
 				<h1 class="withborder">Siste bilder</h1>
-				<a href="fbgallery.html" data-role="button" >Gallery</a>
+				<a href="views/fbgallery.html" data-role="button" >Gallery</a>
             </div><!--end images-->
             
             <div id="twitter" class="current">
             	<h1 class="withborder">Siste tweets</h1>
-    			<div id="loadingfortwitterfeed"><img class="spin" src="../stylesheets/common/images/loader.png" /></div>
+    			<div id="loadingfortwitterfeed"><img class="spin" src="stylesheets/common/images/loader.png" /></div>
     			<ul id="tweets2">
  				</ul>
 			</div>
@@ -133,7 +132,7 @@
             		<ul>
                 		<li><a href="#" id="profilebtn" data-icon="info" data-iconpos="top">Profil</a></li>
 						<li><a href="#all-fadder-groups-page" id="myGroupBtn" data-icon="star" data-iconpos="top">Faddergrupper</a></li>
-						<li><a href="qr-code.html" data-icon="grid" data-iconpos="top">QR kode</a></li>
+						<li><a href="views/qr-code.html" data-icon="grid" data-iconpos="top">QR kode</a></li>
                 	</ul>
             	</div>
             </div><!-- footer -->
@@ -146,9 +145,9 @@
 	
 	
 	<div data-role="page" id="event-page">
-		<link rel="stylesheet" href="../stylesheets/event/event-info.css"/>
+		<link rel="stylesheet" href="stylesheets/event/event-info.css"/>
 		<script type="text/javascript" charset="utf-8"
-			src="../javascripts/index/event.js">
+			src="javascripts/index/event.js">
 		</script>
 	
 		<div data-role="header" data-theme="b">
@@ -160,7 +159,7 @@
      		<div id="singleevent">
 <!--      		<input type="hidden" name="event_id" id="event_id" value="5" /> -->
 				
-				<div id="loadingmsg"><img class="spin" src="../stylesheets/common/images/loader.png" /></div>
+				<div id="loadingmsg"><img class="spin" src="stylesheets/common/images/loader.png" /></div>
 				
      			<div id ="eventinfo">
      				<h1 class="withborder" id="eventname" ></h1>
@@ -179,9 +178,9 @@
 	
 	
 	<div data-role="page" id="program-page">
- 		<link rel="stylesheet" href="../stylesheets/program.css"/>
+ 		<link rel="stylesheet" href="stylesheets/program.css"/>
 		<script type="text/javascript" charset="utf-8"
-			src="../javascripts/index/program.js">
+			src="javascripts/index/program.js">
  		</script>
 	
 	<div data-role="header" data-theme="b">
@@ -191,7 +190,7 @@
      </div>
             
      <div data-role="content">
-     	<div id="loadingmsg2"><img class="spin" src="../stylesheets/common/images/loader.png" /></div>
+     	<div id="loadingmsg2"><img class="spin" src="stylesheets/common/images/loader.png" /></div>
 
      	<div id="programlist">
      	</div><!-- /programlist-->
@@ -207,9 +206,9 @@
 	
 	
 	<div data-role="page" data-theme="c" id="all-fadder-groups-page">
-			<link rel="stylesheet" href="../stylesheets/all-fadder-groups.css"/>
+			<link rel="stylesheet" href="stylesheets/all-fadder-groups.css"/>
 			<script type="text/javascript" charset="utf-8"
-						src="../javascripts/index/all-fadder-groups.js">
+						src="javascripts/index/all-fadder-groups.js">
 			</script>
 
 			<div data-role="header" data-theme="b">
@@ -228,7 +227,7 @@
 			</div>
 
 				
-				<div id="loadingGroupsMsgDiv"><img class="spin" src="../stylesheets/common/images/loader.png" /></div>
+				<div id="loadingGroupsMsgDiv"><img class="spin" src="stylesheets/common/images/loader.png" /></div>
 
 			</div><!-- /content -->
 
@@ -241,7 +240,7 @@
 		
 		<div data-role="page" data-theme="c" id="single-fadder-group-page">
 			<script type="text/javascript" charset="utf-8"
-						src="../javascripts/index/single-fadder-group.js">
+						src="javascripts/index/single-fadder-group.js">
 			</script>
 
 			<div data-role="header" data-theme="b">
@@ -252,7 +251,7 @@
 			<div data-role="content" data-scroll="y">	
 				<h1 id="agroupheader" class="withborder">gruppe</h1>	
 				
-				<div id="loadinggroupmsgdiv"><img class="spin" src="../stylesheets/common/images/loader.png" /></div>
+				<div id="loadinggroupmsgdiv"><img class="spin" src="stylesheets/common/images/loader.png" /></div>
 				
      			<div class="bottomborder" id ="groupinfodiv">
      				<h3 class="customfont">Ledere:</h3>
@@ -275,9 +274,9 @@
 		
 	<div data-role="page" data-theme="c" id="admin-page">
 
-		<link rel="stylesheet" href="../stylesheets/admin/admin.css"/>
+		<link rel="stylesheet" href="stylesheets/admin/admin.css"/>
 		<script type="text/javascript" charset="utf-8"
-			src="../javascripts/admin/admin.js">
+			src="javascripts/admin/admin.js">
 		</script>
 		
 		<div data-role="header" data-theme="b">
@@ -293,7 +292,7 @@
 			
            	<h1 class="withborder">Events</h1>
 			<a href="#admin-create-event-page" data-role="button">Opprett event</a>		
-			<div id="loadinforallevents"><img class="spin" src="../stylesheets/common/images/loader.png" /></div>
+			<div id="loadinforallevents"><img class="spin" src="stylesheets/common/images/loader.png" /></div>
             <ul id ="alleventlist" data-role="listview" class="ui-listview" data-inset="true">
             </ul>
 		</div><!-- Content -->
@@ -305,10 +304,10 @@
 	<!-- Show info about an event and lets user update/delete -->
 	
 	<div data-role="page" data-theme="c" id="admin-edit-event-page">
-		<link rel="stylesheet" href="../stylesheets/admin/editevent.css"/>
+		<link rel="stylesheet" href="stylesheets/admin/editevent.css"/>
 		
 		<script type="text/javascript" charset="utf-8"
-			src="../javascripts/admin/edit-event.js">
+			src="javascripts/admin/edit-event.js">
 		</script>
 		
 		<div data-role="header" data-theme="b">
@@ -317,7 +316,7 @@
 		</div>
 		<div data-role="content">
 			<h1 class="withborder">Endre event</h1>
-			<div id="loadinforupdateventdiv"><img class="spin" src="../stylesheets/common/images/loader.png" /></div>
+			<div id="loadinforupdateventdiv"><img class="spin" src="stylesheets/common/images/loader.png" /></div>
 			<div id="updateeventinfodiv">
 			<form id="update-event-form" >
 				<input id="idE" name="id" type="hidden" value="" />
@@ -370,7 +369,7 @@
 	<div data-role="page" data-theme="c" id="admin-create-event-page">
 		
 		<script type="text/javascript" charset="utf-8"
-			src="../javascripts/admin/create-event.js">
+			src="javascripts/admin/create-event.js">
 		</script>
 		
 		<div data-role="header" data-theme="b">

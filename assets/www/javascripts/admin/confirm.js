@@ -27,9 +27,9 @@ $(document).ready(function() {
       },
       error:      function(xhr) {
     	  if(response.status == 401){
-    		  alert('Beklager, du har vært inaktiv for lenge, logg inn igjen');
+    		  alert('Beklager, du har vï¿½rt inaktiv for lenge, logg inn igjen');
     		  sessionToken = '';
-    		  $.mobile.changePage('index.html');
+    		  $.mobile.changePage('../index.html');
     	  }else{
     		  alert("Beklager, en feil oppsto: " + response.getResponseHeader('error'));		    		  
     	  }

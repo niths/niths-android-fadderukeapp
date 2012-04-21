@@ -182,13 +182,22 @@ function showData(event){
 	$('#description').val(event.description);
 	$('#startTime').val(event.startTime);
 	$('#endTime').val(event.endTime);
-	$('#tags').val(event.tags);
+//	$('#tags').val(event.tags);
 	if(event.location != null){
 		$('#place').val(event.location.place);
 		$('#latitude').val(event.location.latitude);
 		$('#longitude').val(event.location.longitude);		
 	}
-
+	var privacyDisplay = 
+		'<label for="select-privacy" class="select">Velg:</label>'+
+		'<select name="select-privacy" id="select-privacy-choice">'+
+	   '<option value="public">Public</option>';
+		for (var i = 0; i < student.groupLeaders.length; i++){
+			privacyDisplay += '<option value="'+student.groupLeaders[i].groupNumber+'">For gruppe: '+student.groupLeaders[i].groupNumber+'</option>';
+		}
+	   privacyDisplay += '</select>';
+	$('#privacy').html(privacyDisplay);
+	$('#select-privacy-choice').selectmenu();
 }
 
 function getDataFromForm(){
@@ -198,7 +207,13 @@ function getDataFromForm(){
 		'"description": "'+ $('#description').val()+ '",'+
 		'"startTime": "'+$('#startTime').val()+'",'+
 		'"endTime": "'+$('#endTime').val()+'",'+
-		'"tags": "'+$('#tags').val()+'"';
+		'"tags": "fadderuka12';
+		var priv = $('#select-privacy-choice').val();
+		if(priv == "public"){
+			json += ',public"';
+		}else{
+			json += ',gruppe' + priv +'"';			
+		}
 	if($('#place').val() != ''){
 		json += 
 			', "location": {'+

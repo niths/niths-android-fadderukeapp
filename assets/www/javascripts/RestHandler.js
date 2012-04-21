@@ -49,7 +49,7 @@ function RestHandler(){
 		    error: function(jqXHR, textStatus, errorThrown){
 		    	 $.mobile.hidePageLoadingMsg();
 		    	 if(errorThrown == 'Unauthorized'){
-		    		  alert('Beklager, du har vï¿½rt inaktiv for lenge, logg inn igjen');
+		    		  alert('Beklager, du har vært inaktiv for lenge, logg inn igjen');
 		    		  sessionToken = '';
 		    	  }else{
 		    		  alert("Beklager, en feil oppsto: " + jqXHR.getResponseHeader('error'));		    		  
@@ -79,7 +79,7 @@ function RestHandler(){
 			error: function(jqXHR, textStatus, errorThrown){
 				$.mobile.hidePageLoadingMsg();
 				if(errorThrown == 'Unauthorized'){
-					alert('Beklager, du har vï¿½rt inaktiv for lenge, logg inn igjen');
+					alert('Beklager, du har vært inaktiv for lenge, logg inn igjen');
 					sessionToken = '';
 					 $.mobile.changePage('../index.html');
 				}else{

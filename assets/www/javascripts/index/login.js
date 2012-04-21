@@ -8,11 +8,7 @@ $("#dashboard-page").live('pageshow', function() {
 });
 
 $(document).ready(function() {
-  //WP7 spesific
-  $.support.cors = true;
 
-  // WP7 and iOS specific
-  ChildBrowser.install();
 
   var callbackURL      = 'http://niths.no/callback';
   var stateURLFragment = 'state=/profile';

@@ -1,26 +1,35 @@
 $(document).ready(function() {
-
+	var restClient = new RestHandler();
   var fadderGroupId = sessionStorage.getItem('fadder_group_id');
   var fadderChildren = {};
 
   getOnlyFadderChildren();
 
   function getOnlyFadderChildren() {
-    $.ajax({
-      url:        address + 'fadder/' + fadderGroupId + '/children',
-      type:       'get',
-      cache:      false,
-      contentType : 'application/json',
-      timeout: 3000,
-      success: function(data) {
-    	  fadderChildren = data;
-    	  traverseAllFadderChildren();
-      },
-      error:   function(xhr) {
-    	  alert('Greide ikke hente fadderbarn');
-    	  history.back();
-      }
-    });
+	  
+	  restClient.find('fadder/' + fadderGroupId + '/children',  function(data) {  
+		  	fadderChildren = data;
+		  	traverseAllFadderChildren();		
+		},function(req, status, ex) {
+			alert('Greide ikke hente fadderbarn');
+	    	history.back();
+		});
+	  
+//    $.ajax({
+//      url:        address + 'fadder/' + fadderGroupId + '/children',
+//      type:       'get',
+//      cache:      false,
+//      contentType : 'application/json',
+//      timeout: 3000,
+//      success: function(data) {
+//    	  fadderChildren = data;
+//    	  traverseAllFadderChildren();
+//      },
+//      error:   function(xhr) {
+//    	  alert('Greide ikke hente fadderbarn');
+//    	  history.back();
+//      }
+//    });
   }
     function traverseAllFadderChildren() {
       $.each(fadderChildren, function(i, fadderChild) {

@@ -1,12 +1,11 @@
 $("#add-child-admin-page").live('pageinit', function() {
 	var restClient = new RestHandler();
-	alert("DENNE SKAL IKKE KOMME");
 	showLoadingGrouplessStudents();
 	loadGrouplessStudents();
 
 	$('#fadder-groupless-form').submit( function() {
 		var fadderGroupId = sessionStorage.getItem('fadder_group_id');
-		alert("Editing group: " + fadderGroupId);
+		//alert("Editing group: " + fadderGroupId);
 
 		var idArr = $("#fadder-groupless-collection input:checkbox:checked").map(function(i, el) { return $(el).attr("id"); }).get();
 
@@ -16,7 +15,7 @@ $("#add-child-admin-page").live('pageinit', function() {
 		function addGRChildrenToGroup(){
 			restClient.updateURL('fadder/' + fadderGroupId + '/add/children/' + idArr.join(','),  function(data, status) {
 				if(status == 'success'){
-					alert("Lagt til");
+					alert("Student(er) Lagt til");
 					history.back();
 				} else {
 					alert("Fikk ikke lagt til studenter");

@@ -1,24 +1,48 @@
 $("#add-child-admin-page").live('pageinit', function() {
+	
+	var fadderGroupId = sessionStorage.getItem('fadder_group_id');
+	alert("Editing group: " + fadderGroupId);
+	var num = 0;
 	showLoadingGrouplessStudents();
 	loadGrouplessStudents();
-});
 
-$('#fadder-groupless-form').live('submit', function() {
-	//alert('SUBMIT');
-	handleCheckboxesClicked();
-});
+	$('#fadder-groupless-form').submit( function() {
+		//alert('SUBMIT');
+		var idArr = $("#fadder-groupless-collection input:checkbox:checked").map(function(i, el) { return $(el).attr("id"); }).get();
+		alert(idArr.join(', '));
+		 var multipleValues = $("#fadder-groupless-collection checkbox").val() || [];
+	    alert(multipleValues.join(", "));
+//		alert(JSON.stringify($('#fadder-groupless-collection input:checkbox:checked').html()));
+		 var vals = $(this).serialize();
+		 alert(vals);
+		 validateTheForm();
+		 return false;
+		 function validateTheForm(){
+			 var index = vals.match(/id=\w+/g);
+			 if (index != null) {
+				 // Replace the index with the given object at that index
+				 var objs = index.join(',').replace(/id=/g, '').replace(/(\d+)/g,
+						 function(match) { return JSON.stringify(fadderChildren[match]); });
+				 alert(objs);
+			 }
+//			 handleCheckboxesClicked();			 
+		 }
+		
+	});
 
-function handleCheckboxesClicked(){
-	var fadderGroupId = sessionStorage.getItem('fadder_group_id');
-	//alert(fadderGroupId);
-	
-	$('#fadder-groupless-collection input:checkbox:checked').each(function() {
+	function handleCheckboxesClicked(){
+		//alert(fadderGroupId);
+		//alert($('#fadder-groupless-collection input:checkbox:checked').val());
+		
+		num = $('#fadder-groupless-collection input:checkbox:checked').val();
+		
+		$('#fadder-groupless-collection input:checkbox:checked').each(function() {
 	    	var currentId = $(this).attr('id');
 	    	//alert(currentId);
 	    	addGrouplessToGroup(fadderGroupId, currentId);
 	   
-	});
-}
+		});
+	}
 
 function addGrouplessToGroup(fgId, sId){
 	//"{groupId}/add/child/{studentId}"
@@ -36,25 +60,25 @@ function addGrouplessToGroup(fgId, sId){
 	    	  xhr.setRequestHeader("Session-token", sessionToken);
 	      },
 	      success : function(data){
+	    	  num++;
 	    	  if(response.status == 200){
-	    		  alert("Student lagt til");
-	    		  return true;
+//	    		  alert("Student lagt til");
 	    	  }else{
-	    		  alert("Fikk ikke lagt til student : " + response.status + " : " + response.getResponseHeader('error'));
+//	    		  alert("Fikk ikke lagt til student : " + response.status + " : " + response.getResponseHeader('error'));
 	    	  }
-	    	  return false;
 	      },
 	      error: function(xhr) {
-	    	  if(response.status == 401){
-	    		  alert('Beklager, du har vært inaktiv for lenge, logg inn igjen');
-	    		  sessionToken = '';
-	    		  $.mobile.changePage('../index.html');
-	    	  }else{
-	    		  alert("Beklager, en feil oppsto: " + response.getResponseHeader('error'));		    		  
-	    	  }
-//	    	  alert(response.status);
-//	    	  alert("Beklager, en feil oppsto: " + response.getResponseHeader('error'));
-	    	  return false;
+	    	  num++;
+//	    	  if(response.status == 401){
+//	    		  alert('Beklager, du har vært inaktiv for lenge, logg inn igjen');
+//	    		  sessionToken = '';
+//	    		  $.mobile.changePage('../index.html');
+//	    	  }else{
+//	    		  alert("Beklager, en feil oppsto: " + response.getResponseHeader('error'));		    		  
+//	    	  }
+////	    	  alert(response.status);
+////	    	  alert("Beklager, en feil oppsto: " + response.getResponseHeader('error'));
+//	    	  return false;
 	      }
 	});
 }
@@ -64,6 +88,7 @@ function clearFormContents(){
 }
 
 function showLoadingGrouplessStudents(){
+	clearFormContents();
 	$('#grouplessloader').css('display', 'block');
 	$('#fadder-groupless-form').css('visibility', 'hidden');
 }
@@ -113,3 +138,4 @@ function traverseGrouplessStudents(students) {
     hideLoadingGrouplessStudents();
 }
 
+});

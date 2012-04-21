@@ -49,7 +49,7 @@ function getDatesBetweenUrlParam(){
 
 $('#leadergrouplist li').live('click', function(event) {
     sessionStorage.setItem('fadder_group_id', $(this).attr('id'));
-    $.mobile.changePage('fadder-groups/fadder-children/fadder-children.html');
+    $.mobile.changePage('fadder-children.html');
   });
 
 

@@ -43,9 +43,27 @@
     <script type="text/javascript" charset="utf-8"
       src="javascripts/common/phonegap-1.4.1.js">
     </script>
-    <script type="text/javascript" charset="utf-8"
-        src="javascripts/common/childbrowser.js">
+    <script>
+      document.addEventListener("deviceready", onDeviceReady, false);
+
+      // PhoneGap is loaded and it is now safe to make calls PhoneGap methods
+      //
+      function onDeviceReady() {
+        alert("cordova is ready");
+        if (device.platform == 'Android') {
+          $.getScript('javascripts/common/childbrowser.js', function() {
+
+            //WP7 spesific
+            $.support.cors = true;
+
+            // WP7 and iOS specific
+            ChildBrowser.install();
+          });
+        }
+      }
     </script>
+    
+    
     <script type="text/javascript" charset="utf-8"
         src="javascripts/common/application.js">
     </script>

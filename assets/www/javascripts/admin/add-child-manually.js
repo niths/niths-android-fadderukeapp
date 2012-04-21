@@ -1,32 +1,30 @@
 $("#add-child-admin-page").live('pageinit', function() {
+	var restClient = new RestHandler();
 	
 	var fadderGroupId = sessionStorage.getItem('fadder_group_id');
 	alert("Editing group: " + fadderGroupId);
-	var num = 0;
+
 	showLoadingGrouplessStudents();
 	loadGrouplessStudents();
 
 	$('#fadder-groupless-form').submit( function() {
 		//alert('SUBMIT');
 		var idArr = $("#fadder-groupless-collection input:checkbox:checked").map(function(i, el) { return $(el).attr("id"); }).get();
-		alert(idArr.join(', '));
-		 var multipleValues = $("#fadder-groupless-collection checkbox").val() || [];
-	    alert(multipleValues.join(", "));
-//		alert(JSON.stringify($('#fadder-groupless-collection input:checkbox:checked').html()));
-		 var vals = $(this).serialize();
-		 alert(vals);
-		 validateTheForm();
-		 return false;
-		 function validateTheForm(){
-			 var index = vals.match(/id=\w+/g);
-			 if (index != null) {
-				 // Replace the index with the given object at that index
-				 var objs = index.join(',').replace(/id=/g, '').replace(/(\d+)/g,
-						 function(match) { return JSON.stringify(fadderChildren[match]); });
-				 alert(objs);
-			 }
-//			 handleCheckboxesClicked();			 
-		 }
+		idArr = idArr.join(', ');
+		addGRChildrenToGroup();
+		return false;
+		function addGRChildrenToGroup(){
+			restClient.update('fadder/' + gID + '/remove/children/' + ids.slice(0, -1),  function(data) {
+				
+			});
+		}
+		
+		
+		
+		
+		
+		//'fadder/' + gID + '/remove/children/' + ids.slice(0, -1),
+		
 		
 	});
 
@@ -34,7 +32,7 @@ $("#add-child-admin-page").live('pageinit', function() {
 		//alert(fadderGroupId);
 		//alert($('#fadder-groupless-collection input:checkbox:checked').val());
 		
-		num = $('#fadder-groupless-collection input:checkbox:checked').val();
+		var num = $('#fadder-groupless-collection input:checkbox:checked').val();
 		
 		$('#fadder-groupless-collection input:checkbox:checked').each(function() {
 	    	var currentId = $(this).attr('id');

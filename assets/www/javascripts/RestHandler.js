@@ -89,6 +89,34 @@ function RestHandler(){
 			timeout:5000
 		});
 	}; //End update
+	this.updateURL = function(modelUrl, callbackSuccess) {
+		$.mobile.showPageLoadingMsg();
+		$.ajax({
+			type: 'PUT',
+			url: this.baseUrl + modelUrl,
+			cache: false,
+			contentType: 'application/json',
+			beforeSend: function(xhr) {
+				xhr.setRequestHeader("Application-key", applicationKey);
+				xhr.setRequestHeader("Application-token", applicationToken);
+				xhr.setRequestHeader("Developer-key", developerKey);
+				xhr.setRequestHeader("Developer-token", developerToken);
+				xhr.setRequestHeader("Session-token", sessionToken);
+			},
+			success: callbackSuccess,
+			error: function(jqXHR, textStatus, errorThrown){
+				$.mobile.hidePageLoadingMsg();
+				if(errorThrown == 'Unauthorized'){
+					alert('Beklager, du har vært inaktiv for lenge, logg inn igjen');
+					sessionToken = '';
+					$.mobile.changePage('index.html');
+				}else{
+					alert("Beklager, en feil oppsto: " + jqXHR.getResponseHeader('error'));		    		  
+				}
+			},
+			timeout:5000
+		});
+	}; //End update
 	
 	this.create = function(modelUrl, dataJ, callbackSuccess) {
 		$.mobile.showPageLoadingMsg();

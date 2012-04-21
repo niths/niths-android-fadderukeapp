@@ -52,7 +52,7 @@ $(document).ready(function() {
       + '&redirect_uri=' + encodeURIComponent(callbackURL)
       + '&response_type=token'
       + '&client_id=1064171706637-f9efklqg3tbrmu7fctvk8khvc0dqmh5i.apps.googleusercontent.com',
-      { showLocationBar: false});
+      { });//showLocationBar: false});
   };
 
   /**

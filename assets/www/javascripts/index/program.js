@@ -8,6 +8,18 @@ $("#program-page").live('pageinit', function() {
 		$('#programlist').css('visibility', 'hidden');
 		loadAllEvents();
 	});
+	
+	//TODO: FIX SERVICESIDE
+	$("#privacyselectdiv input[type='radio']").bind( "change", function(event, ui) {
+		  var value = $("#privacyselectdiv input[type='radio']:checked").val();
+		  if(value =="private"){
+			  //IF I HAVE A GROUP:
+			 //LOAD ALL EVENTS FOR MY GROUP  
+		  }else{ //PUBLIC
+			  //LOAD ALL PUBLIC EVENTS
+			  
+		  }
+	});
 
 
 	function getDayName(day){

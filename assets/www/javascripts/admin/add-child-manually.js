@@ -10,19 +10,15 @@ $("#add-child-admin-page").live('pageinit', function() {
 	$('#fadder-groupless-form').submit( function() {
 		//alert('SUBMIT');
 		var idArr = $("#fadder-groupless-collection input:checkbox:checked").map(function(i, el) { return $(el).attr("id"); }).get();
-		idArr = idArr.join(', ');
+		//idArr = idArr.join(', ');
 		addGRChildrenToGroup();
 		return false;
 		function addGRChildrenToGroup(){
-			restClient.update('fadder/' + gID + '/remove/children/' + ids.slice(0, -1),  function(data) {
-				
+			restClient.updateURL('fadder/' + fadderGroupId + '/add/children/' + idArr.join(','),  function(data, status, e) {
+				$.mobile.hidePageLoadingMsg();
+				alert(data, status, e);
 			});
 		}
-		
-		
-		
-		
-		
 		//'fadder/' + gID + '/remove/children/' + ids.slice(0, -1),
 		
 		

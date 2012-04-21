@@ -38,39 +38,46 @@ $(document).delegate('#opendialog', 'click', function() {
 	      }
 	    }
 	  });
-	});
+});
 
 function deleteAnEvent(){
-	$.mobile.showPageLoadingMsg();
-	var response;
-	response = $.ajax({
-	      url: address + 'events/' + $('#id').val(),
-	      type: 'DELETE',
-	      cache: false,
-	      timeout: 3000,
-	      beforeSend: function(xhr) {
-	    	  	xhr.setRequestHeader("Application-key", applicationKey);
-		        xhr.setRequestHeader("Application-token", applicationToken);
-		        xhr.setRequestHeader("Developer-key", developerKey);
-		        xhr.setRequestHeader("Developer-token", developerToken);
-		        xhr.setRequestHeader("Session-token", sessionToken);
-	      },
-	      success: function(data, status) {
-	    	  alert('Sletting vellykket');
-	    	  $.mobile.hidePageLoadingMsg();
-	    	  history.back();
-	      },
-	      error: function(xhr) {
-	    	  $.mobile.hidePageLoadingMsg();
-	    	  if(response.status == 401){
-	    		  alert('Beklager, du har vært inaktiv for lenge, logg inn igjen');
-	    		  sessionToken = '';
-	    		  $.mobile.changePage('index.html');
-	    	  }else{
-	    		  alert("Beklager, en feil oppsto: " + response.getResponseHeader('error'));		    		  
-	    	  }
-	      }
-	    });
+	
+	var restClient = new RestHandler(); //REST CLIENT
+	restClient.remove('events/' + $('#idE').val(),  function(data) {  
+		alert('Sletting vellykket');
+		$.mobile.hidePageLoadingMsg();
+  	  	history.back();
+	}); 
+//	$.mobile.showPageLoadingMsg();
+//	var response;
+//	response = $.ajax({
+//	      url: address + 'events/' + $('#id').val(),
+//	      type: 'DELETE',
+//	      cache: false,
+//	      timeout: 3000,
+//	      beforeSend: function(xhr) {
+//	    	  	xhr.setRequestHeader("Application-key", applicationKey);
+//		        xhr.setRequestHeader("Application-token", applicationToken);
+//		        xhr.setRequestHeader("Developer-key", developerKey);
+//		        xhr.setRequestHeader("Developer-token", developerToken);
+//		        xhr.setRequestHeader("Session-token", sessionToken);
+//	      },
+//	      success: function(data, status) {
+//	    	  alert('Sletting vellykket');
+//	    	  $.mobile.hidePageLoadingMsg();
+//	    	  history.back();
+//	      },
+//	      error: function(xhr) {
+//	    	  $.mobile.hidePageLoadingMsg();
+//	    	  if(response.status == 401){
+//	    		  alert('Beklager, du har vært inaktiv for lenge, logg inn igjen');
+//	    		  sessionToken = '';
+//	    		  $.mobile.changePage('index.html');
+//	    	  }else{
+//	    		  alert("Beklager, en feil oppsto: " + response.getResponseHeader('error'));		    		  
+//	    	  }
+//	      }
+//	    });
 	$('form').die('submit');
   return false;
 }
@@ -78,41 +85,51 @@ function deleteAnEvent(){
 $("#admin-edit-event-page").live('pageshow', function() {	
 
 	$('#editeventsubmit').click(function() {
-		$.mobile.showPageLoadingMsg();
-		  var response;
-		  response = $.ajax({
-		      url: address + 'events',
-		      type: 'PUT',
-		      cache: false,
-		      contentType: 'application/json',
-		      beforeSend: function(xhr) {
-		        xhr.setRequestHeader("Application-key", applicationKey);
-		        xhr.setRequestHeader("Application-token", applicationToken);
-		        xhr.setRequestHeader("Developer-key", developerKey);
-		        xhr.setRequestHeader("Developer-token", developerToken);
-		        xhr.setRequestHeader("Session-token", sessionToken);
-		      },
-		      data:  getDataFromForm(),
-		      success : function(data){
-		    	  if(response.status == 200){
-		    		  alert("Oppdatering vellykket");
-		    	  }else{
-		    		  alert("Beklager, oppdatering feilet. Prøv igjen");
-		    	  } 
-		    	  $.mobile.hidePageLoadingMsg();
-
-		      },
-		      error: function(xhr) {
-		    	  $.mobile.hidePageLoadingMsg();
-		    	  if(response.status == 401){
-		    		  alert('Beklager, du har vært inaktiv for lenge, logg inn igjen');
-		    		  sessionToken = '';
-		    		  $.mobile.changePage('index.html');
-		    	  }else{
-		    		  alert("Beklager, en feil oppsto: " + response.getResponseHeader('error'));		    		  
-		    	  }
-		      }
-		    });
+		var restClient = new RestHandler(); //REST CLIENT
+		restClient.update('events/', getDataFromForm(),  function(data, textStatus, jqXHR) {  
+			if(textStatus == "success"){
+				alert('Oppdatering vellykket');	
+			}else{
+				alert("Oppdatering feilet");
+			}
+			$.mobile.hidePageLoadingMsg();
+	  	  	//history.back();
+		}); 
+//		$.mobile.showPageLoadingMsg();
+//		  var response;
+//		  response = $.ajax({
+//		      url: address + 'events',
+//		      type: 'PUT',
+//		      cache: false,
+//		      contentType: 'application/json',
+//		      beforeSend: function(xhr) {
+//		        xhr.setRequestHeader("Application-key", applicationKey);
+//		        xhr.setRequestHeader("Application-token", applicationToken);
+//		        xhr.setRequestHeader("Developer-key", developerKey);
+//		        xhr.setRequestHeader("Developer-token", developerToken);
+//		        xhr.setRequestHeader("Session-token", sessionToken);
+//		      },
+//		      data:  getDataFromForm(),
+//		      success : function(data){
+//		    	  if(response.status == 200){
+//		    		  alert("Oppdatering vellykket");
+//		    	  }else{
+//		    		  alert("Beklager, oppdatering feilet. Prøv igjen");
+//		    	  } 
+//		    	  $.mobile.hidePageLoadingMsg();
+//
+//		      },
+//		      error: function(xhr) {
+//		    	  $.mobile.hidePageLoadingMsg();
+//		    	  if(response.status == 401){
+//		    		  alert('Beklager, du har vært inaktiv for lenge, logg inn igjen');
+//		    		  sessionToken = '';
+//		    		  $.mobile.changePage('index.html');
+//		    	  }else{
+//		    		  alert("Beklager, en feil oppsto: " + response.getResponseHeader('error'));		    		  
+//		    	  }
+//		      }
+//		    });
 
 		    $('form').die('submit');
 		    return false;
@@ -120,22 +137,31 @@ $("#admin-edit-event-page").live('pageshow', function() {
 });
 
 function loadEventToEdit(id){
-
-$.ajax({
-    url: address + 'events/'+ id,
-    type: 'GET',
-    timeout: 3000,
-    cache: false,
-    success: function(data) {
-    	showData(data);
-    	showTheEvent2();
-    },
-    error: function(xhr) {
+	var restClient = new RestHandler(); //REST CLIENT
+	restClient.find('events/'+ id,  function(data) {  
+		showData(data);
+		showTheEvent2();		
+	}, function(req, status, ex) {
     	alert(JSON.stringify(xhr));
     	$('#updateeventinfodiv').html('<h3>Ingen kontakt med server...</h3>');
     	showTheEvent2();
-    }
-  }); 
+	}); 
+	
+//$.ajax({
+//    url: address + 'events/'+ id,
+//    type: 'GET',
+//    timeout: 3000,
+//    cache: false,
+//    success: function(data) {
+//    	showData(data);
+//    	showTheEvent2();
+//    },
+//    error: function(xhr) {
+//    	alert(JSON.stringify(xhr));
+//    	$('#updateeventinfodiv').html('<h3>Ingen kontakt med server...</h3>');
+//    	showTheEvent2();
+//    }
+//  }); 
 
 }
 
@@ -151,7 +177,7 @@ function hideTheEvent2() {
 
 function showData(event){
 	$('#updateeventinfodiv input').val('');
-	$('#id').val(event.id);
+	$('#idE').val(event.id);
 	$('#name').val(event.name);
 	$('#description').val(event.description);
 	$('#startTime').val(event.startTime);
@@ -167,16 +193,19 @@ function showData(event){
 
 function getDataFromForm(){
 	var json = '{'+
-		'"id":'+ $('#id').val() +','
+		'"id":'+ $('#idE').val() +','
 		+'"name": "'+$('#name').val()+'",'+
 		'"description": "'+ $('#description').val()+ '",'+
 		'"startTime": "'+$('#startTime').val()+'",'+
 		'"endTime": "'+$('#endTime').val()+'",'+
-		'"tags": "'+$('#tags').val()+'",'+
-		'"location": {'+
-		'"place": "' + $('#place').val() + '",'+
-		'"latitude": '+$('#latitude').val()+','+
-		'"longitude": ' + $('#longitude').val() +
-		'}}';
-	return json;
+		'"tags": "'+$('#tags').val()+'"';
+	if($('#place').val() != ''){
+		json += 
+			', "location": {'+
+			'"place": "' + $('#place').val() + '",'+
+			'"latitude": '+$('#latitude').val()+','+
+			'"longitude": ' + $('#longitude').val() +
+			'}';
+	}
+	return json + '}';
 }

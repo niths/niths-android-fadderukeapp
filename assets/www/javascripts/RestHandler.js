@@ -29,4 +29,91 @@ function RestHandler(){
 	    });
 	}; //End find
 	
+	this.remove = function(modelUrl, callbackSuccess) {
+		$.mobile.showPageLoadingMsg();
+	    $.ajax({
+	    	type: 'DELETE',
+		    url: this.baseUrl + modelUrl,
+		    cache: false,
+		    beforeSend: function(xhr) {
+	    	  	xhr.setRequestHeader("Application-key", applicationKey);
+		        xhr.setRequestHeader("Application-token", applicationToken);
+		        xhr.setRequestHeader("Developer-key", developerKey);
+		        xhr.setRequestHeader("Developer-token", developerToken);
+		        xhr.setRequestHeader("Session-token", sessionToken);
+		    },
+		    success: callbackSuccess,
+		    error: function(jqXHR, textStatus, errorThrown){
+		    	 $.mobile.hidePageLoadingMsg();
+		    	 if(errorThrown == 'Unauthorized'){
+		    		  alert('Beklager, du har vært inaktiv for lenge, logg inn igjen');
+		    		  sessionToken = '';
+		    	  }else{
+		    		  alert("Beklager, en feil oppsto: " + jqXHR.getResponseHeader('error'));		    		  
+		    	  }
+		    	 $.mobile.changePage('index.html');
+		    },
+		    timeout:5000
+		 });
+	}; //End remove
+	
+	this.update = function(modelUrl, dataJ, callbackSuccess) {
+		$.mobile.showPageLoadingMsg();
+		$.ajax({
+			type: 'PUT',
+			url: this.baseUrl + modelUrl,
+			cache: false,
+			contentType: 'application/json',
+			data: dataJ,
+			beforeSend: function(xhr) {
+				xhr.setRequestHeader("Application-key", applicationKey);
+				xhr.setRequestHeader("Application-token", applicationToken);
+				xhr.setRequestHeader("Developer-key", developerKey);
+				xhr.setRequestHeader("Developer-token", developerToken);
+				xhr.setRequestHeader("Session-token", sessionToken);
+			},
+			success: callbackSuccess,
+			error: function(jqXHR, textStatus, errorThrown){
+				$.mobile.hidePageLoadingMsg();
+				if(errorThrown == 'Unauthorized'){
+					alert('Beklager, du har vært inaktiv for lenge, logg inn igjen');
+					sessionToken = '';
+					 $.mobile.changePage('index.html');
+				}else{
+					alert("Beklager, en feil oppsto: " + jqXHR.getResponseHeader('error'));		    		  
+				}
+			},
+			timeout:5000
+		});
+	}; //End update
+	
+	this.create = function(modelUrl, dataJ, callbackSuccess) {
+		$.mobile.showPageLoadingMsg();
+		$.ajax({
+			type: 'POST',
+			url: this.baseUrl + modelUrl,
+			cache: false,
+			contentType: 'application/json',
+			data: dataJ,
+			beforeSend: function(xhr) {
+				xhr.setRequestHeader("Application-key", applicationKey);
+				xhr.setRequestHeader("Application-token", applicationToken);
+				xhr.setRequestHeader("Developer-key", developerKey);
+				xhr.setRequestHeader("Developer-token", developerToken);
+				xhr.setRequestHeader("Session-token", sessionToken);
+			},
+			success: callbackSuccess,
+			error: function(jqXHR, textStatus, errorThrown){
+				$.mobile.hidePageLoadingMsg();
+				if(errorThrown == 'Unauthorized'){
+					alert('Beklager, du har vært inaktiv for lenge, logg inn igjen');
+					sessionToken = '';
+					 $.mobile.changePage('index.html');
+				}else{
+					alert("Beklager, en feil oppsto: " + jqXHR.getResponseHeader('error'));		    		  
+				}
+			},
+			timeout:5000
+		});
+	}; //End update
 }//End class

@@ -1,3 +1,19 @@
+/**
+ * REST CLIENT
+ * Class that handles ajax calls to the API
+ * 
+ * HOW TO:
+ * $("#your-page-id").live('pageshow', function() {
+ *	
+ *		var restClient = new RestHandler();
+ *		
+ *		restClient.find('someUrl', 
+ *					function(data, status, e) {}, //Success callback
+ *					function(jqXHR, textStatus, errorThrown){} //Error callback
+ *		);
+ *
+ * });
+ */
 function RestHandler(){
 	this.baseUrl = 'http://192.168.0.105:8080/niths/';
 	

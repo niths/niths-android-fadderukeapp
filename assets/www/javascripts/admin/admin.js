@@ -1,13 +1,17 @@
 $("#admin-page").live('pageshow', function() {
+	
+	var restClient = new RestHandler(); //REST CLIENT
+	
 	showLeaderGroups();
 	loadEvents();
+	
 	$('#refreshallbtn').click(function() {
 		$('#loadinforallevents').css('display', 'block');
 		$('#alleventlist').css('display', 'none');
 		showLeaderGroups();
 		loadEvents();
 	});
-});
+
 
 function showEvents(){
 	$('#alleventlist').css('display', 'block');
@@ -50,34 +54,30 @@ $('#leadergrouplist li').live('click', function(event) {
 
 
 function loadEvents(){
-	var response;
-	response = $.ajax({
-	      url: address + 'events/dates' + getDatesBetweenUrlParam(),
-	      type: 'get',
-	      cache: false,
-	      timeout: 3000,
-	      success: function(data) {
-	    	  if(response.status == 200){
-	    		  var theHTML = '';
-	    		  if(data.length > 0){
-	    			  for (var i = 0; i < data.length; i++){
-	    					theHTML += '<li class="li-first" id="'+data[i].id+'"><a href="#admin-edit-event-page?edit-event-id='+data[i].id+'"><h3>'+data[i].id + ' - '+data[i].name+'</h3></a>'+
-	    					'</li>';
-	    			  }
-	    		  }
-	    	  }else{
-	    		  theHTML = '<li class="li-first"><h3>Ingen events funnet...</h3></li>';
-	    	  }
-	    	  $('#alleventlist').html(theHTML);
-	    	  $('#alleventlist').listview('refresh');
-	    	  showEvents();
-	      },
-	      error: function(xhr) {
-	    	  var theHTML = '<li class="li-first"><h3>Ikke kontakt med server...</h3></li>';
-	    	  $('#alleventlist').html(theHTML);
-	    	  $('#alleventlist').listview('refresh');
-	    	  showEvents();
-	      }
-	    });
+	restClient.find('events/dates' + getDatesBetweenUrlParam(),  function(data, status, e) {  
+		var theHTML = '';
+		if(status == 'success') {
+			if(data.length > 0){
+				for (var i = 0; i < data.length; i++){
+   					theHTML += '<li class="li-first" id="'+data[i].id+'"><a href="#admin-edit-event-page?edit-event-id='+data[i].id+'"><h3>'+data[i].id + ' - '+data[i].name+'</h3></a>'+
+   					'</li>';
+   			  	}
+   		  	}else{
+   		  		theHTML = '<li class="li-first"><h3>Ingen events de neste fem dagene...</h3></li>';
+   		  	}
+		}else{
+			theHTML = '<li class="li-first"><h3>Greide ikke hente events</h3></li>';
+		}
+		$('#alleventlist').html(theHTML);
+  	  	$('#alleventlist').listview('refresh');
+  	  	showEvents();
+	}, function(req, status, ex) { //ERROR!
+		 var theHTML = '<li class="li-first"><h3>Ikke kontakt med server...</h3></li>';
+   	  	$('#alleventlist').html(theHTML);
+   	  	$('#alleventlist').listview('refresh');
+   	  	showEvents();
+	}); 
 }
+
+});//end pageinit
 

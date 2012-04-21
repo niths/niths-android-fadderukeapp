@@ -62,7 +62,6 @@ $("#program-page").live('pageinit', function() {
 	    		  }
 	    	  }
 		}, function(req, status, ex) {
-				alert('err ' + response.status);
 				var theHTML = '<h3>Ikke kontakt med server...</h3>';
 				$('#programlist').html(theHTML);
 				$('#loadingmsg2').css('display', 'none');

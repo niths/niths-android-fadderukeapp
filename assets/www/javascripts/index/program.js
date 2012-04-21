@@ -1,15 +1,14 @@
 $("#program-page").live('pageinit', function() {
+	
+	var restClient = new RestHandler(); //REST CLIENT
 	loadAllEvents();
-
-});
-$("#program-page").live('pageshow', function() {
+	
 	$('#refreshprogrambtn').click(function(data) {
 		$('#loadingmsg2').css('display', 'block');
-//		$('#loadingmsg2').css('visibility', 'visible');
 		$('#programlist').css('visibility', 'hidden');
 		loadAllEvents();
 	});
-});
+
 
 	function getDayName(day){
 		var weekday=new Array(7);
@@ -51,32 +50,24 @@ $("#program-page").live('pageshow', function() {
 	}
 
 	function loadAllEvents(){
-		var response;
-		response = $.ajax({
-		      url: address + 'events/dates' + getUrlParam(),
-		      type: 'get',
-		      cache: false,
-		      timeout: 3000,
-		      success: function(data) {
-		    	  if(response.status == 200){
-		    		  if(data.length > 0){
-		    			  handleData(data);		    			  
-		    		  }else{
-		    			  var theHTML = '<li class="li-first" id="eventloader"><h3>Ingen events funnet for de neste fem dagene...</h3></li>';
-				    	  $('#programlist').html(theHTML);
-				    	  $('#loadingmsg2').css('display', 'none');
-				    	  $('#programlist').css('visibility', 'visible');
-		    		  }
-		    	  }
-		      },
-		      error: function(xhr) {
-		    	  alert('err ' + response.status);
-		    	  var theHTML = '<h3>Ikke kontakt med server...</h3>';
-		    	  $('#programlist').html(theHTML);
-		    	  $('#loadingmsg2').css('display', 'none');
-		    	  $('#programlist').css('visibility', 'visible');
-		      }
-		    });
+		restClient.find('events/dates' + getUrlParam(),  function(data, status, e) {  
+			if(status == 'success'){
+	    		  if(data.length > 0){
+	    			  handleData(data);		    			  
+	    		  }else{
+	    			  var theHTML = '<li class="li-first" id="eventloader"><h3>Ingen events funnet for de neste fem dagene...</h3></li>';
+			    	  $('#programlist').html(theHTML);
+			    	  $('#loadingmsg2').css('display', 'none');
+			    	  $('#programlist').css('visibility', 'visible');
+	    		  }
+	    	  }
+		}, function(req, status, ex) {
+				alert('err ' + response.status);
+				var theHTML = '<h3>Ikke kontakt med server...</h3>';
+				$('#programlist').html(theHTML);
+				$('#loadingmsg2').css('display', 'none');
+				$('#programlist').css('visibility', 'visible');
+		}); 
 	}
 	
 	function getHeader(date){
@@ -129,3 +120,5 @@ $("#program-page").live('pageshow', function() {
 		$('#loadingmsg2').css('display', 'none');
 	    $('#programlist').css('visibility', 'visible');
 	}
+	
+});

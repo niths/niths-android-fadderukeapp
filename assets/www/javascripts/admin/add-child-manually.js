@@ -6,9 +6,7 @@ $("#add-child-admin-page").live('pageinit', function() {
 $('#fadder-groupless-form').live('submit', function() {
 	//alert('SUBMIT');
 	handleCheckboxesClicked();
-	
-    
- });
+});
 
 function handleCheckboxesClicked(){
 	var fadderGroupId = sessionStorage.getItem('fadder_group_id');

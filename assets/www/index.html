@@ -455,6 +455,73 @@
 	
 	
 	
+	<div data-role="page" data-theme="c" id="profile-page">
+	
+		<link rel="stylesheet" href="stylesheets/profile.css" />
+		
+		<script type="text/javascript" charset="utf-8"
+			src="javascripts/profile.js">	
+ 		</script>
+
+		<div data-role="header" data-theme="b">
+			<a href="#"  data-role="button" data-rel="back" class="ui-btn-left">Back</a>
+			<h3>PROFIL</h3>
+		</div>
+		
+		<div data-role="content">
+		<div id="loadingforprofile"><img class="spin" src="stylesheets/common/images/loader.png" /></div>
+		<div id="profilediv">
+			<div class="dividerwithborder">
+				<img id ="profileImg" src="images/mm.jpg" />
+				<div id="groupinfo">
+					<h1 id="groupheader">Gruppe:</h1>
+					<h1 id="faddergroup"></h1>
+				</div>
+			</div><!-- /top -->
+			<div id="profileinfo">
+				<form id="update-person-form">
+						<input id="idP" name="id" type="hidden" value="" />
+						<div class="ui-hide-label">
+							<label for="firstName">Fornavn:</label> 
+							<input type="text" name="firstName" id="firstName" value="" placeholder="Fornavn" />
+						</div>
+
+						<div class="ui-hide-label">
+							<label for="lastName">Etternavn:</label> 
+							<input type="text" name="lastName" id="lastName" value="" placeholder="Etternavn" />
+						</div>
+
+						<div  class="ui-hide-label">
+							<label for="telephoneNumber">Telefon:</label> 
+							<input type="text" name="telephoneNumber" id="telephoneNumber" value="" placeholder="Telefon" />
+						</div>
+						
+						<div class="ui-hide-label">
+							<label for="descriptionP">Beskriv deg selv:</label>
+							<textarea cols="40" rows="8" name="description" id="descriptionP" placeholder="Beskriv deg selv..."></textarea>
+						</div>	
+
+						<div id="genderradio" >
+							<fieldset data-role="controlgroup" data-mini="true" data-type="horizontal" >
+								<input type="radio" name="gender" id="female" value="F" />
+								<label for="female">Kvinne</label>
+								<input type="radio" name="gender" id="male" value="M" />
+								<label for="male">Mann</label>
+							</fieldset>
+						</div>
+						<div class="bottomborder"></div>
+						<button type="submit" id="profilesubmit" data-role="button">Oppdater</button>
+				</form>
+			</div><!-- profileinfo -->
+			
+			</div>
+			
+		</div><!-- Content -->
+
+	</div> 	<!-- page -->
+	
+	
+	
 
 	
 

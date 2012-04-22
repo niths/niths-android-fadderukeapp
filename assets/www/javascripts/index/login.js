@@ -35,7 +35,8 @@ $(document).ready(function() {
 		 }
 		 else if(sessionToken  != "-1"){ //Sign is succeeded, but not NITH mail: = -1;
 			 //alert("LOGGED IN");
-			 $.mobile.changePage('views/profile.html');
+			 $.mobile.changePage('#profile-page');
+//			 $.mobile.changePage('views/profile.html');
 		 }
 	 });
 	 

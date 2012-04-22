@@ -1,6 +1,6 @@
 $('#Gallery1').live('pageinit', function() {
 	getLatestImages();
-});
+
 
 function showImgs(){
 	$('#galleryloader').css('display', 'none');
@@ -60,3 +60,5 @@ function handleImgsData(images){
 
 	showImgs();
 }
+
+});

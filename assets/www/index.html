@@ -207,7 +207,7 @@
 	<div data-role="header" data-theme="b">
 		<a href="#"  data-role="button" data-rel="back" class="ui-btn-left">Back</a>
 		<h3>PROGRAM</h3>
-<!-- 		<a href="#" id="refreshprogrambtn" data-role="button" class="ui-btn-right">Refresh</a> -->
+		<a href="#" id="refreshprogrambtn" data-role="button" class="ui-btn-right">Refresh</a>
      </div>
             
      <div data-role="content">
@@ -322,6 +322,11 @@
 			
            	<h1 class="withborder">Events</h1>
 			<a href="#admin-create-event-page" data-role="button">Opprett event</a>		
+			<h1 class="withborder">Dine grupper</h1>
+			<div id="loadigForAllGroupsEventsList"><img class="spin" src="stylesheets/common/images/loader.png" /></div>
+            <ul id ="allGroupsEventsList" data-role="listview" class="ui-listview" data-inset="true">
+            </ul>
+              <h1 class="withborder">Public</h1>
 			<div id="loadinforallevents"><img class="spin" src="stylesheets/common/images/loader.png" /></div>
             <ul id ="alleventlist" data-role="listview" class="ui-listview" data-inset="true">
             </ul>

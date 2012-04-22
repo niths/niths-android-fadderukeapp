@@ -1,5 +1,7 @@
-$(document).ready(function() {
-	var restClient = new RestHandler();
+//$(document).ready(function() {
+$("#fadderchildren-pagen").live('pageshow', function() {
+	 $('#fadder-children-collection').html('');
+	 var restClient = new RestHandler();
   var fadderGroupId = sessionStorage.getItem('fadder_group_id');
   var fadderChildren = {};
 
@@ -14,22 +16,6 @@ $(document).ready(function() {
 			alert('Greide ikke hente fadderbarn');
 	    	history.back();
 		});
-	  
-//    $.ajax({
-//      url:        address + 'fadder/' + fadderGroupId + '/children',
-//      type:       'get',
-//      cache:      false,
-//      contentType : 'application/json',
-//      timeout: 3000,
-//      success: function(data) {
-//    	  fadderChildren = data;
-//    	  traverseAllFadderChildren();
-//      },
-//      error:   function(xhr) {
-//    	  alert('Greide ikke hente fadderbarn');
-//    	  history.back();
-//      }
-//    });
   }
     function traverseAllFadderChildren() {
       $.each(fadderChildren, function(i, fadderChild) {
@@ -46,11 +32,12 @@ $(document).ready(function() {
     }
 
   $('#radio-delete').click(function() {
-    $('#fadder-children-form').attr('action', 'confirm.html');
+//    $('#fadder-children-form').attr('action', 'confirm.html');
+    $('#fadder-children-form').attr('action', '#confirm-dialog-page');
   });
 
   $('#radio-send-email').click(function() {
-    $('#fadder-children-form').attr('action', 'send-email.html');
+    $('#fadder-children-form').attr('action', '#send-an-email-page');
   });
 
   $('#fadder-children-form').live('submit', function() {
@@ -74,9 +61,10 @@ $(document).ready(function() {
             /radio-method=/g, '');
 
         if (method == 'delete') {
-          $.mobile.changePage('confirm.html', 'pop');
+//          $.mobile.changePage('confirm.html', 'pop');
+          $.mobile.changePage('#confirm-dialog-page', 'pop');
         } else if (method == 'send-email') {
-          $.mobile.changePage('send-email.html');
+          $.mobile.changePage('#send-an-email-page');
         }
       }
     }

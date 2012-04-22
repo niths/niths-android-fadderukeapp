@@ -157,7 +157,7 @@ function RestHandler(){
 		if(errorThrown == 'Unauthorized'){
 			alert('Beklager, du har vært inaktiv for lenge, logg inn igjen');
 			sessionToken = '';
-			$.mobile.changePage('index.html');
+			$.mobile.changePage('#dashboard-page');
 		}else{
 			alert("Beklager, en feil oppsto: " + jqXHR.getResponseHeader('error'));		    		  
 		}

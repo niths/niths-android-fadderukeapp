@@ -81,7 +81,7 @@ function showProfile(){
 		if(student.fadderGroup != null){
 			$('#faddergroup').html('<a class="blacklink" href="#single-fadder-group-page?group-id='+student.fadderGroup.id+'">' + student.fadderGroup.groupNumber + '</a>');
 		}else{
-			$('#faddergroup').html("Ingen");
+			$('#faddergroup').html('<a class="blacklink" href="#scan-qr-page">Scann QR</a>');
 		}
 		
 		showProfile();

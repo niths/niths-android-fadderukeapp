@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-  $('form').submit(function() {
+  $('#sendEmailForm').submit(function() {
     var vals = $(this).serialize();
     validateInput();
 
@@ -56,14 +56,15 @@ $(document).ready(function() {
               contentType: 'application/json',
               data:        jsonEmail,
               success:     function(data) {
+            	  alert("Email sendt");
                 $.mobile.hidePageLoadingMsg();
-                $.mobile.changePage('#single-faddergroup-admin-page');
+                history.back();
               },
               error:       function(xhr) {
             	  if(response.status == 401){
 		    		  alert('Beklager, du har vært inaktiv for lenge, logg inn igjen');
 		    		  sessionToken = '';
-		    		  $.mobile.changePage('index.html');
+		    		  $.mobile.changePage('#dashboard-page');
 		    	  }else{
 		    		  alert("Beklager, en feil oppsto: " + response.getResponseHeader('error'));		    		  
 		    	  }

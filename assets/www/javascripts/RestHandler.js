@@ -15,10 +15,10 @@
  * });
  */
 function RestHandler(){
-//	this.baseUrl = 'http://192.168.0.105:8080/niths/'; // Ben
+	this.baseUrl = 'http://192.168.0.105:8080/niths/'; // Ben
 	
 //	this.baseUrl = 'http://10.21.24.105:8080/niths/';
-	this.baseUrl = 'http://ec2-46-137-44-111.eu-west-1.compute.amazonaws.com:8080/niths/';
+//	this.baseUrl = 'http://ec2-46-137-44-111.eu-west-1.compute.amazonaws.com:8080/niths/';
 	
 	this.find = function(modelUrl, callbackSuccess, callbackError) {
 	    $.ajax({
@@ -47,7 +47,7 @@ function RestHandler(){
 		    },
 		    success: callbackSuccess,
 		    error: function(jqXHR, textStatus, errorThrown){
-		    	handleError(errorThrown);
+		    	handleError(errorThrown, jqXHR);
 //		    	 $.mobile.hidePageLoadingMsg();
 //		    	 if(errorThrown == 'Unauthorized'){
 //		    		  alert('Beklager, du har vært inaktiv for lenge, logg inn igjen');
@@ -78,7 +78,7 @@ function RestHandler(){
 			},
 			success: callbackSuccess,
 			error: function(jqXHR, textStatus, errorThrown){
-				handleError(errorThrown);
+				handleError(errorThrown, jqXHR);
 //				$.mobile.hidePageLoadingMsg();
 //				if(errorThrown == 'Unauthorized'){
 //					alert('Beklager, du har vært inaktiv for lenge, logg inn igjen');
@@ -107,7 +107,7 @@ function RestHandler(){
 			},
 			success: callbackSuccess,
 			error: function(jqXHR, textStatus, errorThrown){
-				handleError(errorThrown);
+				handleError(errorThrown, jqXHR);
 //				$.mobile.hidePageLoadingMsg();
 //				if(errorThrown == 'Unauthorized'){
 //					alert('Beklager, du har vï¿½rt inaktiv for lenge, logg inn igjen');
@@ -138,7 +138,7 @@ function RestHandler(){
 			},
 			success: callbackSuccess,
 			error: function(jqXHR, textStatus, errorThrown){
-				handleError(errorThrown);
+				handleError(errorThrown, jqXHR);
 //				$.mobile.hidePageLoadingMsg();
 //				if(errorThrown == 'Unauthorized'){
 //					alert('Beklager, du har vært inaktiv for lenge, logg inn igjen');
@@ -152,7 +152,7 @@ function RestHandler(){
 		});
 	}; //End update
 	
-	function handleError(errorThrown){
+	function handleError(errorThrown, jqXHR){
 		$.mobile.hidePageLoadingMsg();
 		if(errorThrown == 'Unauthorized'){
 			alert('Beklager, du har vært inaktiv for lenge, logg inn igjen');

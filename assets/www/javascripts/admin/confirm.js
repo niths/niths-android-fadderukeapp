@@ -12,12 +12,13 @@ $("#confirm-dialog-page").live('pageinit', function() {
 
   $('#yes').click(function() {
 	  
-	  restClient.remove('fadder/' + sessionStorage.getItem('fadder_group_id') + '/remove/children/' + ids.slice(0, -1),  function(data, status) {  
-			if(status== "success"){
+	  restClient.remove('fadder/' + sessionStorage.getItem('fadder_group_id') + '/remove/children/' + ids.slice(0, -1),  function(data, status, xhr) {  
+			
+		  if(xhr.status== 200){
 				alert('Sletting vellykket');
 							
 			}else{
-				alert("Sletting feilet");
+				alert(xhr.status + ': Sletting feilet');
 			}
 			$.mobile.hidePageLoadingMsg();
 			history.back();	

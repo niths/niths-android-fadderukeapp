@@ -1,30 +1,36 @@
 $("#add-child-admin-page").live('pageshow', function() {
+	//alert('show');
 	var restClient = new RestHandler();
 	showLoadingGrouplessStudents();
 	loadGrouplessStudents();
+	
 
 	$('#fadder-groupless-form').submit( function() {
+		alert('submit');
 		var fadderGroupId = sessionStorage.getItem('fadder_group_id');
 		//alert("Editing group: " + fadderGroupId);
 
 		var idArr = $("#fadder-groupless-collection input:checkbox:checked").map(function(i, el) { return $(el).attr("id"); }).get();
 
 		addGRChildrenToGroup();
+		
 		return false;
 		
 		function addGRChildrenToGroup(){
-			restClient.updateURL('fadder/' + fadderGroupId + '/add/children/' + idArr.join(','),  function(data, status) {
-				if(status == 'success'){
+			restClient.updateURL('fadder/' + fadderGroupId + '/add/children/' + idArr.join(','),  function(data, textStatus, jqXHR) {
+				if(jqXHR.status == 200){
 					alert("Student(er) Lagt til");
 					history.back();
 				} else {
-					alert("Fikk ikke lagt til studenter");
+					alert(jqXHR.status + ': Fikk ikke lagt til studenter');
 				}
 				$.mobile.hidePageLoadingMsg();
 				
 			});
 		}
+		//$('form').die('submit');
 	});
+	
 
 function clearFormContents(){
 	$('#fadder-groupless-collection').html('');

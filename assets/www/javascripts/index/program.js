@@ -2,11 +2,11 @@ $("#program-page").live('pageinit', function() {
 	var restClient = new RestHandler(); //REST CLIENT
 	loadAllEvents();
 	
-	$('#refreshprogrambtn').click(function(data) {
-		$('#loadingmsg2').css('display', 'block');
-		$('#programlist').css('visibility', 'hidden');
-		loadAllEvents(false);
-	});
+//	$('#refreshprogrambtn').click(function(data) {
+//		$('#loadingmsg2').css('display', 'block');
+//		$('#programlist').css('visibility', 'hidden');
+//		loadAllEvents(false);
+//	});
 	
 	//TODO: FIX SERVICESIDE
 	$("#privacyselectdiv input[type='radio']").bind( "change", function(event, ui) {
@@ -18,6 +18,7 @@ $("#program-page").live('pageinit', function() {
 					loadAllEvents(true);
 			  }else{
 				  alert('Du har ingen gruppe');
+				  $("input[type='radio']:first").attr("checked",true).checkboxradio("refresh");
 			  }
 			  //IF I HAVE A GROUP:
 			 //LOAD ALL EVENTS FOR MY GROUP  

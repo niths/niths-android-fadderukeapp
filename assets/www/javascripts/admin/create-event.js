@@ -28,44 +28,7 @@ $("#admin-create-event-page").live('pageinit', function() {
 				alert('Noe gikk galt');
 			}
 		}); 
-		
-		
-//		$.mobile.showPageLoadingMsg();
-//		  var response;
-//		  response = $.ajax({
-//		      url: address + 'events',
-//		      type: 'POST',
-//		      cache: false,
-//		      contentType: 'application/json',
-//		      beforeSend: function(xhr) {
-//		        xhr.setRequestHeader("Application-key", applicationKey);
-//		        xhr.setRequestHeader("Application-token", applicationToken);
-//		        xhr.setRequestHeader("Developer-key", developerKey);
-//		        xhr.setRequestHeader("Developer-token", developerToken);
-//		        xhr.setRequestHeader("Session-token", sessionToken);
-//		      },
-//		      data:  getDataFromCreateForm(),
-//		      success : function(data){
-//		    	  if(response.status == 201){
-//		    		  alert("Event lagt til");
-//		    	  }else{
-//		    		  alert("Beklager, innlegging av event feilet...");
-//		    	  } 
-//		    	  $.mobile.hidePageLoadingMsg();
-//		    	  
-//		      },
-//		      error: function(xhr) {
-//		    	  $.mobile.hidePageLoadingMsg();
-//		    	  if(response.status == 401){
-//		    		  alert('Beklager, du har vært inaktiv for lenge, logg inn igjen');
-//		    		  sessionToken = '';
-//		    		  $.mobile.changePage('index.html');
-//		    	  }else{
-//		    		  alert("Beklager, en feil oppsto: " + response.getResponseHeader('error'));		    		  
-//		    	  }
-////		    	  alert("Beklager, en feil oppsto: " + response.getResponseHeader('error'));
-//		      }
-//		    });
+	
 
 		    $('form').die('submit');
 		    return false;

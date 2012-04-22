@@ -1,23 +1,31 @@
 $("#program-page").live('pageinit', function() {
-	
 	var restClient = new RestHandler(); //REST CLIENT
 	loadAllEvents();
 	
 	$('#refreshprogrambtn').click(function(data) {
 		$('#loadingmsg2').css('display', 'block');
 		$('#programlist').css('visibility', 'hidden');
-		loadAllEvents();
+		loadAllEvents(false);
 	});
 	
 	//TODO: FIX SERVICESIDE
 	$("#privacyselectdiv input[type='radio']").bind( "change", function(event, ui) {
 		  var value = $("#privacyselectdiv input[type='radio']:checked").val();
 		  if(value =="private"){
+			  if(student.fadderGroup != null){
+				  $('#loadingmsg2').css('display', 'block');
+					$('#programlist').css('visibility', 'hidden');
+					loadAllEvents(true);
+			  }else{
+				  alert('Du har ingen gruppe');
+			  }
 			  //IF I HAVE A GROUP:
 			 //LOAD ALL EVENTS FOR MY GROUP  
 		  }else{ //PUBLIC
 			  //LOAD ALL PUBLIC EVENTS
-			  
+			  $('#loadingmsg2').css('display', 'block');
+				$('#programlist').css('visibility', 'hidden');
+				loadAllEvents(false);
 		  }
 	});
 
@@ -37,7 +45,7 @@ $("#program-page").live('pageinit', function() {
 	 
 	
 
-	function getUrlParam(){
+	function getUrlParam(isPrivate){
 		
 		var today = new Date();
 		
@@ -56,13 +64,24 @@ $("#program-page").live('pageinit', function() {
 		} 
 		var today = dd+'/'+mm+'/'+yyyy + '-00:00';
 		var inFiveDays = (dd + 5) + '/'+mm+'/'+yyyy + '-23:59';
-		var param = '?startTime='+today + '&endTime=' + inFiveDays;
+//		var param = '?startTime='+today + '&endTime=' + inFiveDays;
+		var param = '';
+		if(isPrivate){
+			param = '?tag=fadderuka12,gruppe'+student.fadderGroup.groupNumber+'&startTime='+today + '&endTime=' + inFiveDays;
+			
+		}else{
+			param = '?tag=fadderuka12,public&startTime='+today + '&endTime=' + inFiveDays;
+			
+		}
+		
 		return param;
+		//events/tags-and-dates?tag=utvalg&startTime=10/04/2012-11:05
 		//events/dates?startTime=09/04/2010-10:55&endTime=09/04/2010-10:55
 	}
 
-	function loadAllEvents(){
-		restClient.find('events/dates' + getUrlParam(),  function(data, status, e) {  
+	function loadAllEvents(isPrivate){
+		restClient.find('events/tags-and-dates' + getUrlParam(isPrivate),  function(data, status, e) {  
+//			restClient.find('events/dates' + getUrlParam(),  function(data, status, e) {  
 			if(status == 'success'){
 	    		  if(data.length > 0){
 	    			  handleData(data);		    			  

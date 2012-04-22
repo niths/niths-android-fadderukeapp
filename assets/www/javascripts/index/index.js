@@ -85,8 +85,8 @@ $("#dashboard-page").live('pageinit', function() {
 		} 
 		var today = dd+'/'+mm+'/'+yyyy + '-00:00';
 		var inFiveDays = (dd + 4) + '/'+mm+'/'+yyyy + '-23:59';
-		var param = '?startTime='+today + '&endTime=' + inFiveDays;
-		
+//		var param = '?startTime='+today + '&endTime=' + inFiveDays;
+		var param = '?tag=fadderuka12,public&startTime='+today + '&endTime=' + inFiveDays;
 		return param;
 	}
 	

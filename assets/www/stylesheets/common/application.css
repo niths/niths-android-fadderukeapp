@@ -1,6 +1,4 @@
 
-
-
 .val {
   float: right;
 
@@ -15,9 +13,9 @@
 	
 }
 
-.customfont{
-	font-family: header_font;
-}
+/* .customfont{ */
+/* 	font-family: header_font; */
+/* } */
 
 .withborder{
 	margin-top: 2px;

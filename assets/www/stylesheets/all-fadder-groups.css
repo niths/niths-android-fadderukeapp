@@ -28,6 +28,7 @@
 .groupGUI{
 	float:left;
 	font-family: header_font;
+	width:20px;
 }
 
 .groupGUI h2{

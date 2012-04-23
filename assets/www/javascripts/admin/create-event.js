@@ -1,6 +1,7 @@
 
 $("#admin-create-event-page").live('pageshow', function() {
-	$('#createeventdiv input').val('');
+	$('#name2').val('');
+	$('#description2').val('');
 	var dateToday = getDateTodayAsString();
 	$('#startTime2').val(dateToday);
 	$('#endTime2').val(dateToday);

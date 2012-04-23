@@ -6,8 +6,4 @@ PrivateStorage.prototype.store = function(data, success, failure) {
 
 PhoneGap.addConstructor(function() {
   PhoneGap.addPlugin('privateStorage', new PrivateStorage());
-//
-//  PluginManager.addService(
-//      "PrivateStorage",
-//      "com.phonegap.plugins.privateStorage.PrivateStorage");
 });

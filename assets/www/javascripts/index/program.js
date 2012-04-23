@@ -2,12 +2,6 @@ $("#program-page").live('pageinit', function() {
 	var restClient = new RestHandler(); //REST CLIENT
 	loadAllEvents();
 	
-//	$('#refreshprogrambtn').click(function(data) {
-//		$('#loadingmsg2').css('display', 'block');
-//		$('#programlist').css('visibility', 'hidden');
-//		loadAllEvents(false);
-//	});
-	
 	//TODO: FIX SERVICESIDE
 	$("#privacyselectdiv input[type='radio']").bind( "change", function(event, ui) {
 		  var value = $("#privacyselectdiv input[type='radio']:checked").val();

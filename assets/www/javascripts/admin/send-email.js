@@ -48,36 +48,6 @@ $(document).ready(function() {
                 history.back();
         	});
 
-//            var response;
-//            response = $.ajax({
-//              url:         address + 'broadcast',
-//              type:        'POST',
-//              cache:       false,
-//              beforeSend:  function(xhr) {
-//            	  xhr.setRequestHeader("Application-key", applicationKey);
-//        	      xhr.setRequestHeader("Application-token", applicationToken);
-//        	      xhr.setRequestHeader("Developer-key", developerKey);
-//        	      xhr.setRequestHeader("Developer-token", developerToken);
-//        	      xhr.setRequestHeader("Session-token", sessionToken);
-//              },
-//              contentType: 'application/json',
-//              data:        jsonEmail,
-//              success:     function(data) {
-//            	  alert("Email sendt");
-//                $.mobile.hidePageLoadingMsg();
-//                history.back();
-//              },
-//              error:       function(xhr) {
-//            	  if(response.status == 401){
-//		    		  alert('Beklager, du har vært inaktiv for lenge, logg inn igjen');
-//		    		  sessionToken = '';
-//		    		  $.mobile.changePage('#dashboard-page');
-//		    	  }else{
-//		    		  alert("Beklager, en feil oppsto: " + response.getResponseHeader('error'));		    		  
-//		    	  }
-//              }
-//            });
-
           }
         } else {
           alert("Skriv inn en gyldig beskjed");

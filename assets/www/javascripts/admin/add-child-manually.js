@@ -1,5 +1,4 @@
 $('#add-child-admin-page').bind('pageshow', function(){
-	//alert('show');
 	
 	showLoadingGrouplessStudents();
 	loadGrouplessStudents();

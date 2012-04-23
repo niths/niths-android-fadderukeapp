@@ -27,8 +27,6 @@ public class PrivateStorage extends Plugin {
             key.append(String.valueOf(i));
         }
 
-        Log.i("INFO", "Getting private data");
-
         JSONArray json = null;
         try {
             json = new JSONArray("[{\"key\": \"" + key.toString() + "\"}]");

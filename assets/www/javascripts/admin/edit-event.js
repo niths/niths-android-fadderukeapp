@@ -128,9 +128,9 @@ function getDataFromForm(){
 		'"tags": "fadderuka12';
 		var priv = $('#select-privacy-choice').val();
 		if(priv == "public"){
-			json += ',public"';
+			json += ', public"';
 		}else{
-			json += ',gruppe' + priv +'"';			
+			json += ', gruppe' + priv +'"';			
 		}
 	if($('#place').val() != ''){
 		json += 

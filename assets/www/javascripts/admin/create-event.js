@@ -1,8 +1,31 @@
 
 $("#admin-create-event-page").live('pageshow', function() {
 	$('#createeventdiv input').val('');
+	var dateToday = getDateTodayAsString();
+	$('#startTime2').val(dateToday);
+	$('#endTime2').val(dateToday);
+	$('#place2').val('NITH');
+	$('#latitude2').val('59.908671');
+	$('#longitude2').val('10.768166');
 	
 });
+
+function getDateTodayAsString(){
+	var today = new Date();
+	var dd = today.getDate();
+	var mm = today.getMonth()+1; //January is 0!
+	var yyyy = today.getFullYear();
+	if(dd<10){
+		dd='0'+dd
+	} 
+	if(mm<10){
+		mm='0'+mm
+	} 
+	var today = dd+'/'+mm+'/'+yyyy + '-12:00';
+	
+	return today;
+}
+
 
 $("#admin-create-event-page").live('pageinit', function() {	
 	var restClient = new RestHandler(); //REST CLIENT
@@ -47,12 +70,12 @@ function getDataFromCreateForm(){
 	if($('#endTime2').val() != ''){
 		json += ', "endTime": "'+$('#endTime2').val()+'"';
 	}
-	json += ', "tags": "fadderuke12';
+	json += ', "tags": "fadderuka12';
 	var priv = $('#select-privacy-choice2').val();
 	if(priv == "public"){
-		json += ',public"';
+		json += ', public"';
 	}else{
-		json += ',gruppe' + priv +'"';			
+		json += ', gruppe' + priv +'"';			
 	}
 //	if($('#tags2').val() != ''){
 //		json += ', "tags": "'+$('#tags2').val()+'"';

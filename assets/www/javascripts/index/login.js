@@ -8,13 +8,14 @@ $("#dashboard-page").live('pageshow', function() {
 });
 
 $(document).ready(function() {
-
+	
+	var restClient = new RestHandler(); //REST CLIENT
 
   var callbackURL      = 'http://niths.no/callback';
   var stateURLFragment = 'state=/profile';
   var isNITHMail       = false;
   
-  toggleBtnText();
+  //toggleBtnText();
 
   $('#loginbtn').click(function() {
           ChildBrowser.install();
@@ -105,46 +106,38 @@ $(document).ready(function() {
     // Send the token to the server
     // We get the session token in the response header
     // If any error occurred, show error.
-	  var loginResponse;
-	  loginResponse = $.ajax({
-		  url: address + 'auth/login/',
-		  type: 'post',
-		  timeout: 3000,
-		  contentType:"application/json",
-		  data: '{"token":"'+token+'"}',
-		  	success: function(data) { //Signed in!
-		  		alert("Du er innlogget");
-		  		student = data;
-		  		sessionToken = loginResponse.getResponseHeader('session-token');
-		  		
-		  		//If student is leader for a group, show admin btn
-		  		if(student.groupLeaders != null){ //NEEDED?
-		  			if(student.groupLeaders.length > 0){
-		  				$('#adminsectionbtn').css('display', 'block');		  				
-		  			}
-		  		}
+	  restClient.updateWithCallbacks('auth/login/', '{"token":"'+token+'"}',  function(data, textStatus, jqXHR) {  
+		  alert("Du er innlogget");
+	  		student = data;
+	  		sessionToken = jqXHR.getResponseHeader('session-token');
+	  		
+	  		//If student is leader for a group, show admin btn
+	  		if(student.groupLeaders != null){ //NEEDED?
+	  			if(student.groupLeaders.length > 0){
+	  				$('#adminsectionbtn').css('display', 'block');		  				
+	  			}
+	  		}
 
-		  		toggleBtnText();
-    	  
-		  		$.mobile.hidePageLoadingMsg();
-		  	},
-		  	// Sign in failed! Server is down,
-		  	// or user logged in with a non NITH google account
-		  	error: function(xhr, status) { // Signed in failed
-		  		var resError = loginResponse.getResponseHeader('error');
-		  		//$('#error').empty();
-		  		if(resError == 'Email not valid'){
-		  			sessionToken = "-1";
-		  			alert('Bruker har ikke @nith.no mail, logg ut og inn igjen');    		
-		  		} else if (status == 'timeout'){
-		  			alert('Fikk ikke kontakt med serveren, logg inn igjen');    		
-		  		}else{
-		  			alert('En feil skjedde, vennligst logg inn igjen');    		    		
-		  		}
-		  		toggleBtnText();
-		  		$.mobile.hidePageLoadingMsg();
-		  	}
-	  });
+	  		toggleBtnText();
+	  
+	  		$.mobile.hidePageLoadingMsg();
+		  
+		}, function(req, status, ex) {
+			var resError = req.getResponseHeader('error');
+	  		//$('#error').empty();
+	  		if(resError == 'Email not valid'){
+	  			sessionToken = "-1";
+	  			alert('Bruker har ikke @nith.no mail, logg ut og inn igjen');    		
+	  		} else if (status == 'timeout'){
+	  			alert('Fikk ikke kontakt med serveren, logg inn igjen');    		
+	  		}else{
+	  			alert('En feil skjedde, vennligst logg inn igjen');    		    		
+	  		}
+	  		toggleBtnText();
+	  		$.mobile.hidePageLoadingMsg();
+			
+		});
+
   }
   
   //Resets logged in values

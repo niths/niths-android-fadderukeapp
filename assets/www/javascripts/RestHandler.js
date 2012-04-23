@@ -96,6 +96,26 @@ function RestHandler(){
 			timeout:5000
 		});
 	}; //End update
+	this.updateWithCallbacks = function(modelUrl, json, callbackSuccess, callbackError) {
+		$.mobile.showPageLoadingMsg();
+		$.ajax({
+			type: 'POST',
+			url: this.baseUrl + modelUrl,
+			cache: false,
+			data: json,
+			contentType: 'application/json',
+			beforeSend: function(xhr) {
+				xhr.setRequestHeader("Application-key", applicationKey);
+				xhr.setRequestHeader("Application-token", applicationToken);
+				xhr.setRequestHeader("Developer-key", developerKey);
+				xhr.setRequestHeader("Developer-token", developerToken);
+				xhr.setRequestHeader("Session-token", sessionToken);
+			},
+			success: callbackSuccess,
+			error: callbackError,
+			timeout:5000
+		});
+	}; //End update
 	
 	this.create = function(modelUrl, dataJ, callbackSuccess) {
 		$.mobile.showPageLoadingMsg();

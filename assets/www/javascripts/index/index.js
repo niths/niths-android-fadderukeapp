@@ -2,6 +2,7 @@ $("#dashboard-page").live('pageinit', function() {
 	//TODO: REMOVE ON iOS AND WP7 --> Android doesnt handle transitions well
 	$.mobile.defaultPageTransition = 'none';
 	$.mobile.defaultDialogTransition = 'none';
+	$.support.cors = true;
 	/////////////////////////////////
 	
 	var restClient = new RestHandler(); //REST CLIENT

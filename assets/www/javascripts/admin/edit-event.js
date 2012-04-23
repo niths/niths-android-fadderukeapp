@@ -98,8 +98,8 @@ function showData(event){
 	$('#idE').val(event.id);
 	$('#name').val(event.name);
 	$('#description').val(event.description);
-	$('#startTime').val(event.startTime);
-	$('#endTime').val(event.endTime);
+	$('#startTime').val(event.startTime.replace('-', ' '));
+	$('#endTime').val(event.endTime.replace('-', ' '));
 //	$('#tags').val(event.tags);
 	if(event.location != null){
 		$('#place').val(event.location.place);
@@ -123,8 +123,8 @@ function getDataFromForm(){
 		'"id":'+ $('#idE').val() +','
 		+'"name": "'+$('#name').val()+'",'+
 		'"description": "'+ $('#description').val()+ '",'+
-		'"startTime": "'+$('#startTime').val()+'",'+
-		'"endTime": "'+$('#endTime').val()+'",'+
+		'"startTime": "'+$('#startTime').val().replace(' ', '-')+'",'+
+		'"endTime": "'+$('#endTime').val().replace(' ', '-')+'",'+
 		'"tags": "fadderuka12';
 		var priv = $('#select-privacy-choice').val();
 		if(priv == "public"){

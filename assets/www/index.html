@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="stylesheets/index.css"/>
     <link rel="stylesheet" href="stylesheets/jquery.mobile.scrollview.css"/>
     <link rel="stylesheet" href="stylesheets/common/dialog-plugin.css"/>
+    <link href="stylesheets/common/mobiscroll-1.6.min.css" rel="stylesheet" type="text/css" />
+    
     <script type="text/javascript" charset="utf-8"
       src="javascripts/common/jquery.js"></script>
     <script>
@@ -75,6 +77,9 @@
 	</script>
     <script type="text/javascript" charset="utf-8"
       src="javascripts/RestHandler.js">
+    </script>
+    <script type="text/javascript" charset="utf-8"
+      src="javascripts/common/mobiscroll-1.6.min.js">
     </script>
 </head>
 <body>
@@ -343,6 +348,13 @@
 		<script type="text/javascript" charset="utf-8"
 			src="javascripts/admin/edit-event.js">
 		</script>
+		 <script type="text/javascript">
+        $(document).ready(function () {
+            $('#startTime').scroller({ preset: 'datetime', dateFormat: 'dd/mm/yy', dateOrder: 'ddmmy', ampm: false, timeFormat: 'HH:ii' });
+            $('#endTime').scroller({ preset: 'datetime', dateFormat: 'dd/mm/yy', dateOrder: 'ddmmy', ampm: false, timeFormat: 'HH:ii' });
+        });
+
+    </script>
 		
 		<div data-role="header" data-theme="b">
 			<a href="#"  data-role="button" data-rel="back" class="ui-btn-left">Back</a>
@@ -363,18 +375,23 @@
 					<label for="description">Beskrivelse:</label> 
 					<textarea cols="40" rows="8" name="description" id="description" placeholder="Beskrivelse"></textarea>
 				</div>
-				<div class="ui-hide-label">
-					<label for="startTime">Start:</label> 
-					<input type="text" name="starTime" id="startTime" value="" placeholder="Start" />
-				</div>
-				<div class="ui-hide-label">
-					<label for="endTime">Slutt:</label> 
-					<input type="text" name="endTime" id="endTime" value="" placeholder="Slutt" />
-				</div>
 <!-- 				<div class="ui-hide-label"> -->
-<!-- 					<label for="tags">Tags:</label>  -->
-<!-- 					<input type="text" name="tags" id="tags" value="" placeholder="Tags" /> -->
+<!-- 					<label for="startTime">Start:</label>  -->
+<!-- 					<input type="text" name="starTime" id="startTime" value="" placeholder="Start" /> -->
 <!-- 				</div> -->
+<!-- 				<div class="ui-hide-label"> -->
+<!-- 					<label for="endTime">Slutt:</label>  -->
+<!-- 					<input type="text" name="endTime" id="endTime" value="" placeholder="Slutt" /> -->
+<!-- 				</div> -->
+				<div class="ui-hide-label">
+					<label for="startTime">Start</label>
+                    <input type="text" name="startTime" id="startTime" class="mobiscroll" placeholder="Start: dd/mm/yyyy-hh:mm"/>
+				</div>
+				<div class="ui-hide-label">
+					<label for="endTime">Slutt</label>
+                    <input type="text" name="endTime" id="endTime" class="mobiscroll" placeholder="Slutt: dd/mm/yyyy-hh:mm"/>
+				</div>
+
 				<div class="ui-hide-label" id="privacy">
 					
 				</div>
@@ -408,6 +425,13 @@
 		<script type="text/javascript" charset="utf-8"
 			src="javascripts/admin/create-event.js">
 		</script>
+		 <script type="text/javascript">
+        $(document).ready(function () {
+            $('#startTime2').scroller({ preset: 'datetime', dateFormat: 'dd/mm/yy', dateOrder: 'ddmmy', ampm: false, timeFormat: 'HH:ii' });
+            $('#endTime2').scroller({ preset: 'datetime', dateFormat: 'dd/mm/yy', dateOrder: 'ddmmy', ampm: false, timeFormat: 'HH:ii' });
+        });
+
+    </script>
 		
 		<div data-role="header" data-theme="b">
 			<a href="#"  data-role="button" data-rel="back" class="ui-btn-left">Back</a>
@@ -427,14 +451,24 @@
 					<label for="description2">Beskrivelse:</label> 
 					<textarea cols="40" rows="8" name="description2" id="description2" placeholder="Beskrivelse"></textarea>
 				</div>
+<!-- 				<div class="ui-hide-label"> -->
+<!-- 					<label for="startTime2">Start:</label>  -->
+<!-- 					<input type="text" name="starTime2" id="startTime2" value="" placeholder="Start: dd/mm/yyyy-hh:mm" /> -->
+<!-- 				</div> -->
 				<div class="ui-hide-label">
-					<label for="startTime2">Start:</label> 
-					<input type="text" name="starTime2" id="startTime2" value="" placeholder="Start: dd/mm/yyyy-hh:mm" />
+					<label for="startTime2">Datetime</label>
+                    <input type="text" name="startTime2" id="startTime2" class="mobiscroll" placeholder="Start: dd/mm/yyyy-hh:mm"/>
 				</div>
 				<div class="ui-hide-label">
-					<label for="endTime2">Slutt:</label> 
-					<input type="text" name="endTime2" id="endTime2" value="" placeholder="Stopp: dd/mm/yyyy-hh:mm" />
+					<label for="endTime2">Datetime</label>
+                    <input type="text" name="endTime2" id="endTime2" class="mobiscroll" placeholder="Slutt: dd/mm/yyyy-hh:mm"/>
 				</div>
+				
+				
+<!-- 				<div class="ui-hide-label"> -->
+<!-- 					<label for="endTime2">Slutt:</label>  -->
+<!-- 					<input type="text" name="endTime2" id="endTime2" value="" placeholder="Stopp: dd/mm/yyyy-hh:mm" /> -->
+<!-- 				</div> -->
 				<div class="ui-hide-label" id="privacy2">
 					
 				</div>

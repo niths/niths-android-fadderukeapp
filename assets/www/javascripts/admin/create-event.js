@@ -22,7 +22,7 @@ function getDateTodayAsString(){
 	if(mm<10){
 		mm='0'+mm
 	} 
-	var today = dd+'/'+mm+'/'+yyyy + '-12:00';
+	var today = dd+'/'+mm+'/'+yyyy + ' 12:00';
 	
 	return today;
 }
@@ -66,10 +66,10 @@ function getDataFromCreateForm(){
 		json += ', "description": "'+ $('#description2').val()+ '"';
 	}
 	if($('#startTime2').val() != ''){
-		json += ', "startTime": "'+$('#startTime2').val()+'"';
+		json += ', "startTime": "'+$('#startTime2').val().replace(' ', '-')+'"';
 	}
 	if($('#endTime2').val() != ''){
-		json += ', "endTime": "'+$('#endTime2').val()+'"';
+		json += ', "endTime": "'+$('#endTime2').val().replace(' ', '-')+'"';
 	}
 	json += ', "tags": "fadderuka12';
 	var priv = $('#select-privacy-choice2').val();

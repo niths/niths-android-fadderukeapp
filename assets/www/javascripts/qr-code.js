@@ -1,4 +1,8 @@
-$(document).ready(function() {
+$('#scan-qr-page').live('pageinit', function() {
+	
+
+
+//$(document).ready(function() {
 
   $('#capture-qr-code').click(function() {
     navigator.camera.getPicture(uploadPhoto,
@@ -28,4 +32,6 @@ function fail(error) {
 alert("An error has occurred: Code = " = error.code);
 }
   });
+//});
+  
 });

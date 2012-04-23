@@ -1,4 +1,15 @@
+$("#dashboard-page").live('pageshow', function() {
+	 if(sessionToken == ""){
+			$("#loginbtn .ui-btn-text").text("Logg inn");
+			$('#adminsectionbtn').css('display', 'none');
+		}else{
+			$("#loginbtn .ui-btn-text").text("Logg ut");
+		}
+});
+
 $(document).ready(function() {
+
+
   var callbackURL      = 'http://niths.no/callback';
   var stateURLFragment = 'state=/profile';
   var isNITHMail       = false;
@@ -24,7 +35,8 @@ $(document).ready(function() {
 		 }
 		 else if(sessionToken  != "-1"){ //Sign is succeeded, but not NITH mail: = -1;
 			 //alert("LOGGED IN");
-			 $.mobile.changePage('profile.html');
+			 $.mobile.changePage('#profile-page');
+//			 $.mobile.changePage('views/profile.html');
 		 }
 	 });
 	 
@@ -41,7 +53,7 @@ $(document).ready(function() {
       + '&redirect_uri=' + encodeURIComponent(callbackURL)
       + '&response_type=token'
       + '&client_id=1064171706637-f9efklqg3tbrmu7fctvk8khvc0dqmh5i.apps.googleusercontent.com',
-      { showLocationBar: false});
+      { });//showLocationBar: false}); //When no contact with google, needs to be able to exit browser
   };
 
   /**

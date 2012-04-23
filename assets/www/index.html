@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text-html" charset="UTF-8"/>
+<title>NITHs</title>
+<!-- 	<link rel="stylesheet" href="stylesheets/common/nithstheme.min.css" /> -->
+<!--     <link rel="stylesheet" href="stylesheets/common/jquery.mobile.notheme.css"/> -->
+ <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no;" />
+    <link rel="stylesheet" href="stylesheets/common/jq-m-uncom-custom.css"/>
+<!--     <link rel="stylesheet" href="stylesheets/common/jquery-mobile.css"/> -->
+    <link rel="stylesheet" href="stylesheets/common/application.css"/>
+    <link rel="stylesheet" href="stylesheets/index.css"/>
+    <link rel="stylesheet" href="stylesheets/jquery.mobile.scrollview.css"/>
+    <link rel="stylesheet" href="stylesheets/common/dialog-plugin.css"/>
+    <script type="text/javascript" charset="utf-8"
+      src="javascripts/common/jquery.js"></script>
+    <script>
+      $(document).bind("mobileinit", function() {
+        $.mobile.touchOverflowEnabled = true;
+      });
+    </script>
+    <script type="text/javascript" charset="utf-8"
+      src="javascripts/common/jquery-mobile.js">
+    </script>
+    
+    <!-- Scrollview -->
+    
+    <script type="text/javascript" charset="utf-8"
+      src="javascripts/common/jquery.easing.1.3.js">
+    </script>
+    <script type="text/javascript" charset="utf-8"
+      src="javascripts/common/jquery.mobile.scrollview.js">
+    </script>
+    <script type="text/javascript" charset="utf-8"
+      src="javascripts/common/scrollview.js">
+    </script>
+	    
+    <!-- /Scrollview -->
+    
+    <script type="text/javascript" charset="utf-8"
+      src="javascripts/common/jsoauth.js">
+    </script>
+    <script type="text/javascript" charset="utf-8"
+      src="javascripts/common/phonegap-1.4.1.js">
+    </script>
+    <script>
+      document.addEventListener("deviceready", onDeviceReady, false);
+
+      // PhoneGap is loaded and it is now safe to make calls PhoneGap methods
+      //
+      function onDeviceReady() {
+       // alert("cordova is ready");
+        if (device.platform == 'Android') {
+          $.getScript('javascripts/common/childbrowser.js', function() {
+
+            //WP7 spesific
+            $.support.cors = true;
+
+            // WP7 and iOS specific
+            ChildBrowser.install();
+          });
+        }
+      }
+    </script>
+    
+    
+    <script type="text/javascript" charset="utf-8"
+        src="javascripts/common/application.js">
+    </script>
+    <script type="text/javascript" charset="utf-8"
+		src="javascripts/common/md5.js">
+	</script>
+    <script type="text/javascript" charset="utf-8"
+      src="javascripts/common/dialog-plugin.js">
+	</script>
+    <script type="text/javascript" charset="utf-8"
+      src="javascripts/RestHandler.js">
+    </script>
+</head>
+<body>
+	
+	
+	<!-- DASHBOARD PAGE --> 
+	<!-- The index page, the first page the user sees -->
+	<!-- Contains a list of the two next events(in the next five days), last images and last tweets -->
+	<!-- Also contains links to the other pages -->
+	
+	
+	<div data-role="page" data-theme="c" id="dashboard-page" class="scrollview">
+		<link rel="stylesheet" href="stylesheets/index.css"/>
+		<script type="text/javascript" charset="utf-8"
+			src="javascripts/index/index.js">
+		</script>
+		<script type="text/javascript" charset="utf-8"
+			src="javascripts/index/login.js">
+		</script>
+
+		<div  data-role="header" data-position="fixed" data-theme="b">
+                <a href="" id="loginbtn" data-role="button" class="ui-btn-right">Logg inn</a>
+                <h3>NITHS</h3>
+                <a id="adminsectionbtn" href="#admin-page" data-role="button" class="ui-btn-left">admin</a>
+            </div>
+            <div data-role="content"  >
+            
+            
+           	 <div id="events">
+           	 	<h1 class="withborder">Neste events</h1>
+            		<ul id ="eventlist" data-role="listview" class="ui-listview" data-inset="true">
+            			<li class="li-first" id="eventloader">
+					    	<h3>Laster events</h3>
+						</li>          	
+            		</ul>
+            		<div class="listbtns">
+						<a href="" data-role="button" id="resfresheventsbtn" data-icon="refresh" data-inline="true" data-iconpos="notext" >Refresh</a>
+<!-- 						<a href="#program-page" data-role="button" data-icon="grid" data-iconpos="notext" data-inline="true" >Program</a> -->
+					</div>
+            </div><!-- /events -->
+            
+            <!-- TODO: create a better looking button -->
+			<div id="imagesholder" >
+				<h1 class="withborder">Siste bilder</h1>
+				<a href="#Gallery1" data-role="button" >Gallery</a>
+<!-- 				<a href="views/fbgallery.html" data-role="button" >Gallery</a> -->
+            </div><!--end images-->
+            
+            <div id="twitter" class="current">
+            	<h1 class="withborder">Siste tweets</h1>
+    			<div id="loadingfortwitterfeed"><img class="spin" src="stylesheets/common/images/loader.png" /></div>
+    			<ul id="tweets2">
+ 				</ul>
+			</div>
+			
+			
+            	<div class="listbtns">
+						<a href="" data-role="button" id="refreshtweetbtn" data-icon="refresh" data-iconpos="notext" data-inline="true" >Refresh</a>
+						<a href="" data-role="button" id="expandtweetbtn" data-icon="plus" data-iconpos="notext" data-inline="true">Flere</a>
+            	</div>
+
+            	
+            
+            	<div id="endcontent">
+            		<p><strong>NITH</strong> - Norges Informasjonsteknologiske Høgskole AS <br />
+					<strong>Adr:</strong> Schweigaardsgate 14, 0185 Oslo<br />
+						<strong>Tlf:</strong> 22 05 99 99<br />
+						<strong>Mail:</strong> oslo@nith.no<br />
+				<strong>Kontortid:</strong> 09.00 - 11.30 og 12.00 - 15.00</p>
+            	</div>
+            </div>
+        
+            <div data-role="footer" data-position="fixed"  data-theme="b">
+            	<div data-role="navbar">
+            		<ul>
+                		<li><a href="#" id="profilebtn" data-icon="info" data-iconpos="top">Profil</a></li>
+						<li><a href="#all-fadder-groups-page" id="myGroupBtn" data-icon="star" data-iconpos="top">Faddergrupper</a></li>
+						<li><a href="#scan-qr-page" data-icon="grid" data-iconpos="top">QR kode</a></li>
+						<li><a href="#program-page" data-icon="grid" data-iconpos="top">Program</a></li>
+                	</ul>
+            	</div>
+            </div><!-- footer -->
+	</div> <!-- Dashboard-page -->
+	
+	
+	<!-- EVENT PAGE -->
+	<!-- Shows information about a specific event -->
+	<!-- Also shows a map from Google with location -->
+	
+	
+	<div data-role="page" id="event-page">
+		<link rel="stylesheet" href="stylesheets/event/event-info.css"/>
+		<script type="text/javascript" charset="utf-8"
+			src="javascripts/index/event.js">
+		</script>
+	
+		<div data-role="header" data-theme="b">
+			<a href="#"  data-role="button" data-rel="back" class="ui-btn-left">Back</a>
+			<h3>EVENT</h3>
+     	</div>
+            
+     	<div data-role="content">
+     		<div id="singleevent">
+<!--      		<input type="hidden" name="event_id" id="event_id" value="5" /> -->
+				
+				<div id="loadingmsg"><img class="spin" src="stylesheets/common/images/loader.png" /></div>
+				
+     			<div id ="eventinfo">
+     				<h1 class="withborder" id="eventname" ></h1>
+     				<p id = "eventtime"></p>
+     				<p id="eventdesc"></p>
+     				<div id = "map"></div>
+     			</div>
+     		
+     		</div><!-- /singleevent -->    	
+    	</div> <!-- content -->
+	</div><!-- event-page -->
+	
+	
+	<!-- PROGRAM PAGE -->
+	<!-- Shows a list of all events the next five days -->
+	
+	
+	<div data-role="page" id="program-page">
+ 		<link rel="stylesheet" href="stylesheets/program.css"/>
+		<script type="text/javascript" charset="utf-8"
+			src="javascripts/index/program.js">
+ 		</script>
+	
+	<div data-role="header" data-theme="b">
+		<a href="#"  data-role="button" data-rel="back" class="ui-btn-left">Back</a>
+		<h3>PROGRAM</h3>
+     </div>
+            
+     <div data-role="content">
+     	<div id="privacyselectdiv" >
+			<fieldset data-role="controlgroup" data-type="horizontal" >
+					<input type="radio" name="groupPrivacy" id="publicEvents" value="public" checked="checked"/>
+					<label for="publicEvents">Public</label>
+					<input type="radio" name="groupPrivacy" id="privateEvents" value="private" />
+					<label for="privateEvents">Private</label>
+			</fieldset>
+		</div>
+     	<div id="loadingmsg2"><img class="spin" src="stylesheets/common/images/loader.png" /></div>
+
+     	<div id="programlist">
+     	
+     	</div><!-- /programlist-->
+            	
+    </div> <!-- content -->
+        
+	
+	</div><!-- program -->
+	
+	
+	<!-- ALL FADDERGROUPS  -->
+	<!-- Shows a lits of all faddergroups -->
+	
+	
+	<div data-role="page" data-theme="c" id="all-fadder-groups-page">
+			<link rel="stylesheet" href="stylesheets/all-fadder-groups.css"/>
+			<script type="text/javascript" charset="utf-8"
+						src="javascripts/index/all-fadder-groups.js">
+			</script>
+
+			<div data-role="header" data-theme="b">
+				<a href="#"  data-role="button" data-rel="back" class="ui-btn-left">Back</a>
+				<h3>ALLE GRUPPER</h3>
+				<a href="#" id="refreshFadderGroupsListBtn" data-role="button" class="ui-btn-right">Refresh</a>
+			</div>
+
+			<div data-role="content" >
+			<h1 class="withborder">faddergrupper</h1>
+			
+			<div id="allGroupsGUI">
+				<ul>
+
+				</ul>
+			</div>
+
+				
+				<div id="loadingGroupsMsgDiv"><img class="spin" src="stylesheets/common/images/loader.png" /></div>
+
+			</div><!-- /content -->
+
+		</div><!-- /page -->
+		
+		
+		<!-- SINGLE FADDER GROUP PAGE -->
+		<!-- Shows information about a specific group -->
+		
+		
+		<div data-role="page" data-theme="c" id="single-fadder-group-page">
+			<script type="text/javascript" charset="utf-8"
+						src="javascripts/index/single-fadder-group.js">
+			</script>
+
+			<div data-role="header" data-theme="b">
+				<a href="#"  data-role="button" data-rel="back" class="ui-btn-left">Back</a>
+				<h3>FADDERGRUPPE</h3>
+			</div>
+
+			<div data-role="content" data-scroll="y">	
+				<h1 id="agroupheader" class="withborder">gruppe</h1>	
+				
+				<div id="loadinggroupmsgdiv"><img class="spin" src="stylesheets/common/images/loader.png" /></div>
+				
+     			<div class="bottomborder" id ="groupinfodiv">
+     				<h3 class="customfont">Ledere:</h3>
+     				<ul id ="groupleaderlist" data-role="listview" class="ui-listview" data-inset="true"></ul>
+     				<h3 class="customfont">Fadderbarn:</h3>
+     				<ul id ="groupmemberslist" data-role="listview" class="ui-listview" data-inset="true"></ul>
+     			</div>
+				
+				
+			</div><!-- /content -->
+
+		</div><!-- /page -->
+		
+		
+		
+		<!-- ADMIN SECTION -->
+		
+		
+		<!-- FADDER LEADER SECTION -->
+		
+	<div data-role="page" data-theme="c" id="admin-page">
+
+		<link rel="stylesheet" href="stylesheets/admin/admin.css"/>
+		<script type="text/javascript" charset="utf-8"
+			src="javascripts/admin/admin.js">
+		</script>
+		
+		<div data-role="header" data-theme="b">
+			<a href="#"  data-role="button" data-rel="back" class="ui-btn-left">Back</a>
+			<h3>ADMIN</h3>
+			<a href="#"  id="refreshallbtn" data-role="button" class="ui-btn-right">Refresh</a>
+		</div>
+		
+		<div data-role="content" id="admincontent">
+			<h1 class="withborder">Dine Grupper</h1>
+			<ul id ="leadergrouplist" data-role="listview" class="ui-listview" data-inset="true">
+            </ul>
+			
+           	<h1 class="withborder">Events</h1>
+			<a href="#admin-create-event-page" data-role="button">Opprett event</a>		
+			<h1 class="withborder">Dine grupper</h1>
+			<div id="loadigForAllGroupsEventsList"><img class="spin" src="stylesheets/common/images/loader.png" /></div>
+            <ul id ="allGroupsEventsList" data-role="listview" class="ui-listview" data-inset="true">
+            </ul>
+              <h1 class="withborder">Public</h1>
+			<div id="loadinforallevents"><img class="spin" src="stylesheets/common/images/loader.png" /></div>
+            <ul id ="alleventlist" data-role="listview" class="ui-listview" data-inset="true">
+            </ul>
+		</div><!-- Content -->
+	</div> 	<!-- page -->
+	
+	
+	
+	<!-- EDIT EVENT PAGE -->
+	<!-- Show info about an event and lets user update/delete -->
+	
+	<div data-role="page" data-theme="c" id="admin-edit-event-page">
+		<link rel="stylesheet" href="stylesheets/admin/editevent.css"/>
+		
+		<script type="text/javascript" charset="utf-8"
+			src="javascripts/admin/edit-event.js">
+		</script>
+		
+		<div data-role="header" data-theme="b">
+			<a href="#"  data-role="button" data-rel="back" class="ui-btn-left">Back</a>
+			<h3>ENDRE EVENT</h3>
+		</div>
+		<div data-role="content">
+			<h1 class="withborder">Endre event</h1>
+			<div id="loadinforupdateventdiv"><img class="spin" src="stylesheets/common/images/loader.png" /></div>
+			<div id="updateeventinfodiv">
+			<form id="update-event-form" >
+				<input id="idE" name="id" type="hidden" value="" />
+			
+				<div class="ui-hide-label">
+					<label for="name">Navn:</label> 
+					<input type="text" name="name" id="name" value="" placeholder="Navn" />
+				</div>
+				<div class="ui-hide-label">
+					<label for="description">Beskrivelse:</label> 
+					<textarea cols="40" rows="8" name="description" id="description" placeholder="Beskrivelse"></textarea>
+				</div>
+				<div class="ui-hide-label">
+					<label for="startTime">Start:</label> 
+					<input type="text" name="starTime" id="startTime" value="" placeholder="Start" />
+				</div>
+				<div class="ui-hide-label">
+					<label for="endTime">Slutt:</label> 
+					<input type="text" name="endTime" id="endTime" value="" placeholder="Slutt" />
+				</div>
+<!-- 				<div class="ui-hide-label"> -->
+<!-- 					<label for="tags">Tags:</label>  -->
+<!-- 					<input type="text" name="tags" id="tags" value="" placeholder="Tags" /> -->
+<!-- 				</div> -->
+				<div class="ui-hide-label" id="privacy">
+					
+				</div>
+				<div class="ui-hide-label">
+					<label for="place">Sted:</label> 
+					<input type="text" name="place" id="place" value="" placeholder="Sted" />
+				</div>
+				<div class="ui-hide-label">
+					<label for="latitude">Latitude:</label> 
+					<input type="text" name="latitude" id="latitude" value="" placeholder="Latitude" />
+				</div>
+				<div class="ui-hide-label">
+					<label for="longitude">Longitude:</label> 
+					<input type="text" name="longitude" id="longitude" value="" placeholder="Longitude" />
+				</div>
+				<div class="bottomborder"></div>
+				<button type="submit" id="editeventsubmit" data-role="button">Oppdater</button>
+<!-- 				<button type="submit" id="deleteeventsubmit" data-role="button">Slett</button> -->
+				
+				<a href="#" id="opendialog" data-role="button">Slett</a>
+				
+        	</form>
+        	</div><!-- updateventinfodiv -->
+		</div><!-- Content -->
+	</div> 	<!-- page -->
+	
+	<!-- CREATE NEW EVENT PAGE -->
+	
+	<div data-role="page" data-theme="c" id="admin-create-event-page">
+		
+		<script type="text/javascript" charset="utf-8"
+			src="javascripts/admin/create-event.js">
+		</script>
+		
+		<div data-role="header" data-theme="b">
+			<a href="#"  data-role="button" data-rel="back" class="ui-btn-left">Back</a>
+			<h3>OPPRETT EVENT</h3>
+		</div>
+		<div data-role="content">
+			<h1 class="withborder">Opprett event</h1>
+			<div id="createeventdiv">
+			<form id="create-event-form" >
+<!-- 				<input id="id" name="id" type="hidden" value="" /> -->
+			
+				<div class="ui-hide-label">
+					<label for="name2">Navn:</label> 
+					<input type="text" name="name2" id="name2" value="" placeholder="Navn" />
+				</div>
+				<div class="ui-hide-label">
+					<label for="description2">Beskrivelse:</label> 
+					<textarea cols="40" rows="8" name="description2" id="description2" placeholder="Beskrivelse"></textarea>
+				</div>
+				<div class="ui-hide-label">
+					<label for="startTime2">Start:</label> 
+					<input type="text" name="starTime2" id="startTime2" value="" placeholder="Start: dd/mm/yyyy-hh:mm" />
+				</div>
+				<div class="ui-hide-label">
+					<label for="endTime2">Slutt:</label> 
+					<input type="text" name="endTime2" id="endTime2" value="" placeholder="Stopp: dd/mm/yyyy-hh:mm" />
+				</div>
+				<div class="ui-hide-label" id="privacy2">
+					
+				</div>
+				<div class="ui-hide-label">
+					<label for="place2">Sted:</label> 
+					<input type="text" name="place2" id="place2" value="" placeholder="Sted" />
+				</div>
+				<div class="ui-hide-label">
+					<label for="latitude2">Latitude:</label> 
+					<input type="text" name="latitude2" id="latitude2" value="" placeholder="Latitude" />
+				</div>
+				<div class="ui-hide-label">
+					<label for="longitude2">Longitude:</label> 
+					<input type="text" name="longitude2" id="longitude2" value="" placeholder="Longitude" />
+				</div>
+				<div class="bottomborder"></div>
+				<button type="submit" id="createeventsubmit" data-role="button">Opprett</button>
+<!-- 				<button type="submit" id="deleteeventsubmit" data-role="button">Slett</button> -->
+				
+        	</form>
+        	</div><!-- updateventinfodiv -->
+		</div><!-- Content -->
+	</div> 	<!-- page -->
+	
+	
+	
+	<!-- PROFILE PAGE -->
+	<!-- Shows info about the logge din user, and links to faddergroup -->
+	
+	
+	
+	<div data-role="page" data-theme="c" id="profile-page">
+	
+		<link rel="stylesheet" href="stylesheets/profile.css" />
+		
+		<script type="text/javascript" charset="utf-8"
+			src="javascripts/profile.js">	
+ 		</script>
+
+		<div data-role="header" data-theme="b">
+			<a href="#"  data-role="button" data-rel="back" class="ui-btn-left">Back</a>
+			<h3>PROFIL</h3>
+		</div>
+		
+		<div data-role="content">
+		<div id="loadingforprofile"><img class="spin" src="stylesheets/common/images/loader.png" /></div>
+		<div id="profilediv">
+			<div class="dividerwithborder">
+				<img id ="profileImg" src="images/mm.jpg" />
+				<div id="groupinfo">
+					<h1 id="groupheader">Gruppe:</h1>
+					<h1 id="faddergroup"></h1>
+				</div>
+			</div><!-- /top -->
+			<div id="profileinfo">
+				<form id="update-person-form">
+						<input id="idP" name="id" type="hidden" value="" />
+						<div class="ui-hide-label">
+							<label for="firstName">Fornavn:</label> 
+							<input type="text" name="firstName" id="firstName" value="" placeholder="Fornavn" />
+						</div>
+
+						<div class="ui-hide-label">
+							<label for="lastName">Etternavn:</label> 
+							<input type="text" name="lastName" id="lastName" value="" placeholder="Etternavn" />
+						</div>
+
+						<div  class="ui-hide-label">
+							<label for="telephoneNumber">Telefon:</label> 
+							<input type="text" name="telephoneNumber" id="telephoneNumber" value="" placeholder="Telefon" />
+						</div>
+						
+						<div class="ui-hide-label">
+							<label for="descriptionP">Beskriv deg selv:</label>
+							<textarea cols="40" rows="8" name="description" id="descriptionP" placeholder="Beskriv deg selv..."></textarea>
+						</div>	
+
+						<div id="genderradio" >
+							<fieldset data-role="controlgroup" data-mini="true" data-type="horizontal" >
+								<input type="radio" name="gender" id="female" value="F" />
+								<label for="female">Kvinne</label>
+								<input type="radio" name="gender" id="male" value="M" />
+								<label for="male">Mann</label>
+							</fieldset>
+						</div>
+						<div class="bottomborder"></div>
+						<button type="submit" id="profilesubmit" data-role="button">Oppdater</button>
+				</form>
+			</div><!-- profileinfo -->
+			
+			</div>
+			
+		</div><!-- Content -->
+
+	</div> 	<!-- page -->
+	
+	
+	
+	
+	<!-- GALLERY PAGE -->
+	<!-- SHows the lastest images from FB -->
+	
+	
+	
+	<div data-role="page" id="Gallery1" class="gallery-page">
+	<link href="stylesheets/gallery/styles.css" type="text/css" rel="stylesheet" />
+	<link href="stylesheets/gallery/photoswipe.css" type="text/css" rel="stylesheet" />
+	<script type="text/javascript" charset="utf-8" src="javascripts/fb.js"></script>
+	<script type="text/javascript" src="javascripts/gallery/klass.min.js"></script>
+	<script type="text/javascript" src="javascripts/gallery/code.photoswipe.jquery-3.0.4.min.js"></script>
+	<script type="text/javascript">
+		/*
+		 * IMPORTANT!!!
+		 * REMEMBER TO ADD  rel="external"  to your anchor tags. 
+		 * If you don't this will mess with how jQuery Mobile works
+		 */
+		(function(window, $, PhotoSwipe){
+			$(document).ready(function(){
+				$('div.gallery-page')
+					.live('pageshow', function(e){
+						var 
+							currentPage = $(e.target),
+							options = {};
+							//photoSwipeInstance = $("ul.gallery a", e.target).photoSwipe(options,  currentPage.attr('id'));
+						return true;
+					})
+					.live('pagehide', function(e){
+						var currentPage = $(e.target),
+							photoSwipeInstance = PhotoSwipe.getInstance(currentPage.attr('id'));
+						if (typeof photoSwipeInstance != "undefined" && photoSwipeInstance != null) {
+ 							PhotoSwipe.detatch(photoSwipeInstance);
+// 							Code.PhotoSwipe.detatch(photoSwipeInstance);
+						}
+						return true;
+					});
+			});
+		}(window, window.jQuery, window.Code.PhotoSwipe));
+	</script>
+		
+		<div data-role="header" data-theme="b">
+			<a href="#" data-rel="back" data-role="button" class="ui-btn-left">Back</a>
+			<h3>GALLERI</h3>
+			<a href="#" id="refreshGalleryBtn" data-role="button" class="ui-btn-right">Refresh</a>
+		</div>
+
+	<div data-role="content">	
+		<h1 class="withborder">Siste bilder</h1>
+		<div id="galleryloader"><img class="spin" src="stylesheets/common/images/loader.png" /></div> 
+		<div id="gallerycontent">
+			<ul class="gallery" id="lastPics" >
+			</ul>
+		</div>
+	</div>
+</div> <!-- End gallery page -->
+	
+	
+	
+	
+	<!-- QR CODE PAGE -->
+	 
+	 
+	 
+	 <div data-role="page" data-theme="c" id="scan-qr-page">
+      <script type="text/javascript" charset="utf-8"
+        src="javascripts/qr-code.js"></script>
+      <header data-role="header" data-theme="b">
+      <a href="#" data-rel="back" data-role="button" class="ui-btn-left">Back</a>
+        <h1>QR-kode</h1>
+      </header>
+      <div data-role="content">
+      	<h1 class="withborder">Scan QR</h1>
+        <p>Ta bilde av din QR-kode - finn hvilken faddergruppe du hører til<p>
+        <button id="capture-qr-code">Aksesser kamera</button>
+      </div>
+    </div>
+
+	
+	<!-- FADDER CHILDREN ADMIN PAGE -->
+	
+	    <div data-role="page" data-theme="c" id="fadderchildren-pagen">
+        <script type="text/javascript"
+            src="javascripts/admin/fadder-children.js">
+        </script>
+      <header data-role="header" data-theme="b">
+      <a href="#"  data-role="button" data-rel="back" class="ui-btn-left">Back</a>
+        <h1>FADDERBARN</h1>
+      </header>
+      <div data-role="content">
+      <h1 class="withborder">Fadderbarn</h1>
+      <a href="#add-child-admin-page"  data-role="button">Legg til barn manuelt</a>
+      <h3 class="customfont">Registrerte barn:</h3>
+        <form id="fadder-children-form" method="post" name="foo"
+            data-ajax="false">
+<!--           <div data-role="fieldcontain"> -->
+            <fieldset id="fadder-children-collection" data-role="controlgroup">
+            </fieldset>
+<!--           </div> -->
+          <div data-role="fieldcontain">
+          	<h3 class="customfont">Velg handling:</h3>
+            <fieldset data-role="controlgroup" data-type="horizontal">
+              <input type="radio" id="radio-delete" name="radio-method"
+                  value="delete" />
+              <label for="radio-delete">Slett</label>
+              <input type="radio" id="radio-send-email" name="radio-method"
+                  value="send-email" checked="checked" />
+              <label for="radio-send-email">Send e-post</label>
+            </fieldset>
+          </div>
+          <button type="submit">Utfør</button>
+        </form>
+      </div>
+    </div>
+    
+    
+    <!-- CONFIRM DIALOG -->
+    
+    <div data-role="page" data-theme="c" id="confirm-dialog-page">
+      <script type="text/javascript"
+          src="javascripts/admin/confirm.js">
+      </script>
+      <header data-role="header" data-theme="c">
+        <h1>Er du sikker?</h1>
+      </header>
+      <div data-role="content">
+        <a href="#" id="yes" data-role="button">Ja</a>
+        <a href="#" id="no" data-role="button">Nei</a>
+      </div>
+    </div>
+    
+    
+    <!-- SEND EMAIL PAGE -->
+    
+    <div data-role="page" data-theme="c" id="send-an-email-page">
+        <script type="text/javascript"
+            src="javascripts/admin/send-email.js">
+        </script>
+      <header data-role="header" data-theme="b">
+      <a href="#"  data-role="button" data-rel="back" class="ui-btn-left">Back</a>
+        <h1>SEND EPOST</h1>
+      </header>
+      <div data-role="content">
+      <h1 class="withborder">Send epost</h1>
+        <form action="#fadderchildren-pagen" data-ajax="false" id="sendEmailForm">
+          <div data-role="fieldcontain">
+            <input type="text" id="subject" name="subject" placeholder="Tittel" />
+            <textarea id="message-body" name="message-body"
+              placeholder="Skriv en kort beskjed"></textarea> 
+          </div>
+          <button type="submit">Send</button>
+        </form>
+      </div>
+    </div>
+    
+    
+    
+    
+    <!-- ADMIN ADD CHILD MANUALLY PAGE -->
+    <!-- Lets user add children to selected group -->
+    
+    
+    
+    
+    <div data-role="page" data-theme="c" id="add-child-admin-page">
+		<script type="text/javascript"
+            src="javascripts/admin/add-child-manually.js">
+        </script>
+		<div data-role="header" data-theme="b">
+			<a href="#"  data-role="button" data-rel="back" class="ui-btn-left">Back</a>
+			<h3>LEGG TIL BARN</h3>
+		</div>
+		
+		<div data-role="content">
+			<div id="grouplessloader"><img class="spin" src="stylesheets/common/images/loader.png" /></div> 
+		
+			<form id="fadder-groupless-form" >
+
+            	<fieldset id="fadder-groupless-collection" data-role="controlgroup">
+            	</fieldset>
+
+          		<button type="submit">Legg til</button>
+        	</form>
+			
+		</div><!-- Content -->
+
+	</div> 	<!-- page -->
+
+</body>
+</html>

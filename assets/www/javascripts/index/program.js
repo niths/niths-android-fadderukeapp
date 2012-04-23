@@ -1,15 +1,35 @@
 $("#program-page").live('pageinit', function() {
+	var restClient = new RestHandler(); //REST CLIENT
 	loadAllEvents();
-
-});
-$("#program-page").live('pageshow', function() {
-	$('#refreshprogrambtn').click(function(data) {
-		$('#loadingmsg2').css('display', 'block');
-//		$('#loadingmsg2').css('visibility', 'visible');
-		$('#programlist').css('visibility', 'hidden');
-		loadAllEvents();
+	
+//	$('#refreshprogrambtn').click(function(data) {
+//		$('#loadingmsg2').css('display', 'block');
+//		$('#programlist').css('visibility', 'hidden');
+//		loadAllEvents(false);
+//	});
+	
+	//TODO: FIX SERVICESIDE
+	$("#privacyselectdiv input[type='radio']").bind( "change", function(event, ui) {
+		  var value = $("#privacyselectdiv input[type='radio']:checked").val();
+		  if(value =="private"){
+			  if(student.fadderGroup != null){
+				  $('#loadingmsg2').css('display', 'block');
+					$('#programlist').css('visibility', 'hidden');
+					loadAllEvents(true);
+			  }else{
+				  alert('Du har ingen gruppe');
+				  $("input[type='radio']:first").attr("checked",true).checkboxradio("refresh");
+			  }
+			  //IF I HAVE A GROUP:
+			 //LOAD ALL EVENTS FOR MY GROUP  
+		  }else{ //PUBLIC
+			  //LOAD ALL PUBLIC EVENTS
+			  $('#loadingmsg2').css('display', 'block');
+				$('#programlist').css('visibility', 'hidden');
+				loadAllEvents(false);
+		  }
 	});
-});
+
 
 	function getDayName(day){
 		var weekday=new Array(7);
@@ -26,7 +46,7 @@ $("#program-page").live('pageshow', function() {
 	 
 	
 
-	function getUrlParam(){
+	function getUrlParam(isPrivate){
 		
 		var today = new Date();
 		
@@ -45,38 +65,40 @@ $("#program-page").live('pageshow', function() {
 		} 
 		var today = dd+'/'+mm+'/'+yyyy + '-00:00';
 		var inFiveDays = (dd + 5) + '/'+mm+'/'+yyyy + '-23:59';
-		var param = '?startTime='+today + '&endTime=' + inFiveDays;
+//		var param = '?startTime='+today + '&endTime=' + inFiveDays;
+		var param = '';
+		if(isPrivate){
+			param = '?tag=fadderuka12,gruppe'+student.fadderGroup.groupNumber+'&startTime='+today + '&endTime=' + inFiveDays;
+			
+		}else{
+			param = '?tag=fadderuka12,public&startTime='+today + '&endTime=' + inFiveDays;
+			
+		}
+		
 		return param;
+		//events/tags-and-dates?tag=utvalg&startTime=10/04/2012-11:05
 		//events/dates?startTime=09/04/2010-10:55&endTime=09/04/2010-10:55
 	}
 
-	function loadAllEvents(){
-		var response;
-		response = $.ajax({
-		      url: address + 'events/dates' + getUrlParam(),
-		      type: 'get',
-		      cache: false,
-		      timeout: 3000,
-		      success: function(data) {
-		    	  if(response.status == 200){
-		    		  if(data.length > 0){
-		    			  handleData(data);		    			  
-		    		  }else{
-		    			  var theHTML = '<li class="li-first" id="eventloader"><h3>Ingen events funnet for de neste fem dagene...</h3></li>';
-				    	  $('#programlist').html(theHTML);
-				    	  $('#loadingmsg2').css('display', 'none');
-				    	  $('#programlist').css('visibility', 'visible');
-		    		  }
-		    	  }
-		      },
-		      error: function(xhr) {
-		    	  alert('err ' + response.status);
-		    	  var theHTML = '<h3>Ikke kontakt med server...</h3>';
-		    	  $('#programlist').html(theHTML);
-		    	  $('#loadingmsg2').css('display', 'none');
-		    	  $('#programlist').css('visibility', 'visible');
-		      }
-		    });
+	function loadAllEvents(isPrivate){
+		restClient.find('events/tags-and-dates' + getUrlParam(isPrivate),  function(data, status, e) {  
+//			restClient.find('events/dates' + getUrlParam(),  function(data, status, e) {  
+			if(status == 'success'){
+	    		  if(data.length > 0){
+	    			  handleData(data);		    			  
+	    		  }else{
+	    			  var theHTML = '<li class="li-first" id="eventloader"><h3>Ingen events funnet for de neste fem dagene...</h3></li>';
+			    	  $('#programlist').html(theHTML);
+			    	  $('#loadingmsg2').css('display', 'none');
+			    	  $('#programlist').css('visibility', 'visible');
+	    		  }
+	    	  }
+		}, function(req, status, ex) {
+				var theHTML = '<h3>Ikke kontakt med server...</h3>';
+				$('#programlist').html(theHTML);
+				$('#loadingmsg2').css('display', 'none');
+				$('#programlist').css('visibility', 'visible');
+		}); 
 	}
 	
 	function getHeader(date){
@@ -129,3 +151,5 @@ $("#program-page").live('pageshow', function() {
 		$('#loadingmsg2').css('display', 'none');
 	    $('#programlist').css('visibility', 'visible');
 	}
+	
+});

@@ -1,4 +1,7 @@
-$(document).ready(function() {
+$("#confirm-dialog-page").live('pageinit', function() {
+//$(document).ready(function() {
+	var restClient = new RestHandler();
+	
   var fadderChildren = JSON.parse(
       sessionStorage.getItem('fadder_children_objs'));
   var ids = '';
@@ -8,27 +11,18 @@ $(document).ready(function() {
   });
 
   $('#yes').click(function() {
-    $.ajax({
-
-      // Building the URL describing which students to remove from the group
-      url:        address + 'fadder/' + sessionStorage.getItem(
-                    'fadder_group_id') + '/remove-children/' + ids.slice(0, -1),
-      type:         'DELETE',
-      cache:      false,
-      beforeSend: function(xhr) {
-    	  xhr.setRequestHeader("Application-key", applicationKey);
-	      xhr.setRequestHeader("Application-token", applicationToken);
-	      xhr.setRequestHeader("Developer-key", developerKey);
-	      xhr.setRequestHeader("Developer-token", developerToken);
-	      xhr.setRequestHeader("Session-token", sessionToken);
-      },
-      success:    function() {
-        history.back();
-      },
-      error:      function(xhr) {
-        alert(JSON.stringify(xhr));
-      }
-    });
+	  
+	  restClient.remove('fadder/' + sessionStorage.getItem('fadder_group_id') + '/remove/children/' + ids.slice(0, -1),  function(data, status, xhr) {  
+			
+		  if(xhr.status== 200){
+				alert('Sletting vellykket');
+							
+			}else{
+				alert(xhr.status + ': Sletting feilet');
+			}
+			$.mobile.hidePageLoadingMsg();
+			history.back();	
+		});
   });
 
   $('#no').click(function() {

@@ -6,7 +6,7 @@ $("#profile-page").live('pageinit', function() {
 	} else {
 		init();
 	}
-});
+
 
 
 function showProfile(){
@@ -36,35 +36,31 @@ function showProfile(){
 	};
 	
 	  $('#profilesubmit').click(function() {
-		  var response;
-		  response = $.ajax({
-		      url: address + 'students',
-		      type: 'PUT',
-		      cache: false,
-		      contentType: 'application/json',
-		      beforeSend: function(xhr) {
-		        xhr.setRequestHeader("Application-key", applicationKey);
-		        xhr.setRequestHeader("Application-token", applicationToken);
-		        xhr.setRequestHeader("Developer-key", developerKey);
-		        xhr.setRequestHeader("Developer-token", developerToken);
-		        xhr.setRequestHeader("Session-token", sessionToken);
-		      },
-		      data:  JSON.stringify($("#update-person-form").serializeObject()),
-		      success : function(data){
-		    	  if(response.status == 200){
-		    		  alert("Oppdatering vellykket");
-		    	  }else{
-		    		  alert("Beklager, oppdatering feilet. Prøv igjen");
-		    	  } 
-		      },
-		      error: function(xhr) {
-		    	  alert("Beklager, en feil oppsto: " + response.getResponseHeader('error'));
-		      }
-		    });
+		  var restClient = new RestHandler(); //REST CLIENT
+		  restClient.update('students', JSON.stringify($("#update-person-form").serializeObject()),  function(data, textStatus, jqXHR) {  
+			  $.mobile.hidePageLoadingMsg();
+				if(textStatus == "success"){
+					alert('Oppdatering vellykket');	
+				}else{
+					alert("Oppdatering feilet");
+				}
+			});
 
 		    $('form').die('submit');
 		    return false;
 		  });
+	  
+	 function refreshStudentValues(){
+		 student.firstName = $('#firstName').val();
+		 student.lastName = $('#lastName').val();
+		 student.telephoneNumber = $('#telephoneNumber').val();
+		 student.description = $('#descriptionP').val();
+		 if($("input[@name=gender]:checked").attr('id') == 'male'){
+			 student.gender = 'M';
+		 }else{
+			 student.gender = 'F';
+		 }
+	 }
 
 	function printUserInfo(){
 		$('#idP').val(student.id);
@@ -85,8 +81,10 @@ function showProfile(){
 		if(student.fadderGroup != null){
 			$('#faddergroup').html('<a class="blacklink" href="#single-fadder-group-page?group-id='+student.fadderGroup.id+'">' + student.fadderGroup.groupNumber + '</a>');
 		}else{
-			$('#faddergroup').html("Ingen");
+			$('#faddergroup').html('<a class="blacklink" href="#scan-qr-page">Scann QR</a>');
 		}
 		
 		showProfile();
 	}
+
+});

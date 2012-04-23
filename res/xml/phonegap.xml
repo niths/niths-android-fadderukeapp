@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <phonegap>
     <access origin="http://127.0.0.1*"/>
-    <log level="DEBUG"/>
+    <access origin="http://www.gravatar.com/avatar/*"/>
+    <access origin="http://search.twitter.com/*"/>
+    <access origin="https://api.twitter.com/*"/>
+    <access origin="http://maps.googleapis.com/*"/>
+    <access origin="https://graph.facebook.com/*"/>
 </phonegap>

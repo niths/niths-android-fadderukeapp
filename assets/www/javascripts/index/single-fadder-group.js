@@ -17,6 +17,7 @@ $(document).bind( "pagebeforechange", function( e, data ) {
 });
 
 function hideGroup(){
+	$('#agroupheader').html('Gruppe');
 	$('#loadinggroupmsgdiv').css('display', 'block');
 	$('#groupinfodiv').css('display', 'none');
 }
@@ -27,21 +28,15 @@ function showGroup(){
 }
 
 function loadGroup(id){
-	 $.ajax({
-		 url: address + 'fadder/' + id,
-		 type: 'GET',
-	     timeout: 3000,
-	     cache: false,
-	     success: function(data) {
-	    	 traverseAttributes(data);
-	    	 $('#agroupheader').html('Gruppe ' + id);
-	    	 showGroup();
-	     },
-	     error: function(xhr) {
-	    	 $('#groupinfodiv').html('<h3>Fikk ikke kontakt med server...</h3>');
-	    	 showGroup();
-	     }
-	 });
+	var restClient = new RestHandler(); //REST CLIENT
+	restClient.find('fadder/' + id,  function(data, status, e) {  
+		traverseAttributes(data);
+   	 	$('#agroupheader').html('Gruppe ' + id);
+   	 	showGroup();
+	}, function(req, status, ex) {
+		$('#groupinfodiv').html('<h3>Fikk ikke kontakt med server...</h3>');
+   	 	showGroup();
+	});
 }
 
 function traverseAttributes(fadderGroup) {

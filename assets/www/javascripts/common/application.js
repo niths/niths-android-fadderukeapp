@@ -1,8 +1,6 @@
+//address = 'http://ec2-46-137-44-111.eu-west-1.compute.amazonaws.com:8080/niths/'; //ec2
+address = 'http://192.168.0.105:8080/niths/'; //Ben
 
-//address = 'http://192.168.1.157:8080/niths/';
-//address = 'http://192.168.0.105:8080/niths/'; //Ben
-address = 'http://10.110.58.206:8080/niths/'; //Acc 19/04
-address = 'http://ec2-46-137-44-111.eu-west-1.compute.amazonaws.com:8080/niths/'; //ec2
 student = {};
 sessionToken = '';
 

@@ -1,26 +1,24 @@
-$(document).ready(function() {
+//$(document).ready(function() {
+$("#fadderchildren-pagen").live('pageinit', function() {
+//	 $('#fadder-children-collection').html('');
+	 var restClient = new RestHandler();
+ 
+	var fadderGroupId = sessionStorage.getItem('fadder_group_id');
+	var fadderChildren = {};
 
-  var fadderGroupId = sessionStorage.getItem('fadder_group_id');
-  var fadderChildren = '';
+	getOnlyFadderChildren();
 
-  getFadderChildren();
-
-  function getFadderChildren() {
-    $.ajax({
-      url:        address + 'fadder/' + fadderGroupId + '/get-all-children',
-      type:       'GET',
-      cache:      false,
-      success: function(data) {
-        fadderChildren = data;
-        traverseFadderChildren();
-        $('input:checkbox').checkboxradio();
-      },
-      error:   function(xhr) {
-        alert(JSON.stringify(xhr));
-      }
-    });
-
-    function traverseFadderChildren() {
+	function getOnlyFadderChildren() {
+	  
+	  restClient.find('fadder/' + fadderGroupId + '/children',  function(data) {  
+		  	fadderChildren = data;
+		  	traverseAllFadderChildren();		
+		},function(req, status, ex) {
+			alert('Greide ikke hente fadderbarn');
+	    	history.back();
+		});
+  }
+    function traverseAllFadderChildren() {
       $.each(fadderChildren, function(i, fadderChild) {
         $('#fadder-children-collection').append(
             '<input type="checkbox" id="' + fadderChild.id +
@@ -31,15 +29,16 @@ $(document).ready(function() {
             '</label>' 
         );
       });
+      $('input:checkbox').checkboxradio();
     }
-  }
 
   $('#radio-delete').click(function() {
-    $('#fadder-children-form').attr('action', 'confirm.html');
+//    $('#fadder-children-form').attr('action', 'confirm.html');
+    $('#fadder-children-form').attr('action', '#confirm-dialog-page');
   });
 
   $('#radio-send-email').click(function() {
-    $('#fadder-children-form').attr('action', 'send-email.html');
+    $('#fadder-children-form').attr('action', '#send-an-email-page');
   });
 
   $('#fadder-children-form').live('submit', function() {
@@ -63,9 +62,10 @@ $(document).ready(function() {
             /radio-method=/g, '');
 
         if (method == 'delete') {
-          $.mobile.changePage('confirm.html', 'pop');
+//          $.mobile.changePage('confirm.html', 'pop');
+          $.mobile.changePage('#confirm-dialog-page', 'pop');
         } else if (method == 'send-email') {
-          $.mobile.changePage('send-email.html');
+          $.mobile.changePage('#send-an-email-page');
         }
       }
     }

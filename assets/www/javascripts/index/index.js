@@ -4,6 +4,8 @@ $("#dashboard-page").live('pageinit', function() {
 	$.mobile.defaultDialogTransition = 'none';
 	/////////////////////////////////
 	
+	var restClient = new RestHandler(); //REST CLIENT
+	
 	var numTweets = 3; //Number of tweets currently showing
 	init();
 					
@@ -83,8 +85,8 @@ $("#dashboard-page").live('pageinit', function() {
 		} 
 		var today = dd+'/'+mm+'/'+yyyy + '-00:00';
 		var inFiveDays = (dd + 4) + '/'+mm+'/'+yyyy + '-23:59';
-		var param = '?startTime='+today + '&endTime=' + inFiveDays;
-		
+//		var param = '?startTime='+today + '&endTime=' + inFiveDays;
+		var param = '?tag=fadderuka12,public&startTime='+today + '&endTime=' + inFiveDays;
 		return param;
 	}
 	
@@ -92,38 +94,30 @@ $("#dashboard-page").live('pageinit', function() {
 	 * Loads all events the next five days
 	 */
 	function loadEvents(){
-		$.ajax({
-			url: address + 'events/dates' + getDatesBetweenUrlParam(),
-			type: 'get',
-			cache: false,
-			timeout: 3000,
-			success: function(data) {
-				var theHTML = '';
-				var num = 0;
-				if(data.length < 1){
-					theHTML = '<li class="li-first" id="eventloader"><h3 style="white-space:normal">Ingen de neste 5 dagene...</h3></li>';
-					$('#eventlist').html(theHTML);
-					$('#eventlist').listview('refresh');
-				}else{
-					for(var i=0;i<data.length && num < 2;i++){
-						num++;
-						theHTML += ['<li class="li-first"><a href="#event-page?event-id='+data[i].id+'">',
-							        		            '<h3>'+data[i].name+'</h3>',
-							        		            '<p><strong>Beskrivelse: </strong>'+data[i].description+'</p>',
-							        		            '<p><strong>Start: </strong>'+data[i].startTime+'</p>',
-							        		            '</a></li>'].join('');
-							        		
-					}
-					$('#eventlist').html(theHTML);
-					$('#eventlist').listview('refresh');
+		
+		restClient.find('events/tags-and-dates' + getDatesBetweenUrlParam(),  function(data) {  
+			var theHTML = '';
+			var num = 0;
+			
+			if(data.length < 1){
+				theHTML = '<li class="li-first" id="eventloader"><h3 style="white-space:normal">Ingen de neste 5 dagene...</h3></li>';
+			}else{
+				for(var i=0;i<data.length && num < 2;i++){
+					num++;
+					theHTML += ['<li class="li-first"><a href="#event-page?event-id='+data[i].id+'">',
+					            '<h3>'+data[i].name+'</h3>',
+						        '<p><strong>Beskrivelse: </strong>'+data[i].description+'</p>',
+						        '<p><strong>Start: </strong>'+data[i].startTime+'</p>',
+						        '</a></li>'].join('');
 				}
-			},
-			error: function(xhr) {
-				var theHTML = '<li class="li-first" id="eventloader"><h3>Ikke kontakt med server...</h3></li>';
-				$('#eventlist').html(theHTML);
-				$('#eventlist').listview('refresh');
-			}
-		});
+			}  
+			$('#eventlist').html(theHTML);
+			$('#eventlist').listview('refresh');
+		}, function(req, status, ex) {
+			var theHTML = '<li class="li-first" id="eventloader"><h3>Ikke kontakt med server...</h3></li>';
+			$('#eventlist').html(theHTML);
+			$('#eventlist').listview('refresh');
+		}); 
 	}
 
 	/**

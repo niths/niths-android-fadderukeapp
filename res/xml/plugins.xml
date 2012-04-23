@@ -17,4 +17,5 @@
     <plugin name="FileTransfer" value="com.phonegap.FileTransfer"/>
     <plugin name="Capture" value="com.phonegap.Capture"/>
     <plugin name="ChildBrowser" value="com.phonegap.plugins.childBrowser.ChildBrowser"/>
+    <plugin name="PrivateStorage" value="com.phonegap.plugins.privateStorage.PrivateStorage"/>
 </plugins>

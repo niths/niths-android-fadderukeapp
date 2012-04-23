@@ -53,15 +53,14 @@
     </script>
     <script type="text/javascript">
       document.addEventListener('deviceready', function() {
-        var data = { foo: 1, bar: 2 };
         window.plugins.privateStorage.store(
             'data',
-            function(r) { onStored(r) },
+            function(r) { onKeyReceived(r) },
             function(e) {  }
         );
       }, true);
 
-      function onStored(info) {
+      function onKeyReceived(info) {
         console.log("Super secret code: " + info[0].key);
       }
     </script>

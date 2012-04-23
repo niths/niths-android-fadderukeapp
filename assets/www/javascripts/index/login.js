@@ -17,6 +17,7 @@ $(document).ready(function() {
   toggleBtnText();
 
   $('#loginbtn').click(function() {
+          ChildBrowser.install();
 	  if(sessionToken == ""){ //Not signed in
 		  resetUserValues();
 		  signIn(); 		  
@@ -28,6 +29,7 @@ $(document).ready(function() {
   });
   
 	 $('#profilebtn').click(function() {
+	         ChildBrowser.install();
 		 if(sessionToken == ""){
 			 alert("Vennligst logg inn");
 			 resetUserValues();

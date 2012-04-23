@@ -1,5 +1,5 @@
 /**
- * REST CLIENT
+* REST CLIENT
  * Class that handles ajax calls to the API
  * 
  * HOW TO:
@@ -15,9 +15,9 @@
  * });
  */
 function RestHandler(){
-	this.baseUrl = 'http://192.168.0.105:8080/niths/'; // Ben
+//	this.baseUrl = 'http://192.168.0.105:8080/niths/'; // Ben
 	
-//	this.baseUrl = 'http://10.21.24.105:8080/niths/';
+	this.baseUrl = 'http://10.110.73.58:8080/niths/';
 //	this.baseUrl = 'http://ec2-46-137-44-111.eu-west-1.compute.amazonaws.com:8080/niths/';
 	
 	this.find = function(modelUrl, callbackSuccess, callbackError) {
@@ -48,14 +48,6 @@ function RestHandler(){
 		    success: callbackSuccess,
 		    error: function(jqXHR, textStatus, errorThrown){
 		    	handleError(errorThrown, jqXHR);
-//		    	 $.mobile.hidePageLoadingMsg();
-//		    	 if(errorThrown == 'Unauthorized'){
-//		    		  alert('Beklager, du har vært inaktiv for lenge, logg inn igjen');
-//		    		  sessionToken = '';
-//		    	  }else{
-//		    		  alert("Beklager, en feil oppsto: " + jqXHR.getResponseHeader('error'));		    		  
-//		    	  }
-//		    	 $.mobile.changePage('../index.html');
 		    },
 		    timeout:5000
 		 });
@@ -79,14 +71,6 @@ function RestHandler(){
 			success: callbackSuccess,
 			error: function(jqXHR, textStatus, errorThrown){
 				handleError(errorThrown, jqXHR);
-//				$.mobile.hidePageLoadingMsg();
-//				if(errorThrown == 'Unauthorized'){
-//					alert('Beklager, du har vært inaktiv for lenge, logg inn igjen');
-//					sessionToken = '';
-//					 $.mobile.changePage('../index.html');
-//				}else{
-//					alert("Beklager, en feil oppsto: " + jqXHR.getResponseHeader('error'));		    		  
-//				}
 			},
 			timeout:5000
 		});
@@ -94,7 +78,7 @@ function RestHandler(){
 	this.updateURL = function(modelUrl, callbackSuccess) {
 		$.mobile.showPageLoadingMsg();
 		$.ajax({
-			type: 'PUT',
+			type: 'POST',
 			url: this.baseUrl + modelUrl,
 			cache: false,
 			contentType: 'application/json',
@@ -108,14 +92,6 @@ function RestHandler(){
 			success: callbackSuccess,
 			error: function(jqXHR, textStatus, errorThrown){
 				handleError(errorThrown, jqXHR);
-//				$.mobile.hidePageLoadingMsg();
-//				if(errorThrown == 'Unauthorized'){
-//					alert('Beklager, du har vï¿½rt inaktiv for lenge, logg inn igjen');
-//					sessionToken = '';
-//					$.mobile.changePage('../index.html');
-//				}else{
-//					alert("Beklager, en feil oppsto: " + jqXHR.getResponseHeader('error'));		    		  
-//				}
 			},
 			timeout:5000
 		});
@@ -139,14 +115,6 @@ function RestHandler(){
 			success: callbackSuccess,
 			error: function(jqXHR, textStatus, errorThrown){
 				handleError(errorThrown, jqXHR);
-//				$.mobile.hidePageLoadingMsg();
-//				if(errorThrown == 'Unauthorized'){
-//					alert('Beklager, du har vært inaktiv for lenge, logg inn igjen');
-//					sessionToken = '';
-//					 $.mobile.changePage('../index.html');
-//				}else{
-//					alert("Beklager, en feil oppsto: " + jqXHR.getResponseHeader('error'));		    		  
-//				}
 			},
 			timeout:5000
 		});

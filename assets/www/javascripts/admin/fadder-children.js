@@ -1,6 +1,5 @@
-//$(document).ready(function() {
-$("#fadderchildren-pagen").live('pageinit', function() {
-//	 $('#fadder-children-collection').html('');
+$("#fadderchildren-pagen").live('pageshow', function() {
+	 $('#fadder-children-collection').html('');
 	 var restClient = new RestHandler();
  
 	var fadderGroupId = sessionStorage.getItem('fadder_group_id');

@@ -36,6 +36,7 @@ function showProfile(){
 	};
 	
 	  $('#profilesubmit').click(function() {
+		  alert('submit profile');
 		  var restClient = new RestHandler(); //REST CLIENT
 		  restClient.update('students', JSON.stringify($("#update-person-form").serializeObject()),  function(data, textStatus, jqXHR) {  
 			  $.mobile.hidePageLoadingMsg();

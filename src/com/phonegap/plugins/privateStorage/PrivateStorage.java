@@ -8,6 +8,13 @@ import android.util.Log;
 import com.phonegap.api.Plugin;
 import com.phonegap.api.PluginResult;
 
+/**
+ * 
+ * @author NITHs
+ * 
+ * Store your application secret key here
+ *
+ */
 public class PrivateStorage extends Plugin {
 
     @Override

@@ -6,8 +6,6 @@ $("#dashboard-page").live('pageinit', function() {
 	/////////////////////////////////
 	
 	var restClient = new RestHandler(); //REST CLIENT
-	
-	var numTweets = 3; //Number of tweets currently showing
 	init();
 					
 	function init(){
@@ -22,16 +20,6 @@ $("#dashboard-page").live('pageinit', function() {
 	});
 
 	$('#refreshtweetbtn').click(function(data) {
-		showTweetLoading();
-		loadTweets();
-	});
-	
-	$('#expandtweetbtn').click(function() {
-		if (numTweets == 3) {
-			numTweets = 10;
-		} else {
-			numTweets = 3;
-		}
 		showTweetLoading();
 		loadTweets();
 	});
@@ -55,8 +43,8 @@ $("#dashboard-page").live('pageinit', function() {
 	function loadTweets(){
 		var response;
 		response = $.ajax({
-			url : 'http://search.twitter.com/search.json?q=from%3Anithutdanning&rpp=' + numTweets,
-//			url : 'http://search.twitter.com/search.json?q=to%3Anithutdanning&rpp=' + numTweets,
+			url : 'http://search.twitter.com/search.json?q=from%3Anithutdanning&rpp=5',
+//			url : 'http://search.twitter.com/search.json?q=to%3Anithutdanning&rpp=5',
 			type : 'get',
 			cache : false,
 			contentType : 'application/json',
@@ -86,7 +74,6 @@ $("#dashboard-page").live('pageinit', function() {
 		} 
 		var today = dd+'/'+mm+'/'+yyyy + '-00:00';
 		var inFiveDays = (dd + 4) + '/'+mm+'/'+yyyy + '-23:59';
-//		var param = '?startTime='+today + '&endTime=' + inFiveDays;
 		var param = '?tag=fadderuka12,public&startTime='+today + '&endTime=' + inFiveDays;
 		return param;
 	}
@@ -138,14 +125,6 @@ $("#dashboard-page").live('pageinit', function() {
         	'</li>');
 		}
 				        
-		if(numTweets == 3){
-			$('#expandtweetbtn').attr('data-icon','plus');
-			$('#expandtweetbtn').children().children().next().removeClass('ui-icon-minus').addClass('ui-icon-plus');		        	
-		}else{
-			$('#expandtweetbtn').attr('data-icon','minus');
-			$('#expandtweetbtn').children().children().next().removeClass('ui-icon-plus').addClass('ui-icon-minus');				        	
-				        	
-		}
 		$('#loadingfortwitterfeed').css('display', 'none');
 		$('#tweets2').css('display', 'block');
 	}
@@ -153,7 +132,6 @@ $("#dashboard-page").live('pageinit', function() {
 	
 	function printErrorTweet(){
 		$('#tweets2').html('<h3>Ikke kontakt med twitter</h3>');
-//		var html = '<li class="li-first" id="loader"><h3>Ikke kontakt med twitter</h3></li></ul>';
 		$('#loadingfortwitterfeed').css('display', 'none');
 		$('#tweets2').css('display', 'block');
 	}

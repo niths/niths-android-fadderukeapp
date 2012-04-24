@@ -30,16 +30,13 @@ $(document).ready(function() {
   });
   
    $('#profilebtn').click(function() {
-           ChildBrowser.install();
+     ChildBrowser.install();
+
      if(sessionToken == "") {
-       navigator.notification.alert(
-           'Vennligst logg inn',
-           function() {
-             resetUserValues();
-             signIn(); 
-           },
-           'Logg inn',
-           'OK'); 
+       showErr('Vennligst logg inn', function() {
+         resetUserValues();
+         signIn();
+       });
      }
      // Sign is succeeded, but not NITH mail: = -1
      else if(sessionToken  != "-1"){
@@ -51,15 +48,14 @@ $(document).ready(function() {
    * Opens childbrowser with the Google login site
    */
   function signIn() {
-    configureLocationChanged(); //https://voyager.nith.no/sso/signon.php?
+    configureLocationChanged();
     window.plugins.childBrowser.showWebPage(
       'https://accounts.google.com/o/oauth2/auth'
       + '?scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email'
       + '&' + stateURLFragment
       + '&redirect_uri=' + encodeURIComponent(callbackURL)
       + '&response_type=token'
-      + '&client_id=1064171706637-f9efklqg3tbrmu7fctvk8khvc0dqmh5i.apps.googleusercontent.com',
-      { });//showLocationBar: false}); //When no contact with google, needs to be able to exit browser
+      + '&client_id=1064171706637-f9efklqg3tbrmu7fctvk8khvc0dqmh5i.apps.googleusercontent.com');
   };
 
   /**
@@ -72,15 +68,10 @@ $(document).ready(function() {
 
       // Triggered if the app is denied access
       if (url == callbackURL + '#error=access_denied' + stateURLFragment) {
-        navigator.notification.alert(
-            'Fikk ikke tilgang',
-            function() {
-              window.plugins.childBrowser.close();
-              resetUserValues();
-            },
-            'Feil',
-            'OK'
-        );
+        showErr('Fikk ikke tilgang', function() {
+          window.plugins.childBrowser.close();
+          resetUserValues();
+        });
       } else if (receiveTokenURL.test(url)) {
           window.plugins.childBrowser.close();
           onLoggedIn(url.split('=').splice(2, 1)[0].replace('&token_type', ''));
@@ -108,6 +99,7 @@ $(document).ready(function() {
   function onLoggedIn(token) {
     resetUserValues();
     $.mobile.showPageLoadingMsg();
+
     // Send the token to the server
     // We get the session token in the response header
     // If any error occurred, show error.
@@ -115,59 +107,36 @@ $(document).ready(function() {
         'auth/login/',
         '{"token":"'+token+'"}',
         function(data, textStatus, jqXHR) {
-          navigator.notification.alert(
-              'Du er innlogget',
-              function() {
-                student = data;
-                sessionToken = jqXHR.getResponseHeader('session-token');
+          showMsg('Du er innlogget', function() {
+            student = data;
+            sessionToken = jqXHR.getResponseHeader('session-token');
 
-                //If student is leader for a group, show admin btn
-                if(student.groupLeaders != null){ //NEEDED?
-                  if(student.groupLeaders.length > 0){
-                    $('#adminsectionbtn').css('display', 'block');              
-                  }
-                }
+            //If student is leader for a group, show admin btn
+            if(student.groupLeaders != null){ //NEEDED?
+              if(student.groupLeaders.length > 0){
+                $('#adminsectionbtn').css('display', 'block');
+              }
+            }
 
-                toggleBtnText();
-                $.mobile.hidePageLoadingMsg()
-              },
-          ':)',
-          'OK'
-      );
-    }, function(req, status, ex) {
-      var resError = req.getResponseHeader('error');
-        //$('#error').empty();
-        if(resError == 'Email not valid'){
-          sessionToken = "-1";
-
-          navigator.notification.alert(
-              'Bruker har ikke NITH-mail, logg ut og inn igjen',
-              null,
-              'Feil',
-              'OK'
-          );
-        } else if (status == 'timeout'){
-          navigator.notification.alert(
-              'Fikk ikke kontakt med serveren, logg inn igjen',
-              null,
-              'Feil',
-              'OK'
-          );
-        }else{
-          navigator.notification.alert(
-              'En feil intraff',
-              null,
-              'Feil',
-              'OK'
-          );
+            toggleBtnText();
+            $.mobile.hidePageLoadingMsg();
+          });
+        },
+        function(xhr, status, ex) {
+          if(xhr.getResponseHeader('error') == 'Email not valid') {
+            sessionToken = "-1";
+            showErr('Bruker har ikke NITH-mail, logg ut og inn igjen', null);
+          } else if (status == 'timeout') {
+            showErr('Fikk ikke kontakt med serveren, logg inn igjen');
+          } else {
+            showErr('En feil intraff');
         }
 
         toggleBtnText();
         $.mobile.hidePageLoadingMsg();
     });
-
   }
-  
+
   //Resets logged in values
   function resetUserValues(){
       sessionToken = '';
@@ -176,5 +145,4 @@ $(document).ready(function() {
       //groupNumber = 0;
       $('#adminsectionbtn').css('display', 'none');
   }
-
 });

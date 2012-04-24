@@ -8,36 +8,33 @@ $("#dashboard-page").live('pageshow', function() {
 });
 
 $(document).ready(function() {
-  
-  var restClient = new RestHandler(); //REST CLIENT
-
+  var restClient       = new RestHandler();
   var callbackURL      = 'http://niths.no/callback';
   var stateURLFragment = 'state=/profile';
   var isNITHMail       = false;
-  
-  //toggleBtnText();
 
   $('#loginbtn').click(function() {
-          ChildBrowser.install();
-    if(sessionToken == ""){ //Not signed in
+    ChildBrowser.install();
+    if(sessionToken == '') { //Not signed in
       resetUserValues();
       signIn();       
-    }else {        //Already signed in
+    } else { //Already signed in
       resetUserValues();
-        window.plugins.childBrowser.showWebPage(
-        'https://accounts.google.com/Logout');
+      window.plugins.childBrowser.showWebPage(
+          'https://accounts.google.com/Logout');
     }
   });
-  
+
    $('#profilebtn').click(function() {
      ChildBrowser.install();
 
-     if(sessionToken == "") {
+     if(sessionToken == '') {
        showErr('Vennligst logg inn', function() {
          resetUserValues();
          signIn();
        });
      }
+
      // Sign is succeeded, but not NITH mail: = -1
      else if(sessionToken  != "-1"){
        $.mobile.changePage('#profile-page');
@@ -86,7 +83,7 @@ $(document).ready(function() {
       }
     };
   };
-  
+
   function toggleBtnText(){
     if(sessionToken == ""){
       $("#loginbtn .ui-btn-text").text("Logg inn");
@@ -94,7 +91,6 @@ $(document).ready(function() {
       $("#loginbtn .ui-btn-text").text("Logg ut");
     }
   }
-
 
   function onLoggedIn(token) {
     resetUserValues();

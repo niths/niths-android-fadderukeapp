@@ -1,15 +1,15 @@
 $("#dashboard-page").live('pageshow', function() {
-	 if(sessionToken == ""){
-			$("#loginbtn .ui-btn-text").text("Logg inn");
-			$('#adminsectionbtn').css('display', 'none');
-		}else{
-			$("#loginbtn .ui-btn-text").text("Logg ut");
-		}
+   if(sessionToken == ""){
+      $("#loginbtn .ui-btn-text").text("Logg inn");
+      $('#adminsectionbtn').css('display', 'none');
+    }else{
+      $("#loginbtn .ui-btn-text").text("Logg ut");
+    }
 });
 
 $(document).ready(function() {
-	
-	var restClient = new RestHandler(); //REST CLIENT
+  
+  var restClient = new RestHandler(); //REST CLIENT
 
   var callbackURL      = 'http://niths.no/callback';
   var stateURLFragment = 'state=/profile';
@@ -19,30 +19,35 @@ $(document).ready(function() {
 
   $('#loginbtn').click(function() {
           ChildBrowser.install();
-	  if(sessionToken == ""){ //Not signed in
-		  resetUserValues();
-		  signIn(); 		  
-	  }else {				//Already signed in
-		  resetUserValues();
-	      window.plugins.childBrowser.showWebPage(
-	      'https://accounts.google.com/Logout');
-	  }
+    if(sessionToken == ""){ //Not signed in
+      resetUserValues();
+      signIn();       
+    }else {        //Already signed in
+      resetUserValues();
+        window.plugins.childBrowser.showWebPage(
+        'https://accounts.google.com/Logout');
+    }
   });
   
-	 $('#profilebtn').click(function() {
-	         ChildBrowser.install();
-		 if(sessionToken == ""){
-			 alert("Vennligst logg inn");
-			 resetUserValues();
-			 signIn(); 
-		 }
-		 else if(sessionToken  != "-1"){ //Sign is succeeded, but not NITH mail: = -1;
-			 //alert("LOGGED IN");
-			 $.mobile.changePage('#profile-page');
-//			 $.mobile.changePage('views/profile.html');
-		 }
-	 });
-	 
+   $('#profilebtn').click(function() {
+           ChildBrowser.install();
+     if(sessionToken == "") {
+       navigator.notification.alert(
+           'Vennligst logg inn',
+           function() {
+             resetUserValues();
+             signIn(); 
+           },
+           'Logg inn',
+           'OK'); 
+     }
+     else if(sessionToken  != "-1"){ //Sign is succeeded, but not NITH mail: = -1;
+       //alert("LOGGED IN");
+       $.mobile.changePage('#profile-page');
+//       $.mobile.changePage('views/profile.html');
+     }
+   });
+   
 
   /**
    * Opens childbrowser with the Google login site
@@ -65,7 +70,7 @@ $(document).ready(function() {
   function configureLocationChanged() {
     window.plugins.childBrowser.onLocationChange = function(url) {
 //      console.log(url);
-//    	alert("OnChange: " + url);
+//      alert("OnChange: " + url);
       var receiveTokenURL = new RegExp('^' + callbackURL + '#' +
         stateURLFragment + '&access_token=..*$');
 
@@ -92,61 +97,61 @@ $(document).ready(function() {
   };
   
   function toggleBtnText(){
-	  if(sessionToken == ""){
-			$("#loginbtn .ui-btn-text").text("Logg inn");
-		}else{
-			$("#loginbtn .ui-btn-text").text("Logg ut");
-		}
+    if(sessionToken == ""){
+      $("#loginbtn .ui-btn-text").text("Logg inn");
+    }else{
+      $("#loginbtn .ui-btn-text").text("Logg ut");
+    }
   }
 
 
   function onLoggedIn(token) {
-	  resetUserValues();
-	  $.mobile.showPageLoadingMsg();
+    resetUserValues();
+    $.mobile.showPageLoadingMsg();
     // Send the token to the server
     // We get the session token in the response header
     // If any error occurred, show error.
-	  restClient.updateWithCallbacks('auth/login/', '{"token":"'+token+'"}',  function(data, textStatus, jqXHR) {  
-		  alert("Du er innlogget");
-	  		student = data;
-	  		sessionToken = jqXHR.getResponseHeader('session-token');
-	  		
-	  		//If student is leader for a group, show admin btn
-	  		if(student.groupLeaders != null){ //NEEDED?
-	  			if(student.groupLeaders.length > 0){
-	  				$('#adminsectionbtn').css('display', 'block');		  				
-	  			}
-	  		}
+    restClient.updateWithCallbacks('auth/login/', '{"token":"'+token+'"}',  function(data, textStatus, jqXHR) {  
+      alert("Du er innlogget");
+        student = data;
+        sessionToken = jqXHR.getResponseHeader('session-token');
+        
+        //If student is leader for a group, show admin btn
+        if(student.groupLeaders != null){ //NEEDED?
+          if(student.groupLeaders.length > 0){
+            $('#adminsectionbtn').css('display', 'block');              
+          }
+        }
 
-	  		toggleBtnText();
-	  
-	  		$.mobile.hidePageLoadingMsg();
-		  
-		}, function(req, status, ex) {
-			var resError = req.getResponseHeader('error');
-	  		//$('#error').empty();
-	  		if(resError == 'Email not valid'){
-	  			sessionToken = "-1";
-	  			alert('Bruker har ikke @nith.no mail, logg ut og inn igjen');    		
-	  		} else if (status == 'timeout'){
-	  			alert('Fikk ikke kontakt med serveren, logg inn igjen');    		
-	  		}else{
-	  			alert('En feil skjedde, vennligst logg inn igjen');    		    		
-	  		}
-	  		toggleBtnText();
-	  		$.mobile.hidePageLoadingMsg();
-			
-		});
+        toggleBtnText();
+    
+        $.mobile.hidePageLoadingMsg();
+      
+    }, function(req, status, ex) {
+      var resError = req.getResponseHeader('error');
+        //$('#error').empty();
+        if(resError == 'Email not valid'){
+          sessionToken = "-1";
+          alert('Bruker har ikke @nith.no mail, logg ut og inn igjen');        
+        } else if (status == 'timeout'){
+          alert('Fikk ikke kontakt med serveren, logg inn igjen');        
+        }else{
+          alert('En feil skjedde, vennligst logg inn igjen');                
+        }
+        toggleBtnText();
+        $.mobile.hidePageLoadingMsg();
+      
+    });
 
   }
   
   //Resets logged in values
   function resetUserValues(){
-	  	sessionToken = '';
-  		//role = '';
-  		student= {};
-  		//groupNumber = 0;
-  		$('#adminsectionbtn').css('display', 'none');
+      sessionToken = '';
+      //role = '';
+      student= {};
+      //groupNumber = 0;
+      $('#adminsectionbtn').css('display', 'none');
   }
 
 });

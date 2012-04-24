@@ -17,8 +17,8 @@
 function RestHandler(){
 //	this.baseUrl = 'http://192.168.0.105:8080/niths/'; // Ben
 	
-//	this.baseUrl = 'http://10.110.73.58:8080/niths/';
-	this.baseUrl = 'http://ec2-46-137-44-111.eu-west-1.compute.amazonaws.com:8080/niths/';
+  	this.baseUrl = 'http://10.110.58.108:8080/niths/';
+	//this.baseUrl = 'http://ec2-46-137-44-111.eu-west-1.compute.amazonaws.com:8080/niths/';
 	
 	this.find = function(modelUrl, callbackSuccess, callbackError) {
 	    $.ajax({
@@ -143,7 +143,7 @@ function RestHandler(){
 	function handleError(errorThrown, jqXHR){
 		$.mobile.hidePageLoadingMsg();
 		if(errorThrown == 'Unauthorized'){
-			alert('Beklager, du har vært inaktiv for lenge, logg inn igjen');
+			alert('Beklager, du har vï¿½rt inaktiv for lenge, logg inn igjen');
 			sessionToken = '';
 			$.mobile.changePage('#dashboard-page');
 		}else{

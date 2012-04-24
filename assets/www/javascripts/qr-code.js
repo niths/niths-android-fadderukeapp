@@ -19,10 +19,14 @@ options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
 options.mimeType="image/jpeg";
 
 var ft = new FileTransfer();
-ft.upload(imageURI, address + 'fadder/scan-qr-code', win, fail, options);
+ft.upload(imageURI, address + 'fadder/scan-qr-code/' + student.id, win, fail, options);
 }
 
-function win(r) {
+var win =  function(r) {
+	alert(JSON.stringify(r));
+	//alert(r.getResponseHeader('group'));
+	alert(r.response.getResponseHeader('group'));
+	alert(r.responseCode);
 console.log("Code = " + r.responseCode);
 console.log("Response = " + r.response);
 console.log("Sent = " + r.bytesSent);

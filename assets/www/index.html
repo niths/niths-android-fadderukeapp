@@ -59,7 +59,10 @@
       }, true);
 
       function onKeyReceived(info) {
-        console.log("Super secret code: " + info[0].key);
+    	  developerKey = info[0].devkey;
+    	  developerToken = info[1].devtoken;
+    	  applicationKey = info[2].appkey;
+    	  applicationToken = info[3].apptoken
       }
     </script>
     <script type="text/javascript" charset="utf-8"

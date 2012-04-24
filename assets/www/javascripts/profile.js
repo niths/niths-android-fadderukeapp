@@ -1,6 +1,6 @@
 
-$("#profile-page").live('pageinit', function() {
-	if (student.id < 1) {
+$("#profile-page").live('pageshow', function() {
+	if (student ==  {}) {
 		history.back();
 		return false;
 	} else {

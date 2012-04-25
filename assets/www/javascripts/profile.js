@@ -14,11 +14,11 @@ $("#profile-page").live('pageinit', function() {
 	                o[this.name] = [o[this.name]];
 	            }
 	            if(this.value != ''){
-	            	 o[this.name].push(this.value || '');
+	            	 o[this.name].push(htmlEncode(this.value) || '');
 	            }
 	        } else {
 	        	if(this.value != ''){
-	                o[this.name] = this.value || '';
+	                o[this.name] = htmlEncode(this.value) || '';
 	            }
 	        }
 	    });
@@ -51,15 +51,26 @@ $("#profile-page").live('pageinit', function() {
 });
 
 function refreshStudentValues(){
-	 student.firstName = $('#firstName').val();
-	 student.lastName = $('#lastName').val();
-	 student.telephoneNumber = $('#telephoneNumber').val();
-	 student.description = $('#descriptionP').val();
+	 student.firstName = htmlEncode($('#firstName').val());
+	 student.lastName = htmlEncode($('#lastName').val());
+	 student.telephoneNumber = htmlEncode($('#telephoneNumber').val());
+	 student.description = htmlEncode($('#descriptionP').val());
 	 if($("input[@name=gender]:checked").attr('id') == 'male'){
 		 student.gender = 'M';
 	 }else if($("input[@name=gender]:checked").attr('id') == 'female'){
 		 student.gender = 'F';
 	 }
+}
+
+
+function htmlEncode(s) {
+	 encodedHtml = escape(s);
+	 encodedHtml = encodedHtml.replace(/\//g,"%2F");
+	 encodedHtml = encodedHtml.replace(/\?/g,"%3F");
+	 encodedHtml = encodedHtml.replace(/=/g,"%3D");
+	 encodedHtml = encodedHtml.replace(/&/g,"%26");
+	 encodedHtml = encodedHtml.replace(/@/g,"%40");
+	 return encodedHtml;
 }
 
 function printUserInfo(){

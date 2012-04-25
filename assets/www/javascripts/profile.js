@@ -3,13 +3,7 @@ $("#profile-page").live('pageinit', function() {
 	if (student ==  {}) {
 		history.back();
 		return false;
-	} else {
-		//init();
-	}
-
-	function init(){
-		printUserInfo();
-	}
+	} 
 	
 	$.fn.serializeObject = function(){
 	    var o = {};

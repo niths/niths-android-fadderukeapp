@@ -63,16 +63,6 @@ function refreshStudentValues(){
 }
 
 
-function htmlEncode(s) {
-	 encodedHtml = escape(s);
-	 encodedHtml = encodedHtml.replace(/\//g,"%2F");
-	 encodedHtml = encodedHtml.replace(/\?/g,"%3F");
-	 encodedHtml = encodedHtml.replace(/=/g,"%3D");
-	 encodedHtml = encodedHtml.replace(/&/g,"%26");
-	 encodedHtml = encodedHtml.replace(/@/g,"%40");
-	 return encodedHtml;
-}
-
 function printUserInfo(){
 	$('#idP').val(student.id);
 	$('#firstName').val(student.firstName);

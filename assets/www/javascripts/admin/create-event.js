@@ -61,9 +61,9 @@ $("#admin-create-event-page").live('pageinit', function() {
 
 function getDataFromCreateForm(){
 	var json = '{'
-		+'"name": "'+$('#name2').val()+'"';
+		+'"name": "'+htmlEncode($('#name2').val())+'"';
 	if ($('#description2').val() != ''){
-		json += ', "description": "'+ $('#description2').val()+ '"';
+		json += ', "description": "'+ htmlEncode($('#description2').val())+ '"';
 	}
 	if($('#startTime2').val() != ''){
 		json += ', "startTime": "'+$('#startTime2').val().replace(' ', '-')+'"';
@@ -84,9 +84,9 @@ function getDataFromCreateForm(){
 	
 	if($('#place2').val() != '' && $('#latitude2').val() != '' && $('#longitude2').val() != ''){
 		json += ', "location": {'+
-		'"place": "' + $('#place2').val() + '",'+
-		'"latitude": '+$('#latitude2').val()+','+
-		'"longitude": ' + $('#longitude2').val() +
+		'"place": "' + htmlEncode($('#place2').val()) + '",'+
+		'"latitude": '+htmlEncode($('#latitude2').val())+','+
+		'"longitude": ' + htmlEncode($('#longitude2').val()) +
 		'}';
 	}
 	json += '}';

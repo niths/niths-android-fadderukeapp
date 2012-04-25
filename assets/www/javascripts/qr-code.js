@@ -27,6 +27,7 @@ $('#scan-qr-page').live('pageinit', function() {
 			if(jqXHR.status == '200'){
 				student = data;
 				alert('Du er i gruppe: ' + student.fadderGroup.groupNumber);	
+				history.back();
 			}else{	
 				alert('Beklager, en feil skjedde');
 			}

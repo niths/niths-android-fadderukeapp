@@ -116,6 +116,7 @@ a.tweetlink:active {
                     
                         #endcontent{
                         border-top: dotted 2px black;
+                        margin-bottom: 20px;
                         	margin-top:50px;
                         	font-size:70%;
                         }

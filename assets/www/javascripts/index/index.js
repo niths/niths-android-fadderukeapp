@@ -118,7 +118,7 @@ $("#dashboard-page").live('pageinit', function() {
     for(var i=0;i<theResults.length;i++){
       $('#tweets2').append(
           '<li>'+
-          '<a class="avatar" href="#"><img src="'+theResults[i].profile_image_url+'" alt="'+theResults[i].from_user+'"></a>'+
+          '<a class="avatar" href="#"><img src="' + theResults[i].profile_image_url+'" alt="'+theResults[i].from_user+'"></a>'+
               '<a class="tweetlink" href="http://twitter.com/' + theResults[i].from_user + '"><h2>' + theResults[i].from_user+'</h2></a>'+ 
               '<span class="details">'+theResults[i].text+'</span>'+
           '</li>');

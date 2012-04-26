@@ -132,8 +132,7 @@ $("#dashboard-page").live('pageinit', function() {
     $('#loadingfortwitterfeed').css('display', 'none');
     $('#tweets2').css('display', 'block');
   }
-          
-  
+
   function printErrorTweet(){
     $('#tweets2').html('<h3>Ikke kontakt med twitter</h3>');
     $('#loadingfortwitterfeed').css('display', 'none');

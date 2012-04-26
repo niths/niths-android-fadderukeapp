@@ -13,6 +13,7 @@ developerKey ='';
 
 htmlEncode = function(s) {
 	 encodedHtml = escape(s);
+	 encodedHtml = encodedHtml.replace(/%20/g," ");
 	 encodedHtml = encodedHtml.replace(/\//g,"%2F");
 	 encodedHtml = encodedHtml.replace(/\?/g,"%3F");
 	 encodedHtml = encodedHtml.replace(/=/g,"%3D");

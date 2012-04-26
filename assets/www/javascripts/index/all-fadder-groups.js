@@ -1,4 +1,4 @@
-$("#all-fadder-groups-page").live('pageinit', function() {
+$("#all-fadder-groups-page").bind('pageinit', function() {
 	
 	var restClient = new RestHandler(); //REST CLIENT
 	loadFadderGroups();
@@ -10,31 +10,32 @@ $("#all-fadder-groups-page").live('pageinit', function() {
 
 
 function loadFadderGroups() {
+	$('#allGroupsUL').html('');
 	restClient.find('fadder',  function(data, status, e) {  
-		if(status == 'success'){
+		if(e.status == 200){
 			traverseFadderGroups(data);
     	 }else{
     		 showGroupErrMsg();
     	 }
-	}, showGroupErrMsg()); 
+	}, showGroupErrMsg); 
 }
 
+
 function showGroupErrMsg(){
-	$('#allGroupsGUI ul').html('<li><h3>Ingen kontakt med server...</h3></li>');
+	$('#allGroupsUL').html('<li><h3>Ingen kontakt med server...</h3></li>');
 	showList();
 }
     
 function showList(){
-	$('#loadingGroupsMsgDiv').css('display', 'none');
-	$('#allGroupsGUI').css('visibility', 'visible');
+	$('#loadingGroupsMsg2Div').css('display', 'none');
+	$('#allGroupsUL').css('visibility', 'visible');
 }
 function hideFadderList(){
-	$('#allGroupsGUI').css('visibility', 'hidden');
-	$('#loadingGroupsMsgDiv').css('display', 'block');
+	$('#allGroupsUL').css('visibility', 'hidden');
+	$('#loadingGroupsMsg2Div').css('display', 'block');
 }
     
 function traverseFadderGroups(fadderGroups) {
-	$('#allGroupsGUI ul').html('');
 	var index = 1;
 	for (group in fadderGroups){
 		displayFadderGroup(fadderGroups[group], ++index);
@@ -60,7 +61,7 @@ function displayFadderGroup(fadderGroup, index) {
 	}
 	html += '</a></li>';
 	
-	$('#allGroupsGUI ul').append(html);
+	$('#allGroupsUL').append(html);
 }
 
 }); //End pageinit

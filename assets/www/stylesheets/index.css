@@ -1,125 +1,109 @@
 /** Tweets Styling **/
- 
+
 #tweets2 {
-    list-style:none;
-    padding:5px;
+  list-style: none;
+  padding:    5px;
 }
  
-#tweets2 li{
-    font-size:12px;
-    overflow: hidden;
-    margin-bottom:20px;
+#tweets2 li {
+  font-size:     12px;
+  margin-bottom: 20px;
+  overflow:      hidden;
 }
- 
-#tweets2 li h2{
-    font-size:16px;
-    margin:0 0 5px 0;
+
+#tweets2 li h2 {
+  font-size: 16px;
+  margin:    0 0 5px 0;
 }
-.avatar{
-    margin-right:10px;
+.avatar {
+  margin-right: 10px;
 }
- 
+
 #tweets2 li a, #tweets2 li span {
-    float:left;
+  float: left;
 }
 
 a.tweetlink:link{
-	color:#00ADEF;
+  color: #00ADEF;
 }
+
 a.tweetlink:visited {
-	color:#00ADEF;
+  color: #00ADEF;
 }
 
 a.tweetlink:active {
-	color: #00ADEF;
+  color: #00ADEF;
 }
- 
+
 #tweets2 li span {
-    width:70%;
+  width: 70%;
 }
 
 #adminsectionbtn{
-	display:none;
+  display: none;
 }
 
 .li-first .ui-btn-text {
-    text-align:left;
+  text-align: left;
 }
 
 .li-first .ui-icon {
-    visibility:hidden;
+  visibility: hidden;
 }
 
 #tweetlist img {
-	padding:15px;
+  padding: 15px;
 }
 
-
-#eventtime{
-	text-align:right;
+#eventtime {
+  text-align: right;
 }
-
 
 .ui-content.ui-scrollview-clip {
-                                    padding: 0;
-                        }
-                        .ui-content.ui-scrollview-clip > div.ui-scrollview-view {
-                                    margin: 0;
-                                    padding: 15px;
-                        }
-                        .ui-content.ui-scrollview-clip > .ui-listview.ui-scrollview-view {
-                                    margin: 0;
-                        }
-                        .square {
-                                    max-width: 150px;
-                                    max-height: 150px;
-                                    text-align: center;
-                                    margin:6px;
-                        }
-                        .square img{
-                                    max-width: 145px;
-                                    min-height: 145px;
-                        }
-                        
-                        .ui-scrollview-clip .ui-scrollview-clip .square {
-/*                                     background-color: #3CF; */
-                        }
-                        .ui-scrollview-clip .ui-scrollview-clip .ui-scrollview-clip .square {
-/*                                     background-color: #F39; */
-                        }
-                        .ui-scrollview-clip .ui-scrollview-clip .ui-scrollview-clip .ui-scrollview-clip .square {
-/*                                     background-color: #0F6; */
-                        }
-                        .ui-scrollview-clip .ui-scrollview-clip .ui-scrollview-clip .ui-scrollview-clip .ui-scrollview-clip .square {
-/*                                     background-color: #FF6; */
-                        } 
+  padding: 0;
+}
 
-                        .threeByThree {
-/*         							border-top: dotted 2px black; */
-/*         							border-bottom: dotted 2px black; */
-        							padding: 10px;
-                                    overflow: hidden;
-                        }                        
-                        .vertical {
-/*                                     border: solid 1px black; */
-                                    overflow: hidden;
-                        }
-                        .threeByThree > .ui-scrollview-view {
-                                    width: 1000px;
-                        }
-                        .threeByThree .square {
-                                    float: left;
-                        }
-                        
-                        
-                        
-                    
-                        #endcontent{
-                        border-top: dotted 2px black;
-                        margin-bottom: 20px;
-                        	margin-top:50px;
-                        	font-size:70%;
-                        }
-                        
-                        
-           
+.ui-content.ui-scrollview-clip > div.ui-scrollview-view {
+  margin:  0;
+  padding: 15px;
+}
+
+.ui-content.ui-scrollview-clip > .ui-listview.ui-scrollview-view {
+  margin: 0;
+}
+
+.square {
+  max-width:  150px;
+  max-height: 150px;
+  text-align: center;
+  margin:     6px;
+}
+
+.square img{
+  max-width:  145px;
+  min-height: 145px;
+}
+
+.threeByThree {
+  overflow: hidden;
+  padding: 10px;
+}
+
+.vertical {
+  overflow: hidden;
+}
+
+.threeByThree > .ui-scrollview-view {
+  width: 1000px;
+}
+
+.threeByThree .square {
+  float: left;
+}
+
+#endcontent{
+  border-top:    dotted 2px black;
+  font-size:     70%;
+  margin-bottom: 20px;
+  margin-top:    50px;
+}

@@ -42,19 +42,21 @@ $(document).ready(function() {
               '}';
             
             var restClient = new RestHandler();
-        	restClient.create('broadcast', jsonEmail,  function(data) {  
-        		alert("Email sendt");
-                $.mobile.hidePageLoadingMsg();
-                history.back();
-        	});
+            restClient.create('broadcast', jsonEmail,  function(data) {  
+            showMsg("Email sendt", function() {
+              history.back();
+            });
+
+            $.mobile.hidePageLoadingMsg();
+          });
 
           }
         } else {
-          alert("Skriv inn en gyldig beskjed");
+          showErr("Skriv inn en gyldig beskjed", null);
         }
 
       } else {
-        alert("Skriv inn en gyldig tittel");
+        showErr("Skriv inn en gyldig tittel", null);
       }
     }
   });

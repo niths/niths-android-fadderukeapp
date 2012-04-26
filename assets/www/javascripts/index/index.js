@@ -106,7 +106,7 @@ $("#dashboard-page").live('pageinit', function() {
 			$('#eventlist').html(theHTML);
 			$('#eventlist').listview('refresh');
 		}); 
-	}
+	} 
 
 	/**
 	 * Prints a list of tweets

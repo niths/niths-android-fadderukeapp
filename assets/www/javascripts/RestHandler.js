@@ -161,12 +161,19 @@ function RestHandler(){
   
   function handleError(errorThrown, jqXHR){
     $.mobile.hidePageLoadingMsg();
-    if(errorThrown == 'Unauthorized'){
-      alert('Beklager, du har v�rt inaktiv for lenge, logg inn igjen');
-      sessionToken = '';
-      $.mobile.changePage('#dashboard-page');
-    }else{
-      alert("Beklager, en feil oppsto: " + jqXHR.getResponseHeader('error'));              
+    if (errorThrown == 'Unauthorized') {
+      showErr(
+          'Beklager, du har vært inaktiv for lenge, logg inn igjen',
+          function() {
+            sessionToken = '';
+            $.mobile.changePage('#dashboard-page');
+          }
+      );
+    } else {
+      showErr(
+          "Beklager, en feil oppsto: " + jqXHR.getResponseHeader('error'),
+          null
+      );
     }
   }
-}//End class
+} //End class

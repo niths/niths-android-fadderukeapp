@@ -10,7 +10,6 @@ applicationToken ='';
 developerToken ='';
 developerKey ='';
 
-
 htmlEncode = function(s) {
 	 encodedHtml = escape(s);
 	 encodedHtml = encodedHtml.replace(/%20/g," ");

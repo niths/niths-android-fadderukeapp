@@ -124,11 +124,6 @@ $("#dashboard-page").live('pageinit', function() {
           '</li>');
     }
 
-    $('#tweets2').live('click', function(e) {
-      window.plugins.childBrowser.showWebPage(
-          $(this).find('.tweetlink').attr('href'));
-    });
-
     $('#loadingfortwitterfeed').css('display', 'none');
     $('#tweets2').css('display', 'block');
   }

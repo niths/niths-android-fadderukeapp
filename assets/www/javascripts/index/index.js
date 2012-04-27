@@ -7,7 +7,10 @@ $("#dashboard-page").live('pageinit', function() {
   
   var restClient = new RestHandler(); //REST CLIENT
   init();
-          
+  
+  var twitterTag = 'nith';
+  var twitterURLJSON= 'http://search.twitter.com/search.json?q=%23'+twitterTag+'&rpp=5'
+  
   function init(){
     showTweetLoading();
     loadTweets(); 
@@ -43,8 +46,7 @@ $("#dashboard-page").live('pageinit', function() {
   function loadTweets(){
     var response;
     response = $.ajax({
-      url : 'http://search.twitter.com/search.json?q=from%3Anithutdanning&rpp=5',
-//      url : 'http://search.twitter.com/search.json?q=to%3Anithutdanning&rpp=5',
+      url : twitterURLJSON,
       type : 'get',
       cache : false,
       contentType : 'application/json',

@@ -9,7 +9,7 @@ $("#dashboard-page").live('pageinit', function() {
   init();
   
   var twitterTag = 'nith';
-  var twitterURLJSON= 'http://search.twitter.com/search.json?q=%23'+twitterTag+'&rpp=5'
+  var twitterURLJSON= 'http://search.twitter.com/search.json?q=%23'+twitterTag+'&rpp=5';
   
   function init(){
     showTweetLoading();

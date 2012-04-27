@@ -8,9 +8,6 @@ $("#dashboard-page").live('pageinit', function() {
   var restClient = new RestHandler(); //REST CLIENT
   init();
   
-  var twitterTag = 'nith';
-  var twitterURLJSON= 'http://search.twitter.com/search.json?q=%23'+twitterTag+'&rpp=5';
-  
   function init(){
     showTweetLoading();
     loadTweets(); 
@@ -46,7 +43,7 @@ $("#dashboard-page").live('pageinit', function() {
   function loadTweets(){
     var response;
     response = $.ajax({
-      url : twitterURLJSON,
+      url : 'http://search.twitter.com/search.json?q=%23nith&rpp=5',
       type : 'get',
       cache : false,
       contentType : 'application/json',
@@ -114,6 +111,7 @@ $("#dashboard-page").live('pageinit', function() {
    * Prints a list of tweets
    */
   function printTweets(data){
+    alert(JSON.stringify(data));
     var theResults = data.results;
     var theHTML = '';
     $('#tweets2').html('');

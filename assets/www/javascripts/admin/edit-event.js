@@ -52,7 +52,7 @@ function deleteAnEvent(){
   return false;
 }
 
-$("#admin-edit-event-page").live('pageshow', function() {
+$("#admin-edit-event-page").live('pageinit', function() {
   $('#update-event-form').submit(function() {
     var restClient = new RestHandler(); //REST CLIENT
     restClient.update(
@@ -70,7 +70,6 @@ $("#admin-edit-event-page").live('pageshow', function() {
         }
     );
 
-    $('form').die('submit');
     return false;
   });
 });
@@ -128,12 +127,12 @@ function showData(event){
 
 function getDataFromForm(){
   var json = '{'+
-    '"id":'+ $('#idE').val() +','
-    +'"name": "'+htmlEncode($('#name').val())+'",'+
-    '"description": "'+ htmlEncode($('#description').val())+ '",'+
-    '"startTime": "'+$('#startTime').val().replace(' ', '-')+'",'+
-    '"endTime": "'+$('#endTime').val().replace(' ', '-')+'",'+
-    '"tags": "fadderuka12';
+    '"id":'            + $('#idE').val() +',' +
+    '"name": "'        + $('#name').val() + '",' +
+    '"description": "' + $('#description').val() + '",' +
+    '"startTime": "'   + $('#startTime').val().replace(' ', '-')+'",'+
+    '"endTime": "'     + $('#endTime').val().replace(' ', '-')+'",'+
+    '"tags":             "fadderuka12';
     var priv = $('#select-privacy-choice').val();
     if(priv == "public"){
       json += ', public"';

@@ -14,7 +14,7 @@ $(document).ready(function() {
   var isNITHMail       = false;
 
   $('#loginbtn').click(function() {
-    ChildBrowser.install();
+    
     if(sessionStorage.getItem('session_token') == '') { //Not signed in
       resetUserValues();
       signIn();       
@@ -26,8 +26,15 @@ $(document).ready(function() {
   });
 
    $('#profilebtn').click(function() {
-     ChildBrowser.install();
+     checkLogin('#profile-page');
+   });
 
+   $('#fadder-group-page').click(function() {
+     checkLogin('#all-fadder-groups-page'); 
+   });
+
+   function checkLogin(page) {
+     ChildBrowser.install();
      if(sessionStorage.getItem('session_token') == '') {
        showErr('Vennligst logg inn', function() {
          resetUserValues();
@@ -37,9 +44,9 @@ $(document).ready(function() {
 
      // Sign is succeeded, but not NITH mail: = -1
      else if(sessionStorage.getItem('session_token')  != "-1"){
-       $.mobile.changePage('#profile-page');
+       $.mobile.changePage(page);
      }
-   });
+   }
 
   /**
    * Opens childbrowser with the Google login site

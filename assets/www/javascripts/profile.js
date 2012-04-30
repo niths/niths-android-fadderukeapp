@@ -1,3 +1,5 @@
+var restClient = new RestHandler();
+
 $("#profile-page").live('pageinit', function() {
   if (student ==  {}) {
     history.back();
@@ -13,11 +15,11 @@ $("#profile-page").live('pageinit', function() {
             o[this.name] = [o[this.name]];
           }
           if(this.value != '') {
-           o[this.name].push(htmlEncode(this.value) || '');
+           o[this.name].push(this.value || '');
           }
         } else {
           if(this.value != '') {
-            o[this.name] = htmlEncode(this.value) || '';
+            o[this.name] = this.value || '';
           }
         }
       });
@@ -25,7 +27,6 @@ $("#profile-page").live('pageinit', function() {
   };
 
   $('#profilesubmit').click(function() {
-    var restClient = new RestHandler(); //REST CLIENT
     restClient.update(
         'students',
         JSON.stringify($("#update-person-form").serializeObject()),
@@ -48,10 +49,10 @@ $("#profile-page").live('pageinit', function() {
 });
 
 function refreshStudentValues() {
-  student.firstName = htmlEncode($('#firstName').val());
-  student.lastName = htmlEncode($('#lastName').val());
-  student.telephoneNumber = htmlEncode($('#telephoneNumber').val());
-  student.description = htmlEncode($('#descriptionP').val());
+  student.firstName = $('#firstName').val();
+  student.lastName = $('#lastName').val();
+  student.telephoneNumber = $('#telephoneNumber').val();
+  student.description = $('#descriptionP').val();
   if($("input[@name=gender]:checked").attr('id') == 'male') {
     student.gender = 'M';
   } else if($("input[@name=gender]:checked").attr('id') == 'female') {

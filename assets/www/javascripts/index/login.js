@@ -1,8 +1,8 @@
 $("#dashboard-page").live('pageshow', function() {
-   if(sessionToken == ""){
+   if(sessionStorage.getItem('session_token') == null) { 
       $("#loginbtn .ui-btn-text").text("Logg inn");
       $('#adminsectionbtn').css('display', 'none');
-    }else{
+    } else {
       $("#loginbtn .ui-btn-text").text("Logg ut");
     }
 });
@@ -15,7 +15,7 @@ $(document).ready(function() {
 
   $('#loginbtn').click(function() {
     ChildBrowser.install();
-    if(sessionToken == '') { //Not signed in
+    if(sessionStorage.getItem('session_token') == '') { //Not signed in
       resetUserValues();
       signIn();       
     } else { //Already signed in
@@ -28,7 +28,7 @@ $(document).ready(function() {
    $('#profilebtn').click(function() {
      ChildBrowser.install();
 
-     if(sessionToken == '') {
+     if(sessionStorage.getItem('session_token') == '') {
        showErr('Vennligst logg inn', function() {
          resetUserValues();
          signIn();
@@ -36,7 +36,7 @@ $(document).ready(function() {
      }
 
      // Sign is succeeded, but not NITH mail: = -1
-     else if(sessionToken  != "-1"){
+     else if(sessionStorage.getItem('session_token')  != "-1"){
        $.mobile.changePage('#profile-page');
      }
    });
@@ -85,7 +85,7 @@ $(document).ready(function() {
   };
 
   function toggleBtnText(){
-    if(sessionToken == ""){
+    if(sessionStorage.getItem('session_token') == ""){
       $("#loginbtn .ui-btn-text").text("Logg inn");
     }else{
       $("#loginbtn .ui-btn-text").text("Logg ut");
@@ -105,7 +105,9 @@ $(document).ready(function() {
         function(data, textStatus, jqXHR) {
           showMsg('Du er innlogget', function() {
             student = data;
-            sessionToken = jqXHR.getResponseHeader('session-token');
+            sessionStorage.setItem(
+                'session_token',
+                jqXHR.getResponseHeader('session-token'));
 
             //If student is leader for a group, show admin btn
             if(student.groupLeaders != null){ //NEEDED?
@@ -120,7 +122,7 @@ $(document).ready(function() {
         },
         function(xhr, status, ex) {
           if(xhr.getResponseHeader('error') == 'Email not valid') {
-            sessionToken = "-1";
+            sessionStorage.setItem('session_token', '-1');
             showErr('Bruker har ikke NITH-mail, logg ut og inn igjen', null);
           } else if (status == 'timeout') {
             showErr('Fikk ikke kontakt med serveren, logg inn igjen');
@@ -135,7 +137,7 @@ $(document).ready(function() {
 
   //Resets logged in values
   function resetUserValues(){
-      sessionToken = '';
+    sessionStorage.setItem('session_token', '');
       //role = '';
       student= {};
       //groupNumber = 0;

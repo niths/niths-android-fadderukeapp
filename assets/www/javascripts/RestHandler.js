@@ -136,7 +136,9 @@ function RestHandler(){
     xhr.setRequestHeader(
         "Developer-token",
         sessionStorage.getItem('dev_token'));
-    xhr.setRequestHeader("Session-token", sessionToken);
+    xhr.setRequestHeader(
+        "Session-token",
+        sessionStorage.getItem('session_token'));
   }
 
   function handleError(errorThrown, jqXHR){
@@ -145,7 +147,7 @@ function RestHandler(){
       showErr(
           'Beklager, du har vært inaktiv for lenge, logg inn igjen',
           function() {
-            sessionToken = '';
+            sessionStorage.setItem('session_token', ''); 
             $.mobile.changePage('#dashboard-page');
           }
       );

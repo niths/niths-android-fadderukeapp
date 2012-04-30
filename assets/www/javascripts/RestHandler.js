@@ -16,7 +16,7 @@
  */
 function RestHandler(){
 //  this.baseUrl = 'http://192.168.0.105:8080/niths/'; // Ben
-  this.baseUrl = 'http://10.0.2.2:8080/niths/';
+  this.baseUrl = 'http://10.110.58.108:8080/niths/';
  
   //this.baseUrl = 'http://ec2-46-137-44-111.eu-west-1.compute.amazonaws.com:8080/niths/';
   
@@ -38,13 +38,7 @@ function RestHandler(){
       url: this.baseUrl + modelUrl,
       contentType: 'application/json',
       cache: false,
-      beforeSend: function(xhr) {
-            xhr.setRequestHeader("Application-key", applicationKey);
-            xhr.setRequestHeader("Application-token", applicationToken);
-            xhr.setRequestHeader("Developer-key", developerKey);
-            xhr.setRequestHeader("Developer-token", developerToken);
-            xhr.setRequestHeader("Session-token", sessionToken);
-        },
+      beforeSend: setReqHeaders,
       success: callbackSuccess,
       error: callbackError,
       timeout:5000
@@ -57,13 +51,7 @@ function RestHandler(){
         type: 'DELETE',
         url: this.baseUrl + modelUrl,
         cache: false,
-        beforeSend: function(xhr) {
-            xhr.setRequestHeader("Application-key", applicationKey);
-            xhr.setRequestHeader("Application-token", applicationToken);
-            xhr.setRequestHeader("Developer-key", developerKey);
-            xhr.setRequestHeader("Developer-token", developerToken);
-            xhr.setRequestHeader("Session-token", sessionToken);
-        },
+        beforeSend: setReqHeaders,
         success: callbackSuccess,
         error: function(jqXHR, textStatus, errorThrown){
           handleError(errorThrown, jqXHR);
@@ -80,13 +68,7 @@ function RestHandler(){
       cache: false,
       contentType: 'application/json',
       data: dataJ,
-      beforeSend: function(xhr) {
-        xhr.setRequestHeader("Application-key", applicationKey);
-        xhr.setRequestHeader("Application-token", applicationToken);
-        xhr.setRequestHeader("Developer-key", developerKey);
-        xhr.setRequestHeader("Developer-token", developerToken);
-        xhr.setRequestHeader("Session-token", sessionToken);
-      },
+      beforeSend: setReqHeaders,
       success: callbackSuccess,
       error: function(jqXHR, textStatus, errorThrown){
         handleError(errorThrown, jqXHR);
@@ -101,13 +83,7 @@ function RestHandler(){
       url: this.baseUrl + modelUrl,
       cache: false,
       contentType: 'application/json',
-      beforeSend: function(xhr) {
-        xhr.setRequestHeader("Application-key", applicationKey);
-        xhr.setRequestHeader("Application-token", applicationToken);
-        xhr.setRequestHeader("Developer-key", developerKey);
-        xhr.setRequestHeader("Developer-token", developerToken);
-        xhr.setRequestHeader("Session-token", sessionToken);
-      },
+      beforeSend: setReqHeaders,
       success: callbackSuccess,
       error: function(jqXHR, textStatus, errorThrown){
         handleError(errorThrown, jqXHR);
@@ -123,13 +99,7 @@ function RestHandler(){
       cache: false,
       data: json,
       contentType: 'application/json',
-      beforeSend: function(xhr) {
-        xhr.setRequestHeader("Application-key", applicationKey);
-        xhr.setRequestHeader("Application-token", applicationToken);
-        xhr.setRequestHeader("Developer-key", developerKey);
-        xhr.setRequestHeader("Developer-token", developerToken);
-        xhr.setRequestHeader("Session-token", sessionToken);
-      },
+      beforeSend: setReqHeaders, 
       success: callbackSuccess,
       error: callbackError,
       timeout:5000
@@ -144,13 +114,7 @@ function RestHandler(){
       cache: false,
       contentType: 'application/json',
       data: dataJ,
-      beforeSend: function(xhr) {
-        xhr.setRequestHeader("Application-key", applicationKey);
-        xhr.setRequestHeader("Application-token", applicationToken);
-        xhr.setRequestHeader("Developer-key", developerKey);
-        xhr.setRequestHeader("Developer-token", developerToken);
-        xhr.setRequestHeader("Session-token", sessionToken);
-      },
+      beforeSend: setReqHeaders,
       success: callbackSuccess,
       error: function(jqXHR, textStatus, errorThrown){
         handleError(errorThrown, jqXHR);
@@ -158,7 +122,15 @@ function RestHandler(){
       timeout:10000
     });
   }; //End update
-  
+
+  function setReqHeaders(xhr) {
+    xhr.setRequestHeader("Application-key", applicationKey);
+    xhr.setRequestHeader("Application-token", applicationToken);
+    xhr.setRequestHeader("Developer-key", developerKey);
+    xhr.setRequestHeader("Developer-token", developerToken);
+    xhr.setRequestHeader("Session-token", sessionToken);
+  }
+
   function handleError(errorThrown, jqXHR){
     $.mobile.hidePageLoadingMsg();
     if (errorThrown == 'Unauthorized') {

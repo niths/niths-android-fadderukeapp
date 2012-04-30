@@ -27,7 +27,7 @@ function showGroup(){
 
 function loadGroup(id){
   var restClient = new RestHandler(); //REST CLIENT
-  restClient.find('fadder/' + id,  function(data, status, e) {  
+  restClient.findRestricted('fadder/' + id,  function(data, status, e) {  
     traverseAttributes(data);
     $('#agroupheader').html('Gruppe ' + id);
     showGroup();

@@ -8,7 +8,7 @@ $("#fadderchildren-pagen").live('pageshow', function() {
   getOnlyFadderChildren();
 
   function getOnlyFadderChildren() {
-    restClient.find('fadder/' + fadderGroupId + '/children',  function(data) {
+    restClient.findRestricted('fadder/' + fadderGroupId + '/children',  function(data) {
         fadderChildren = data;
         traverseAllFadderChildren();    
     },function(req, status, ex) {

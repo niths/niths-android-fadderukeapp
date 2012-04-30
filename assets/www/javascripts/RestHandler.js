@@ -124,10 +124,18 @@ function RestHandler(){
   }; //End update
 
   function setReqHeaders(xhr) {
-    xhr.setRequestHeader("Application-key", applicationKey);
-    xhr.setRequestHeader("Application-token", applicationToken);
-    xhr.setRequestHeader("Developer-key", developerKey);
-    xhr.setRequestHeader("Developer-token", developerToken);
+    xhr.setRequestHeader(
+        "Application-key",
+        sessionStorage.getItem('app_key'));
+    xhr.setRequestHeader(
+        "Application-token",
+        sessionStorage.getItem('app_token'));
+    xhr.setRequestHeader(
+        "Developer-key",
+        sessionStorage.getItem('dev_key'));
+    xhr.setRequestHeader(
+        "Developer-token",
+        sessionStorage.getItem('dev_token'));
     xhr.setRequestHeader("Session-token", sessionToken);
   }
 

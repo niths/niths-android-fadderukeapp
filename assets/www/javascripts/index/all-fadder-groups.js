@@ -11,7 +11,7 @@ $("#all-fadder-groups-page").bind('pageinit', function() {
 
 function loadFadderGroups() {
 	$('#allGroupsUL').html('');
-	restClient.findRestricted('fadder',  function(data, status, e) {  
+	restClient.findRestricted('fadder',  function(data, status, e) {
 		if (e.status == 200) {
 			traverseFadderGroups(data);
     	 }else{

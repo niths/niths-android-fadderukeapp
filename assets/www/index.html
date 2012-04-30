@@ -59,10 +59,10 @@
       }, true);
 
       function onKeyReceived(info) {
-        developerKey = info[0].devkey;
-        developerToken = info[1].devtoken;
-        applicationKey = info[2].appkey;
-        applicationToken = info[3].apptoken
+        sessionStorage.setItem('dev_key', info[0].devkey);
+        sessionStorage.setItem('dev_token', info[1].devtoken);
+        sessionStorage.setItem('app_key', info[2].appkey);
+        sessionStorage.setItem('app_token', info[3].apptoken);
       }
     </script>
     <script type="text/javascript" charset="utf-8"
@@ -326,7 +326,7 @@
       
              <h1 class="withborder">Events</h1>
       <a href="#admin-create-event-page" data-role="button">Opprett event</a>    
-      <h1 class="withborder">Private</h1>
+      <h1 class="withborder">Dine events</h1>
       <div id="loadigForAllGroupsEventsList"><img class="spin" src="stylesheets/common/images/loader.png" /></div>
             <ul id ="allGroupsEventsList" data-role="listview" class="ui-listview" data-inset="true">
             </ul>

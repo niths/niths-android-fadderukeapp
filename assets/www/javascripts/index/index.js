@@ -111,7 +111,6 @@ $("#dashboard-page").live('pageinit', function() {
    * Prints a list of tweets
    */
   function printTweets(data){
-    alert(JSON.stringify(data));
     var theResults = data.results;
     var theHTML = '';
     $('#tweets2').html('');

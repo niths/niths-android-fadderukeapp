@@ -152,7 +152,6 @@
         <p></p>
               </div>
             </div>
-        
             <div data-role="footer" data-position="fixed"  data-theme="b">
               <div data-role="navbar">
                 <ul>
@@ -475,20 +474,22 @@
                 placeholder="Slutt: dd/mm/yyyy-hh:mm"/>
           </div>
           <div class="ui-hide-label" id="privacy2"></div>
+          <h2>Lokasjon</h2>
           <div class="ui-hide-label">
             <label for="place2">Sted:</label> 
             <input type="text" name="place2" id="place2" value=""
                 placeholder="Sted" />
           </div>
-          <div class="ui-hide-label">
-            <label for="latitude2">Latitude:</label> 
-            <input type="text" name="latitude2" id="latitude2" value=""
-                placeholder="Latitude" />
+          <div>
+            <a href="#" id="create-event-place-search" data-role="button"
+                data-icon="search" data-iconpos="right">
+              Søk etter lokasjon
+            </a>
           </div>
-          <div class="ui-hide-label">
-            <label for="longitude2">Longitude:</label> 
-            <input type="text" name="longitude2" id="longitude2" value=""
-                placeholder="Longitude" />
+          <div>
+            <select name="create-event-location-selection"
+                id="create-event-location-selection">
+            </select>
           </div>
           <div class="bottomborder"></div>
           <button type="submit" id="createeventsubmit" data-role="button">

@@ -1,3 +1,5 @@
+var locations = '';
+var currentLocationIndex = '';
 
 $("#admin-create-event-page").live('pageshow', function() {
   $('#name2').val('');
@@ -6,9 +8,6 @@ $("#admin-create-event-page").live('pageshow', function() {
   $('#startTime2').val(dateToday);
   $('#endTime2').val(dateToday);
   $('#place2').val('NITH');
-  $('#latitude2').val('59.908671');
-  $('#longitude2').val('10.768166');
-  
 });
 
 function getDateTodayAsString(){
@@ -27,7 +26,8 @@ function getDateTodayAsString(){
   return today;
 }
 
-$("#admin-create-event-page").live('pageinit', function() {  
+$("#admin-create-event-page").live('pageinit', function() {
+
   var restClient = new RestHandler(); //REST CLIENT
   var privacyDisplay = 
     '<label for="select-privacy" class="select">Velg:</label>'+
@@ -42,7 +42,35 @@ $("#admin-create-event-page").live('pageinit', function() {
      privacyDisplay += '</select>';
   $('#privacy2').html(privacyDisplay);
   $('#select-privacy-choice2').selectmenu();
-  
+
+  // Handle location searching
+  $('#create-event-place-search').click(function() {
+    $('#create-event-location-selection').empty();
+
+    $.getJSON('http://maps.googleapis.com/maps/api/geocode/json?address=' +
+        $('#place2').val() + '&sensor=true',
+      function(data) {
+        locations = data.results;
+        $.each(locations, function(key, location) {
+          if (location.formatted_address != 'undefined') {
+            $('#create-event-location-selection').append(
+                '<option id="location-' +key +
+                  '" value="' + location.formatted_address + '">' +
+                      location.formatted_address +
+                '</option>');
+          }
+        });
+      });
+  });
+  $('#create-event-location-selection').selectmenu();
+
+  $('#create-event-location-selection').change(function() {
+
+    // Extract the current index of the location
+    currentLocationIndex = /location-(\d+)/.exec(
+        $('#create-event-location-selection option:selected').attr('id'))[1];
+  });
+
   $('#createeventsubmit').click(function() {
     
     restClient.create(
@@ -85,16 +113,14 @@ function getDataFromCreateForm() {
     json += ', gruppe' + priv +'"';      
   }
 
-  if($('#place2').val() != ''
-      && $('#latitude2').val() != ''
-      && $('#longitude2').val() != '') {
-    json += ', "location": {'+
-    '"place": "' + htmlEncode($('#place2').val()) + '",'+
-    '"latitude": '+htmlEncode($('#latitude2').val())+','+
-    '"longitude": ' + htmlEncode($('#longitude2').val()) +
+  var currentLocation = locations[currentLocationIndex];
+  json += ', "location": {'+
+    '"place": "'    + currentLocation.formatted_address + '",' +
+    '"latitude": '  + currentLocation.geometry.location.lat + ',' +
+    '"longitude": ' + currentLocation.geometry.location.lng +
     '}';
-  }
 
   json += '}';
+  alert(json);
   return json;
 }

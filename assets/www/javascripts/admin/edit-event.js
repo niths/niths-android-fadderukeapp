@@ -53,7 +53,7 @@ function deleteAnEvent(){
 }
 
 $("#admin-edit-event-page").live('pageshow', function() {
-  $('#editeventsubmit').click(function() {
+  $('#update-event-form').submit(function() {
     var restClient = new RestHandler(); //REST CLIENT
     restClient.update(
         'events/', getDataFromForm(),

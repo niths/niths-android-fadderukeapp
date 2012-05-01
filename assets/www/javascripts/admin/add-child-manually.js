@@ -19,7 +19,7 @@ $('#add-child-admin-page').bind('pageshow', function(){
 
   function loadGrouplessStudents(){
     var restClient = new RestHandler();
-    restClient.find('fadder/groupless',
+    restClient.findRestricted('fadder/groupless',
         function(data) {
           traverseGrouplessStudents(data);
         },

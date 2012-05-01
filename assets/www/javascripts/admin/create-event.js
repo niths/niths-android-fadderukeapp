@@ -52,7 +52,14 @@ $("#admin-create-event-page").live('pageinit', function() {
       function(data) {
         locations = data.results;
         $.each(locations, function(key, location) {
-          if (location.formatted_address != 'undefined') {
+
+          // Extract the country from the formatted address
+          var address = location.formatted_address.split(/,/g);
+          var country = $.trim(address[address.length - 1]);
+
+          // Only include locations that are in Norway
+          if (location.formatted_address != 'undefined'
+              && (country == 'Norge' || country == 'Norway')) {
             $('#create-event-location-selection').append(
                 '<option id="location-' +key +
                   '" value="' + location.formatted_address + '">' +

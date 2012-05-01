@@ -128,6 +128,5 @@ function getDataFromCreateForm() {
     '}';
 
   json += '}';
-  alert(json);
   return json;
 }

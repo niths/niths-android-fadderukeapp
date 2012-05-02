@@ -36,7 +36,7 @@ $(document).ready(function() {
    function checkLogin(page) {
      ChildBrowser.install();
      if(sessionStorage.getItem('session_token') == '') {
-       showErr('Vennligst logg inn', function() {
+       showMsg('Vennligst logg inn', function() {
          resetUserValues();
          signIn();
        });

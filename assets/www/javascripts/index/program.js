@@ -12,7 +12,7 @@ $("#program-page").live('pageinit', function() {
             $('#programlist').css('visibility', 'hidden');
             loadAllEvents(true);
           } else {
-            showErr('Du har ingen gruppe', null);
+            showMsg('Du har ingen gruppe', null);
             $("input[type='radio']:first").attr(
                 "checked", true).checkboxradio("refresh");
           }

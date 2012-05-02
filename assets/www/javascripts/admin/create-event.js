@@ -7,7 +7,8 @@ $("#admin-create-event-page").live('pageshow', function() {
   var dateToday = getDateTodayAsString();
   $('#startTime2').val(dateToday);
   $('#endTime2').val(dateToday);
-  $('#place2').val('NITH');
+  $('#place2').val('Schweigaards gate 14');
+  searchOnLocation();
 });
 
 function getDateTodayAsString(){
@@ -24,6 +25,30 @@ function getDateTodayAsString(){
   var today = dd+'/'+mm+'/'+yyyy + ' 12:00';
 
   return today;
+}
+
+function searchOnLocation(){
+    $.getJSON('http://maps.googleapis.com/maps/api/geocode/json?address=' +
+        $('#place2').val() + '&sensor=true',
+      function(data) {
+        locations = data.results;
+        $.each(locations, function(key, location) {
+
+          // Extract the country from the formatted address
+          var address = location.formatted_address.split(/,/g);
+          var country = $.trim(address[address.length - 1]);
+
+          // Only include locations that are in Norway
+          if (location.formatted_address != 'undefined'
+              && (country == 'Norge' || country == 'Norway')) {
+            $('#create-event-location-selection').append(
+                '<option id="location-' +key +
+                  '" value="' + location.formatted_address + '">' +
+                      location.formatted_address +
+                '</option>');
+          }
+        });
+      });
 }
 
 $("#admin-create-event-page").live('pageinit', function() {
@@ -46,28 +71,7 @@ $("#admin-create-event-page").live('pageinit', function() {
   // Handle location searching
   $('#create-event-place-search').click(function() {
     $('#create-event-location-selection').empty();
-
-    $.getJSON('http://maps.googleapis.com/maps/api/geocode/json?address=' +
-        $('#place2').val() + '&sensor=true',
-      function(data) {
-        locations = data.results;
-        $.each(locations, function(key, location) {
-
-          // Extract the country from the formatted address
-          var address = location.formatted_address.split(/,/g);
-          var country = $.trim(address[address.length - 1]);
-
-          // Only include locations that are in Norway
-          if (location.formatted_address != 'undefined'
-              && (country == 'Norge' || country == 'Norway')) {
-            $('#create-event-location-selection').append(
-                '<option id="location-' +key +
-                  '" value="' + location.formatted_address + '">' +
-                      location.formatted_address +
-                '</option>');
-          }
-        });
-      });
+    searchOnLocation();
   });
   $('#create-event-location-selection').selectmenu();
 

@@ -68,7 +68,6 @@ $("#program-page").live('pageinit', function() {
       param =
         '?tag=fadderuka12,public&startTime='+today + '&endTime=' + inFiveDays;
     }
-    alert(param);
     return param;
   }
 

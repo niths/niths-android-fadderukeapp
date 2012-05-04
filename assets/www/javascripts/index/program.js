@@ -31,13 +31,13 @@ $("#program-page").live('pageinit', function() {
 
   function getDayName(day){
     var weekday=new Array(7);
-    weekday[0]="S&Oslash;ndag";
+    weekday[0]="S&oslash;ndag";
     weekday[1]="Mandag";
     weekday[2]="Tirsdag";
     weekday[3]="Onsdag";
     weekday[4]="Torsdag";
     weekday[5]="Fredag";
-    weekday[6]="L&Oslash;rdag";
+    weekday[6]="L&oslash;rdag";
     return weekday[day];
   }
 

@@ -18,12 +18,16 @@ import com.phonegap.api.PluginResult;
  */
 public class PrivateStorage extends Plugin {
 
+	//Application-key: dzbeao1fPG
+	//Application-token: gpgikZZ0mV7DwTNm22NHMlwd9MbiNrsfJBUDpILEM4vvDemtoRRtDO+eG1DV2PEivp7CFnEvU1fxUfApssEvfg==
+	
 	@Override
 	public PluginResult execute(String action, JSONArray data, String callbackId) {
 		JSONArray jsonRes = null;
 		try {
 			//TODO: FANCY scrambling logic
 			jsonRes = new JSONArray();
+		
 			JSONObject dk = new JSONObject().put("devkey", "sob8gvpyk2");
 			jsonRes.put(dk);
 			JSONObject dt = new JSONObject().put("devtoken", "Q9WduujDMII1vTqpnoefwSx7HWkuqOmtdure1g8BCWA1EGN6nPCNQj4KjtuYwIA0j1CnoC5OQE5UvAfq2tFylw==");

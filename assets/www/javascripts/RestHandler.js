@@ -144,7 +144,7 @@ function RestHandler(){
     $.mobile.hidePageLoadingMsg();
     if (errorThrown == 'Unauthorized') {
       showErr(
-          'Beklager, du har vÃ¦rt inaktiv for lenge, logg inn igjen',
+          'Beklager, du har vært inaktiv for lenge, logg inn igjen',
           function() {
             sessionStorage.setItem('session_token', ''); 
             $.mobile.changePage('#dashboard-page');

@@ -1,8 +1,8 @@
-$('#Gallery1').live('pageinit', function() {
+$('#Gallery1').live('pageshow', function() {
   getLatestImages();
 
   function showImgs(){
-    $('#galleryloader').css('display', 'none');
+    $('#galleryloader').css('display', 'none');	
     $('#gallerycontent').css('visibility', 'visible');
   }
 

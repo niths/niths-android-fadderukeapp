@@ -21,7 +21,7 @@ $('#scan-qr-page').live('pageinit', function() {
 
       var ft = new FileTransfer();
       ft.upload(
-          imageURI, restClient.baseUrl + 'fadder/scan-qr-code/' + student.id,
+          imageURI, restClient.baseUrl2 + 'fadder/scan-qr-code/' + student.id,
           function(res) {
             $.mobile.hidePageLoadingMsg();
             if(res.responseCode == 200) {
@@ -51,7 +51,7 @@ $('#scan-qr-page').live('pageinit', function() {
             showErr('Beklager, en feil skjedde', null);
           }
         },function(jqXHR, textStatus, errorThrown){
-          showErr('Beklager, en feil oppsto: ' + textStatus + errorThrown, null);
+          showErr('Beklager, en feil oppsto: ' + textStatus + ' ' +errorThrown, null);
         }
       );
     }

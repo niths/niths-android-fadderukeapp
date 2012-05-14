@@ -72,7 +72,7 @@ $("#program-page").live('pageinit', function() {
   }
 
   function loadAllEvents(isPrivate){
-    restClient.find('events/tags-and-dates' + getUrlParam(isPrivate),
+    restClient.findRestricted('events/tags-and-dates' + getUrlParam(isPrivate),
       function(data, status, e) {  
         if (status == 'success') {
           if(data.length > 0){

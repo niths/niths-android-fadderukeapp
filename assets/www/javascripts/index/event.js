@@ -20,7 +20,7 @@ $(document).bind( "pagebeforechange", function( e, data ) {
  */
 function loadEvent(eventId){
 	var restClient = new RestHandler(); //REST CLIENT
-	restClient.find('events/' + eventId,  function(data) {
+	restClient.findRestricted('events/' + eventId,  function(data) {
 		$('#eventname').html(data.name);
 		$('#eventdesc').html(data.description);
   	  	$('#eventtime').html('<strong>' + data.startTime.substring(0,5) + ' ' + data.startTime.substring(11,16)+' - ' + data.endTime.substring(11,16) +'</strong>');

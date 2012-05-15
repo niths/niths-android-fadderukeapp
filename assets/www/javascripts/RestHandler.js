@@ -15,10 +15,9 @@
  * });
  */
 function RestHandler(){
-//  this.baseUrl = 'http://192.168.0.105:8080/niths/'; // Ben
+
   this.baseUrl = 'https://ec2-46-137-46-84.eu-west-1.compute.amazonaws.com:8443/niths/';
   this.baseUrl2 = 'http://ec2-46-137-46-84.eu-west-1.compute.amazonaws.com:8080/niths/';
-
   
   this.find = function(modelUrl, callbackSuccess, callbackError) {
       $.ajax({
@@ -125,14 +124,8 @@ function RestHandler(){
 
   function setReqHeaders(xhr) {
     xhr.setRequestHeader(
-        "Application-key",
-        sessionStorage.getItem('app_key'));
-    xhr.setRequestHeader(
         "Application-token",
         sessionStorage.getItem('app_token'));
-    xhr.setRequestHeader(
-        "Developer-key",
-        sessionStorage.getItem('dev_key'));
     xhr.setRequestHeader(
         "Developer-token",
         sessionStorage.getItem('dev_token'));

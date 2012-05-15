@@ -17,7 +17,7 @@
 ### Configure your keys
 - Create a new class inside `com.phonegap.plugins.privateStorage`named
   PrivateStorage
-- Paste the contents of [this gist](https://gist.github.com/2694638)
+- Paste the contents of [this gist](https://gist.github.com/2700063)
 - Replace the keys accordingly
 
 ### Run it

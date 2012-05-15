@@ -9,7 +9,7 @@
 - Android Development Tools
 
 ### Download the source
->     git clone git@github.com:niths/niths-android-fadderuke-app
+>     git clone git@github.com:niths/niths-android-fadderukeapp
 
 ### Import the project
 - Import the project into Eclipse

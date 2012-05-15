@@ -19,7 +19,7 @@ $("#profile-page").live('pageinit', function() {
           }
         } else {
           if(this.value != '') {
-            o[this.name] = this.value || '';
+            o[this.name] = $.trim(this.value) || '';
           }
         }
       });

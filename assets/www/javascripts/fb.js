@@ -1,24 +1,25 @@
-$('#Gallery1')
-		.live(
-				'pageshow',
-				function(e) {
-					refresh();
+$('#Gallery1').live('pageshow', function(e) {
+					
+	var galleryUrl = '';
+	var standardURL = 'https://graph.facebook.com/10150304760787369/photos';
+	
+	refresh();
 
-					function showImgs() {
-						$('#galleryloader').css('display', 'none');
-						$('#gallerycontent').css('visibility', 'visible');
-					}
+	function showImgs() {
+		$('#galleryloader').css('display', 'none');
+		$('#gallerycontent').css('visibility', 'visible');
+	}
 
-					$('#refreshGalleryBtn').click(function() {
-						refresh();
-					});
+	$('#refreshGalleryBtn').click(function() {
+		refresh();
+	});
 
-					function refresh() {
-						$('#galleryloader').css('display', 'block');
-						$('#gallerycontent').css('visibility', 'hidden');
+	function refresh() {
+		$('#galleryloader').css('display', 'block');
+		$('#gallerycontent').css('visibility', 'hidden');
 
-						getLatestImages();
-					}
+		getLatestImages();
+	}
 
 					/**
 					 * Selects an album from facebook Replace the id with the
@@ -28,21 +29,55 @@ $('#Gallery1')
 					 * from url
 					 */
 					function getLatestImages() {
-						$
-								.ajax({
-									url : 'https://graph.facebook.com/10150304760787369/photos',
-									dataType : 'json',
-									type : 'GET',
-									timeout : 5000,
-									success : function(album) {
-										handleImgsData(album.data);
-									},
-									error : function() {
-										showErr('Ikke kontakt med facebook',
-												null);
-									}
-								});
+						
+						if(galleryUrl == ''){
+							restClient.findRestricted('sociallinks?socialCommunity=facebook&category=fadderuka',  function(data) { 
+
+							if(data.length >= 1){
+								galleryUrl = data[0].address;
+							}else {
+								galleryUrl = standardURL;
+							}
+								getImgFace(galleryUrl);
+
+							}, function(req, status, ex) {
+								getImgFace(standardURL);
+
+							});
+						}else {
+							getImgFace(galleryUrl);
+						}
+						
+//						$
+//								.ajax({
+//									url : 'https://graph.facebook.com/10150304760787369/photos',
+//									dataType : 'json',
+//									type : 'GET',
+//									timeout : 5000,
+//									success : function(album) {
+//										handleImgsData(album.data);
+//									},
+//									error : function() {
+//										showErr('Ikke kontakt med facebook',
+//												null);
+//									}
+//								});
 					}
+					
+					function getImgFace(faceUrl){
+						$.ajax({
+						url: faceUrl,
+						dataType: "json",
+						type: 'get',
+						timeout: 5000,
+						success: function(album){
+						handleImgsData(album.data);
+						},
+						error: function(){
+						alert('Ikke kontakt med facebook');
+						}
+						});
+						}
 
 					/**
 					 * Selects two images, one low res thumb, on normal from
@@ -61,8 +96,7 @@ $('#Gallery1')
 						}
 
 						var currentPage = $(e.target);
-						var p = Code.PhotoSwipe.getInstance(currentPage
-								.attr('id'));
+						var p = Code.PhotoSwipe.getInstance(currentPage.attr('id'));
 
 						if (p != null) {
 							Code.PhotoSwipe.detatch(p);

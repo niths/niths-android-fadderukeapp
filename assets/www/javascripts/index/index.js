@@ -5,12 +5,17 @@ $("#dashboard-page").live('pageinit', function() {
   $.support.cors = true;
   /////////////////////////////////
   
+  
+  var defaultTwitterTag = 'http://search.twitter.com/search.json?q=%23nith&rpp=5';
+  var twitterURLJSON= '';
+  
   var restClient = new RestHandler(); //REST CLIENT
   init();
   
   function init(){
     showTweetLoading();
-    loadTweets(); 
+    //loadTweets();
+    getTweets();
     loadEvents();
   }
           
@@ -20,8 +25,9 @@ $("#dashboard-page").live('pageinit', function() {
   });
 
   $('#refreshtweetbtn').click(function(data) {
-    showTweetLoading();
-    loadTweets();
+//    showTweetLoading();
+//    loadTweets();
+	  getTweets();
   });
            
 
@@ -36,6 +42,30 @@ $("#dashboard-page").live('pageinit', function() {
     $('#tweets2').css('display', 'none');
   }
   
+  function getTweets(){
+	    if(twitterURLJSON == ''){
+	        restClient.findRestricted('sociallinks?socialCommunity=twitter&category=fadderuka',  function(data) { 
+	        	//Debug:
+	        	//alert(JSON.stringify(data));
+	            if(data.length >= 1){
+	                twitterURLJSON = data[0].address;
+	            }else {
+	                twitterURLJSON = defaultTwitterTag;
+	            }
+	            showTweetLoading();
+	            loadTweets(); 
+	    
+	        }, function(req, status, ex) {
+	            showTweetLoading();
+	            loadTweets(); 
+	        });
+	    
+	    }else {
+	        showTweetLoading();
+	        loadTweets(); 
+	    }
+	} // end get tweet
+  
   /**
    * Load the tweets
    */
@@ -43,16 +73,18 @@ $("#dashboard-page").live('pageinit', function() {
   function loadTweets(){
     var response;
     response = $.ajax({
-      url : 'http://search.twitter.com/search.json?q=%23nith&rpp=5',
+      url : twitterURLJSON,
       type : 'get',
       cache : false,
       contentType : 'application/json',
       timeout : 2000,
       success : function(data) {
-        printTweets(data);
+    	  //DEBUG:
+    	  //alert('SUCCESS:' + JSON.stringify(data));
+    	  printTweets(data);
       },
       error : function(xhr, status) {
-        printErrorTweet();
+    	  printErrorTweet();
       }
     });
   }

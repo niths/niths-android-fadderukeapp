@@ -25,6 +25,7 @@ function RestHandler(){
         url: this.baseUrl + modelUrl,
         contentType: 'application/json',
         cache: false,
+        beforeSend: setReqHeaders2,
         success: callbackSuccess,
         error: callbackError,
         timeout:5000
@@ -132,6 +133,14 @@ function RestHandler(){
     xhr.setRequestHeader(
         "Session-token",
         sessionStorage.getItem('session_token'));
+  }
+  function setReqHeaders2(xhr) {
+	  xhr.setRequestHeader(
+			  "Application-token",
+			  sessionStorage.getItem('app_token'));
+	  xhr.setRequestHeader(
+			  "Developer-token",
+			  sessionStorage.getItem('dev_token'));
   }
 
   function handleError(errorThrown, jqXHR){

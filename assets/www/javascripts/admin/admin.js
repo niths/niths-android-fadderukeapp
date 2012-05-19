@@ -52,7 +52,7 @@ function getDatesBetweenUrlParam(isPrivate){
 		mm='0'+mm
 	} 
 	var today = dd+'/'+mm+'/'+yyyy + '-00:00';
-	var inFiveDays = (Number(dd) + Number(5)) + '/'+mm+'/'+yyyy + '-23:59';
+	var inFiveDays = (Number(dd) + Number(6)) + '/'+mm+'/'+yyyy + '-23:59';
 	//var param = '?startTime='+today; //+ '&endTime=' + inFiveDays;
 	var param = '';
 	if (isPrivate){	

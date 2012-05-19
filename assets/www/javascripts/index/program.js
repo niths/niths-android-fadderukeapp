@@ -58,7 +58,7 @@ $("#program-page").live('pageinit', function() {
       mm='0'+mm
     } 
     var today = dd+'/'+mm+'/'+yyyy + '-00:00';
-    var inFiveDays = (Number(dd) + Number(5)) + '/'+mm+'/'+yyyy + '-23:59';
+    var inFiveDays = (Number(dd) + Number(4)) + '/'+mm+'/'+yyyy + '-23:59';
     var param = '';
     if(isPrivate){
       param = '?tag=fadderuka12,gruppe'+student.fadderGroup.groupNumber +

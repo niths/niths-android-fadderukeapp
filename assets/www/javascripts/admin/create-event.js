@@ -1,5 +1,5 @@
 var locations = '';
-var currentLocationIndex = '';
+var currentLocationIndex = 0;
 
 $("#admin-create-event-page").live('pageshow', function() {
   $('#name2').val('');
